@@ -53,7 +53,7 @@ class URLParser extends SingletonFactory {
 	
 	/**
 	 * Adds the url and email bbcode tags in a text automatically.
-	 *
+	 * 
 	 * @param	string		$text
 	 * @return	string
 	 */
