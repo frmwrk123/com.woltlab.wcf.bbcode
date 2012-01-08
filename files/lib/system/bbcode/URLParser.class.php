@@ -7,7 +7,7 @@ use wcf\util\StringUtil;
 
 /**
  * Parses URLs in message text.
- * 
+ *
  * @author	Marcel Werk
  * @copyright	2001-2011 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
@@ -53,7 +53,7 @@ class URLParser extends SingletonFactory {
 	
 	/**
 	 * Adds the url and email bbcode tags in a text automatically.
-	 * 
+	 *
 	 * @param	string		$text
 	 * @return	string
 	 */
@@ -118,7 +118,7 @@ class URLParser extends SingletonFactory {
 	protected function cacheCodes() {
 		if (!empty($this->sourceCodeRegEx)) {
 			$this->cachedCodes = array();
-			$this->text = preg_replace("~(\[(".$this->sourceCodeRegEx.")
+			$this->text = preg_replace_callback("~(\[(".$this->sourceCodeRegEx.")
 				(?:=
 					(?:\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|[^,\]]*)
 					(?:,(?:\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|[^,\]]*))*
