@@ -2,6 +2,8 @@
 namespace wcf\system\bbcode;
 use wcf\data\bbcode\BBCodeCache;
 use wcf\system\event\EventHandler;
+use wcf\system\Callback;
+use wcf\system\Regex;
 use wcf\system\SingletonFactory;
 use wcf\util\StringUtil;
 
@@ -94,11 +96,11 @@ class URLParser extends SingletonFactory {
 			(?:[a-z]{2,4}(?=\b))
 			(?!"|\'|\[|\-|\.[a-z])
 			~ix';
-		
+				
 		// add url tags
-		$this->text = preg_replace($urlPattern, '[url]\\0[/url]', $this->text);
+		$this->replacePattern($urlPattern, '[url]\\0[/url]');
 		if (StringUtil::indexOf($this->text, '@') !== false) {
-			$this->text = preg_replace($emailPattern, '[email]\\0[/email]', $this->text);
+		    $this->replacePattern($emailPattern, '[email]\\0[/email]');
 		}
 	
 		// call event
@@ -118,13 +120,13 @@ class URLParser extends SingletonFactory {
 	protected function cacheCodes() {
 		if (!empty($this->sourceCodeRegEx)) {
 			$this->cachedCodes = array();
-			$this->text = preg_replace("~(\[(".$this->sourceCodeRegEx.")
+			$this->replacePattern("~(\[(".$this->sourceCodeRegEx.")
 				(?:=
 					(?:\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|[^,\]]*)
 					(?:,(?:\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|[^,\]]*))*
 				)?\])
 				(.*?)
-				(?:\[/\\2\])~six", function ($matches) {
+				(?:\[/\\2\])~six", new Callback(function ($matches) {
 					// create hash
 					$hash = '@@'.StringUtil::getHash(uniqid(microtime()).$matches[0]).'@@';
 					
@@ -132,7 +134,7 @@ class URLParser extends SingletonFactory {
 					$this->cachedCodes[$hash] = $matches[0];
 				
 					return $hash;
-				}, $this->text);
+				}));
 		}
 	}
 	
@@ -143,5 +145,16 @@ class URLParser extends SingletonFactory {
 		foreach ($this->cachedCodes as $hash => $content) {
 			$this->text = str_replace($hash, $content, $this->text);
 		}
+	}
+	
+	/**
+	 * Replaces patterns with the given replacement.
+	 * 
+	 * @param string $pattern
+	 * @param mixed $replacement Can be a string or an instance of Callback.
+	 */
+	protected function replacePattern($pattern, $replacement) {
+	    $regex = new Regex($pattern);
+	    $this->text = $regex->replace($this->text, $replacement);
 	}
 }
