@@ -131,7 +131,7 @@
 			<allowedchildren>none</allowedchildren>
 			<attributes>
 				<attribute name="0">
-					<html>src="%s" class="resizeImage" alt=""</html>
+					<html>src="%s" class="jsResizeImage" alt=""</html>
 					<text>%s </text>
 					<required>1</required>
 					<usetext>1</usetext>
