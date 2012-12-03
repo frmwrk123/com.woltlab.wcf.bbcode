@@ -12,7 +12,7 @@ use wcf\util\StringUtil;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class CodeBBCode extends AbstractBBCode {
 	/**
@@ -115,7 +115,7 @@ class CodeBBCode extends AbstractBBCode {
 				'highlighter' => $className::getInstance(),
 				'filename' => $this->filename
 			));
-			return WCF::getTPL()->fetch('codeBBCodeTag', array(), false);
+			return WCF::getTPL()->fetch('codeBBCodeTag');
 		}
 		else if ($parser->getOutputType() == 'text/plain') {
 			return WCF::getLanguage()->getDynamicVariable('wcf.bbcode.code.text', array('content' => $content));

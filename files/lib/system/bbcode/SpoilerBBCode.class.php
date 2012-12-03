@@ -11,7 +11,7 @@ use wcf\util\StringUtil;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class SpoilerBBCode extends AbstractBBCode {
 	/**
@@ -24,7 +24,7 @@ class SpoilerBBCode extends AbstractBBCode {
 				'buttonTitle' => (!empty($openingTag['attributes'][0]) ? $openingTag['attributes'][0] : ''),
 				'spoilerID' => 'spoiler_'.StringUtil::getRandomID()
 			));
-			return WCF::getTPL()->fetch('spoilerBBCodeTag', array(), false);
+			return WCF::getTPL()->fetch('spoilerBBCodeTag');
 		}
 		else if ($parser->getOutputType() == 'text/plain') {
 			return $content;

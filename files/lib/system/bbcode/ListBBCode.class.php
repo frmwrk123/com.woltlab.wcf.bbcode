@@ -10,7 +10,7 @@ use wcf\util\StringUtil;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class ListBBCode extends AbstractBBCode {
 	/**
@@ -29,7 +29,7 @@ class ListBBCode extends AbstractBBCode {
 				}
 			}
 			
-			if (count($listElements) > 0) {
+			if (!empty($listElements)) {
 				// get list style type
 				$listType = 'disc';
 				if (isset($openingTag['attributes'][0])) $listType = $openingTag['attributes'][0];

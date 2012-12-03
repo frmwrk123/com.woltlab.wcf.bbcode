@@ -10,7 +10,7 @@ use wcf\system\WCF;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class QuoteBBCode extends AbstractBBCode {
 	/**
@@ -23,7 +23,7 @@ class QuoteBBCode extends AbstractBBCode {
 				'quoteLink' => (!empty($openingTag['attributes'][1]) ? $openingTag['attributes'][1] : ''),
 				'quoteAuthor' => (!empty($openingTag['attributes'][0]) ? $openingTag['attributes'][0] : '')
 			));
-			return WCF::getTPL()->fetch('quoteBBCodeTag', array(), false);
+			return WCF::getTPL()->fetch('quoteBBCodeTag');
 		}
 		else if ($parser->getOutputType() == 'text/plain') {
 			$cite = '';

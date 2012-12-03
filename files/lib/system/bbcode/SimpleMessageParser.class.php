@@ -14,7 +14,7 @@ use wcf\util\StringUtil;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class SimpleMessageParser extends SingletonFactory {
 	/**
@@ -152,7 +152,7 @@ class SimpleMessageParser extends SingletonFactory {
 			$external = false;
 		}
 		
-		return '<a href="'.$url.'"'.($external ? ' class="externalURL"' : '').'>'.$title.'</a>';
+		return '<a href="'.$url.'"'.($external ? (' class="externalURL"'.(EXTERNAL_LINK_REL_NOFOLLOW ? ' rel="nofollow"' : '')) : '').'>'.$title.'</a>';
 	}
 	
 	/**

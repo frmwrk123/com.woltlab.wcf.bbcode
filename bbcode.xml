@@ -131,7 +131,7 @@
 			<allowedchildren>none</allowedchildren>
 			<attributes>
 				<attribute name="0">
-					<html>src="%s" class="resizeImage" alt=""</html>
+					<html>src="%s" class="jsResizeImage" alt=""</html>
 					<text>%s </text>
 					<required>1</required>
 					<usetext>1</usetext>
@@ -162,6 +162,10 @@
 					<validationpattern>^(1|a|none|circle|square|disc|decimal|lower-roman|upper-roman|decimal-leading-zero|lower-greek|lower-latin|upper-latin|armenian|georgian)$</validationpattern>
 				</attribute>
 			</attributes>
+		</bbcode>
+		<bbcode name="table">
+			<classname>wcf\system\bbcode\TableBBCode</classname>
+			<allowedchildren>all^table</allowedchildren>
 		</bbcode>
 		<bbcode name="media">
 			<classname>wcf\system\bbcode\MediaBBCode</classname>

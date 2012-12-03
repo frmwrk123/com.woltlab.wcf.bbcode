@@ -10,7 +10,7 @@ use wcf\util\StringUtil;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode.highlighter
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class SqlHighlighter extends Highlighter {
 	// highlighter syntax
@@ -21,17 +21,14 @@ class SqlHighlighter extends Highlighter {
 	protected $operators = array('<>', '~=', '!=', '^=', '=', '<', '<=', '>', '>=', '*', '/', '+', '-', '||', '@', '%', '&', '?', '\$');
 	
 	/**
-	 * @see wcf\system\bbcode\highlighter\Highlighter::cacheQuote()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::cacheQuote()
 	 */
-	protected function cacheQuote($quote) {
-		// strip slashes
-		$quote = str_replace("\\\"", "\"", $quote);
-		
+	public function cacheQuote(array $matches) {
 		// create hash
-		$hash = '!!!'.StringUtil::getHash(uniqid(microtime()).$quote).'!!!'; // the at-sign has a special meaning
+		$hash = '!!!'.StringUtil::getHash(uniqid(microtime()).$matches[0]).'!!!'; // the at-sign has a special meaning
 		
 		// save
-		$this->cachedQuotes[$hash] = '<span class="hlQuotes">'.StringUtil::encodeHTML($quote).'</span>';
+		$this->cachedQuotes[$hash] = '<span class="hlQuotes">'.StringUtil::encodeHTML($matches[0]).'</span>';
 		
 		return $hash;
 	}

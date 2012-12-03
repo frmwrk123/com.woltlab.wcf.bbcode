@@ -1,6 +1,7 @@
 <?php
 namespace wcf\data\smiley;
 use wcf\data\DatabaseObject;
+use wcf\system\WCF;
 
 /**
  * Represents a smiley.
@@ -10,7 +11,7 @@ use wcf\data\DatabaseObject;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.smiley
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class Smiley extends DatabaseObject {
 	/**
@@ -29,6 +30,6 @@ class Smiley extends DatabaseObject {
 	 * @return	string
 	 */
 	public function getURL() {
-		return RELATIVE_WCF_DIR.$this->smileyPath;
+		return WCF::getPath().$this->smileyPath;
 	}
 }
