@@ -3,8 +3,8 @@ namespace wcf\acp\form;
 use wcf\data\bbcode\attribute\BBCodeAttributeAction;
 use wcf\data\bbcode\BBCode;
 use wcf\data\bbcode\BBCodeAction;
+use wcf\data\package\PackageCache;
 use wcf\system\exception\UserInputException;
-use wcf\system\package\PackageDependencyHandler;
 use wcf\system\Regex;
 use wcf\system\WCF;
 use wcf\util\StringUtil;
@@ -182,7 +182,7 @@ class BBCodeAddForm extends ACPForm {
 			'allowedChildren' => $this->allowedChildren,
 			'isSourceCode' => (int) $this->isSourceCode,
 			'className' => $this->className,
-			'packageID' => PackageDependencyHandler::getInstance()->getPackageID('com.woltlab.wcf.bbcode')
+			'packageID' => PackageCache::getInstance()->getPackageID('com.woltlab.wcf.bbcode')
 		)));
 		$returnValues = $this->objectAction->executeAction();
 		foreach ($this->attributes as $attribute) {

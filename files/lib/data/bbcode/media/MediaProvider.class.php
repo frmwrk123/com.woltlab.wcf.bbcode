@@ -39,11 +39,11 @@ class MediaProvider extends DatabaseObject {
 	public static function getCache() {
 		if (self::$cache === null) {
 			CacheHandler::getInstance()->addResource(
-				'mediaproviders',
-				WCF_DIR.'cache/cache.mediaproviders.php',
+				'bbcodeMediaProvider',
+				WCF_DIR.'cache/cache.bbcodeMediaProvider.php',
 				'wcf\system\cache\builder\BBCodeMediaProviderCacheBuilder'
 			);
-			self::$cache = CacheHandler::getInstance()->get('mediaproviders');
+			self::$cache = CacheHandler::getInstance()->get('bbcodeMediaProvider');
 		}
 		
 		return self::$cache;

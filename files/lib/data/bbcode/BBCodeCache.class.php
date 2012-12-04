@@ -25,7 +25,11 @@ class BBCodeCache extends SingletonFactory {
 	 */
 	protected function init() {
 		// get bbcode cache
-		CacheHandler::getInstance()->addResource('bbcode', WCF_DIR.'cache/cache.bbcode.php', 'wcf\system\cache\builder\BBCodeCacheBuilder');
+		CacheHandler::getInstance()->addResource(
+			'bbcode',
+			WCF_DIR.'cache/cache.bbcode.php',
+			'wcf\system\cache\builder\BBCodeCacheBuilder'
+		);
 		$this->cachedBBCodes = CacheHandler::getInstance()->get('bbcode');
 	}
 	
