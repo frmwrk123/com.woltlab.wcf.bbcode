@@ -23,7 +23,7 @@
 </div>
 
 <form method="post" action="{if $action == 'add'}{link controller='BBCodeMediaProviderAdd'}{/link}{else}{link controller='BBCodeMediaProviderEdit'}{/link}{/if}">
-	<div class="container containerPadding marginTop shadow">
+	<div class="container containerPadding marginTop">
 		<fieldset>
 			<legend>{lang}wcf.acp.bbcode.mediaprovider.data{/lang}</legend>
 			
