@@ -194,7 +194,8 @@ class CodeBBCode extends AbstractBBCode {
 		do {
 			$codeID = StringUtil::substring(StringUtil::getHash($code), 0, 6).(++$i ? '_'.$i : '');
 		}
-		while(isset(self::$codeIDs[$codeID]));
+		while (isset(self::$codeIDs[$codeID]));
+		
 		// mark codeID as used
 		self::$codeIDs[$codeID] = true;
 		

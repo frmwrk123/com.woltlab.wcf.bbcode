@@ -62,4 +62,3 @@ class URLBBCode extends AbstractBBCode {
 		}
 	}
 }
-?>
