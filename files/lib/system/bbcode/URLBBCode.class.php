@@ -44,7 +44,7 @@ class URLBBCode extends AbstractBBCode {
 			if ($noTitle) {
 				$decodedContent = StringUtil::decodeHTML($content);
 				if (StringUtil::length($decodedContent) > 60) {
-					$content = StringUtil::encodeHTML(StringUtil::substring($decodedContent, 0, 40)) . '&hellip;' . StringUtil::encodeHTML(StringUtil::substring($decodedContent, -15));
+					$content = StringUtil::encodeHTML(StringUtil::substring($decodedContent, 0, 40)) . StringUtil::HELLIP . StringUtil::encodeHTML(StringUtil::substring($decodedContent, -15));
 				}
 			}
 			else {

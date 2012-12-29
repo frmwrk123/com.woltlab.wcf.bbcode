@@ -142,7 +142,7 @@ class SimpleMessageParser extends SingletonFactory {
 		$url = $title = $matches[0];
 		$decodedTitle = StringUtil::decodeHTML($title);
 		if (StringUtil::length($decodedTitle) > 60) {
-			$title = StringUtil::encodeHTML(StringUtil::substring($decodedTitle, 0, 40)) . '&hellip;' . StringUtil::encodeHTML(StringUtil::substring($decodedTitle, -15));
+			$title = StringUtil::encodeHTML(StringUtil::substring($decodedTitle, 0, 40)) . StringUtil::HELLIP . StringUtil::encodeHTML(StringUtil::substring($decodedTitle, -15));
 		}
 		// add protocol if necessary
 		if (!preg_match("~[a-z]://~si", $url)) $url = 'http://'.$url;
