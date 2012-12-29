@@ -8,7 +8,7 @@
 	<script type="text/javascript">
 		//<![CDATA[
 		$(function() {
-			new WCF.Action.Delete('wcf\\data\\bbcode\\BBCodeAction', $('.jsBBCodeRow'), $('.wcf-box.wcf-boxTitle .wcf-badge'));
+			new WCF.Action.Delete('wcf\\data\\bbcode\\BBCodeAction', '.jsBBCodeRow');
 			new WCF.Action.Toggle('wcf\\data\\bbcode\\BBCodeAction', $('.jsBBCodeRow'));
 		});
 		//]]>

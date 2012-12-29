@@ -8,7 +8,7 @@
 	<script type="text/javascript">
 		//<![CDATA[
 		$(function() {
-			new WCF.Action.Delete('wcf\\data\\bbcode\\media\\MediaProviderAction', $('.jsMediaProviderRow'), $('.wcf-box.wcf-boxTitle .wcf-badge'));
+			new WCF.Action.Delete('wcf\\data\\bbcode\\media\\MediaProviderAction', '.jsMediaProviderRow');
 		});
 		//]]>
 	</script>

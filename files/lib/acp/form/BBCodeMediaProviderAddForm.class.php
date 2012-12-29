@@ -37,7 +37,7 @@ class BBCodeMediaProviderAddForm extends ACPForm {
 	 * @var	string
 	 */
 	public $title = '';
-	 
+	
 	/**
 	 * regex value
 	 * @var	string

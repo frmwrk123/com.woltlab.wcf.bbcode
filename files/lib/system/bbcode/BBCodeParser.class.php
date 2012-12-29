@@ -436,7 +436,8 @@ class BBCodeParser extends SingletonFactory {
 		// build tag pattern
 		$validTags = '';
 		foreach ($this->bbcodes as $tag => $bbcode) {
-			if (!$bbcode->isSourceCode) { // remove source codes
+			if (!$bbcode->isSourceCode) {
+				// remove source codes
 				if (!empty($validTags)) $validTags .= '|';
 				$validTags .= $tag;
 			}

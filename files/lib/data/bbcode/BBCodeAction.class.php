@@ -1,6 +1,7 @@
 <?php
 namespace wcf\data\bbcode;
 use wcf\data\AbstractDatabaseObjectAction;
+use wcf\data\IToggleAction;
 
 /**
  * Executes bbcode-related actions.
@@ -12,7 +13,7 @@ use wcf\data\AbstractDatabaseObjectAction;
  * @subpackage	data.bbcode
  * @category	Community Framework
  */
-class BBCodeAction extends AbstractDatabaseObjectAction {
+class BBCodeAction extends AbstractDatabaseObjectAction implements IToggleAction {
 	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$className
 	 */
@@ -29,14 +30,14 @@ class BBCodeAction extends AbstractDatabaseObjectAction {
 	protected $permissionsUpdate = array('admin.content.bbcode.canEditBBCode');
 	
 	/**
-	 * Validates permissions and parameters
+	 * @see	wcf\data\IToggleAction::validateToggle()
 	 */
 	public function validateToggle() {
 		parent::validateUpdate();
 	}
 	
 	/**
-	 * Toggles status.
+	 * @see	wcf\data\IToggleAction::toggle()
 	 */
 	public function toggle() {
 		foreach ($this->objects as $bbcode) {
