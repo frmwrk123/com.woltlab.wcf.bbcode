@@ -11,7 +11,7 @@ CREATE TABLE wcf1_bbcode (
 	className VARCHAR(255) NOT NULL DEFAULT '',
 	wysiwygIcon varchar(255) NOT NULL DEFAULT '',
 	isSourceCode TINYINT(1) NOT NULL DEFAULT 0,
-	disabled TINYINT(1) NOT NULL DEFAULT 0,
+	isDisabled TINYINT(1) NOT NULL DEFAULT 0,
 	UNIQUE KEY bbcodeTag (bbcodeTag)
 );
 
@@ -54,7 +54,7 @@ CREATE TABLE wcf1_smiley_category (
 	smileyCategoryID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(255) NOT NULL DEFAULT '',
 	showOrder MEDIUMINT(5) NOT NULL DEFAULT 0,
-	disabled TINYINT(1) NOT NULL DEFAULT 0
+	isDisabled TINYINT(1) NOT NULL DEFAULT 0
 );
 
 -- foreign keys
