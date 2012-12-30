@@ -6,28 +6,28 @@
 		</acpmenuitem>
 		
 		<acpmenuitem name="wcf.acp.menu.link.bbcode.list">
-			<link>index.php/BBCodeList/</link>
+			<controller><![CDATA[wcf\acp\page\BBCodeListPage]]></controller>
 			<parent>wcf.acp.menu.link.bbcode</parent>
 			<permissions>admin.content.bbcode.canEditBBCode,admin.content.bbcode.canDeleteBBCode</permissions>
 			<showorder>1</showorder>
 		</acpmenuitem>
 		
 		<acpmenuitem name="wcf.acp.menu.link.bbcode.add">
-			<link>index.php/BBCodeAdd/</link>
+			<controller><![CDATA[wcf\acp\form\BBCodeAddForm]]></controller>
 			<parent>wcf.acp.menu.link.bbcode</parent>
 			<permissions>admin.content.bbcode.canAddBBCode</permissions>
 			<showorder>2</showorder>
 		</acpmenuitem>
 		
 		<acpmenuitem name="wcf.acp.menu.link.bbcode.mediaprovider.list">
-			<link>index.php/BBCodeMediaProviderList/</link>
+			<controller><![CDATA[wcf\acp\page\BBCodeMediaProviderListPage]]></controller>
 			<parent>wcf.acp.menu.link.bbcode</parent>
 			<permissions>admin.content.bbcode.mediaprovider.canEditMediaProvider,admin.content.bbcode.mediaprovider.canDeleteMediaProvider</permissions>
 			<showorder>3</showorder>
 		</acpmenuitem>
 		
 		<acpmenuitem name="wcf.acp.menu.link.bbcode.mediaprovider.add">
-			<link>index.php/BBCodeMediaProviderAdd/</link>
+			<controller><![CDATA[wcf\acp\form\BBCodeMediaProviderAddForm]]></controller>
 			<parent>wcf.acp.menu.link.bbcode</parent>
 			<permissions>admin.content.bbcode.mediaprovider.canAddMediaProvider</permissions>
 			<showorder>4</showorder>
