@@ -2,6 +2,7 @@
 namespace wcf\acp\form;
 use wcf\data\bbcode\media\MediaProvider;
 use wcf\data\bbcode\media\MediaProviderAction;
+use wcf\form\AbstractForm;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
 
@@ -17,9 +18,9 @@ use wcf\system\WCF;
  */
 class BBCodeMediaProviderEditForm extends BBCodeMediaProviderAddForm {
 	/**
-	 * @see	wcf\acp\form\ACPForm::$activeMenuItem
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
-	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaprovider.list';
+	public $activeMenuItem = 'wcf.acp.menu.link.bbcode';
 	
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
@@ -55,7 +56,7 @@ class BBCodeMediaProviderEditForm extends BBCodeMediaProviderAddForm {
 	 * @see	wcf\form\IForm::save()
 	 */
 	public function save() {
-		ACPForm::save();
+		AbstractForm::save();
 		
 		// update media-provider
 		$this->objectAction = new MediaProviderAction(array($this->providerID), 'update', array('data' => array(

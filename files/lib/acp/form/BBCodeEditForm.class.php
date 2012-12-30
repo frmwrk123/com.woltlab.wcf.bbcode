@@ -4,6 +4,7 @@ use wcf\data\bbcode\attribute\BBCodeAttribute;
 use wcf\data\bbcode\attribute\BBCodeAttributeAction;
 use wcf\data\bbcode\BBCode;
 use wcf\data\bbcode\BBCodeAction;
+use wcf\form\AbstractForm;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
 
@@ -19,9 +20,9 @@ use wcf\system\WCF;
  */
 class BBCodeEditForm extends BBCodeAddForm {
 	/**
-	 * @see	wcf\acp\form\ACPForm::$activeMenuItem
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
-	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.list';
+	public $activeMenuItem = 'wcf.acp.menu.link.bbcode';
 	
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
@@ -57,7 +58,7 @@ class BBCodeEditForm extends BBCodeAddForm {
 	 * @see	wcf\form\IForm::save()
 	 */
 	public function save() {
-		ACPForm::save();
+		AbstractForm::save();
 		
 		// update bbcode
 		$this->objectAction = new BBCodeAction(array($this->bbcodeID), 'update', array('data' => array(
