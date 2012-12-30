@@ -41,7 +41,9 @@ class BBCodeAction extends AbstractDatabaseObjectAction implements IToggleAction
 	 */
 	public function toggle() {
 		foreach ($this->objects as $bbcode) {
-			$bbcode->update(array('isDisabled' => 1 - $bbcode->isDisabled));
+			$bbcode->update(array(
+				'isDisabled' => $bbcode->isDisabled ? 0 : 1
+			));
 		}
 	}
 }
