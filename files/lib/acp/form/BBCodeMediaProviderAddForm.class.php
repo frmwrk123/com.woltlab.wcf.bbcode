@@ -1,6 +1,7 @@
 <?php
 namespace wcf\acp\form;
 use wcf\data\bbcode\media\MediaProviderAction;
+use wcf\form\AbstractForm;
 use wcf\system\exception\UserInputException;
 use wcf\system\Regex;
 use wcf\system\WCF;
@@ -16,14 +17,9 @@ use wcf\util\StringUtil;
  * @subpackage	acp.form
  * @category	Community Framework
  */
-class BBCodeMediaProviderAddForm extends ACPForm {
+class BBCodeMediaProviderAddForm extends AbstractForm {
 	/**
-	 * @see	wcf\page\AbstractPage::$templateName
-	 */
-	public $templateName = 'bbcodeMediaProviderAdd';
-	
-	/**
-	 * @see	wcf\acp\form\ACPForm::$activeMenuItem
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
 	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaprovider.add';
 	

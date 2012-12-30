@@ -1,7 +1,6 @@
 <?php
 namespace wcf\acp\page;
 use wcf\page\SortablePage;
-use wcf\system\menu\acp\ACPMenu;
 
 /**
  * Lists available bbcodes
@@ -15,9 +14,9 @@ use wcf\system\menu\acp\ACPMenu;
  */
 class BBCodeListPage extends SortablePage {
 	/**
-	 * @see	wcf\page\AbstractPage::$templateName
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
-	public $templateName = 'bbcodeList';
+	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.list';
 	
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
@@ -38,14 +37,4 @@ class BBCodeListPage extends SortablePage {
 	 * @see	wcf\page\MultipleLinkPage::$validSortFields
 	 */
 	public $validSortFields = array('bbcodeID', 'bbcodeTag', 'className');
-	
-	/**
-	 * @see	wcf\page\IPage::show()
-	 */
-	public function show() {
-		// set active menu item.
-		ACPMenu::getInstance()->setActiveMenuItem('wcf.acp.menu.link.bbcode.list');
-		
-		parent::show();
-	}
 }

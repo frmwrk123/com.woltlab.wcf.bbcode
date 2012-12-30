@@ -1,7 +1,6 @@
 <?php
 namespace wcf\acp\page;
 use wcf\page\SortablePage;
-use wcf\system\menu\acp\ACPMenu;
 
 /**
  * Lists available media-providers
@@ -14,6 +13,11 @@ use wcf\system\menu\acp\ACPMenu;
  * @category	Community Framework
  */
 class BBCodeMediaProviderListPage extends SortablePage {
+	/**
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
+	 */
+	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaprovider.list';
+	
 	/**
 	 * @see	wcf\page\AbstractPage::$templateName
 	 */
@@ -38,14 +42,4 @@ class BBCodeMediaProviderListPage extends SortablePage {
 	 * @see	wcf\page\MultipleLinkPage::$validSortFields
 	 */
 	public $validSortFields = array('providerID', 'title');
-	
-	/**
-	 * @see	wcf\page\IPage::show()
-	 */
-	public function show() {
-		// set active menu item.
-		ACPMenu::getInstance()->setActiveMenuItem('wcf.acp.menu.link.bbcode.mediaprovider.list');
-		
-		parent::show();
-	}
 }
