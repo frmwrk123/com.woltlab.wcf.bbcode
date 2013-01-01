@@ -16,7 +16,7 @@ class BBCodeMediaProviderListPage extends SortablePage {
 	/**
 	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
-	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaprovider.list';
+	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaProvider.list';
 	
 	/**
 	 * @see	wcf\page\AbstractPage::$templateName
@@ -26,12 +26,12 @@ class BBCodeMediaProviderListPage extends SortablePage {
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
 	 */
-	public $neededPermissions = array('admin.content.bbcode.mediaprovider.canEditMediaProvider', 'admin.content.bbcode.mediaprovider.canDeleteMediaProvider');
+	public $neededPermissions = array('admin.content.bbcode.canDeleteBBCodeMediaProvider', 'admin.content.bbcode.canEditBBCodeMediaProvider');
 	
 	/**
 	 * @see	wcf\page\MultipleLinkPage::$objectListClassName
 	 */
-	public $objectListClassName = 'wcf\data\bbcode\media\MediaProviderList';
+	public $objectListClassName = 'wcf\data\bbcode\media\provider\BBCodeMediaProviderList';
 	
 	/**
 	 * @see	wcf\page\MultipleLinkPage::$defaultSortField

@@ -19,17 +19,17 @@
 			<showorder>2</showorder>
 		</acpmenuitem>
 		
-		<acpmenuitem name="wcf.acp.menu.link.bbcode.mediaprovider.list">
+		<acpmenuitem name="wcf.acp.menu.link.bbcode.mediaProvider.list">
 			<controller><![CDATA[wcf\acp\page\BBCodeMediaProviderListPage]]></controller>
 			<parent>wcf.acp.menu.link.bbcode</parent>
-			<permissions>admin.content.bbcode.mediaprovider.canEditMediaProvider,admin.content.bbcode.mediaprovider.canDeleteMediaProvider</permissions>
+			<permissions>admin.content.bbcode.canEditBBCodeMediaProvider,admin.content.bbcode.canDeleteBBCodeMediaProvider</permissions>
 			<showorder>3</showorder>
 		</acpmenuitem>
 		
-		<acpmenuitem name="wcf.acp.menu.link.bbcode.mediaprovider.add">
+		<acpmenuitem name="wcf.acp.menu.link.bbcode.mediaProvider.add">
 			<controller><![CDATA[wcf\acp\form\BBCodeMediaProviderAddForm]]></controller>
 			<parent>wcf.acp.menu.link.bbcode</parent>
-			<permissions>admin.content.bbcode.mediaprovider.canAddMediaProvider</permissions>
+			<permissions>admin.content.bbcode.canAddBBCodeMediaProvider</permissions>
 			<showorder>4</showorder>
 		</acpmenuitem>
 	</import>

@@ -27,19 +27,19 @@
 				<admindefaultvalue>1</admindefaultvalue>
 			</option>
 			
-			<option name="admin.content.bbcode.mediaprovider.canAddMediaProvider">
+			<option name="admin.content.bbcode.canAddBBCodeMediaProvider">
 				<categoryname>admin.content.bbcode</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>
 			</option>
-			<option name="admin.content.bbcode.mediaprovider.canEditMediaProvider">
+			<option name="admin.content.bbcode.canEditBBCodeMediaProvider">
 				<categoryname>admin.content.bbcode</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 				<admindefaultvalue>1</admindefaultvalue>
 			</option>
-			<option name="admin.content.bbcode.mediaprovider.canDeleteMediaProvider">
+			<option name="admin.content.bbcode.canDeleteBBCodeMediaProvider">
 				<categoryname>admin.content.bbcode</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>

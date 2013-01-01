@@ -1,18 +1,18 @@
 <?php
-namespace wcf\data\bbcode\media;
+namespace wcf\data\bbcode\media\provider;
 use wcf\data\DatabaseObjectList;
 
 /**
- * Represents a list of media-providers.
+ * Represents a list of BBCode media providers.
  * 
  * @author	Tim Düsterhus
- * @copyright	2011 - 2012 Tim Düsterhus
+ * @copyright	2011-2012 Tim Düsterhus
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
- * @subpackage	data.bbcode.media
+ * @subpackage	data.bbcode.media.provider
  * @category	Community Framework
  */
-class MediaProviderList extends DatabaseObjectList {
+class BBCodeMediaProviderList extends DatabaseObjectList {
 	/**
 	 * @see	wcf\data\DatabaseObjectList::$className
 	 */

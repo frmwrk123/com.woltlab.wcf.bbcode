@@ -1,6 +1,6 @@
 <?php
 namespace wcf\acp\form;
-use wcf\data\bbcode\media\MediaProviderAction;
+use wcf\data\bbcode\media\provider\BBCodeMediaProviderAction;
 use wcf\form\AbstractForm;
 use wcf\system\exception\UserInputException;
 use wcf\system\Regex;
@@ -8,7 +8,7 @@ use wcf\system\WCF;
 use wcf\util\StringUtil;
 
 /**
- * Shows the media-provider add form.
+ * Shows the BBCode media provider add form.
  *
  * @author	Tim Düsterhus
  * @copyright	2011 Tim Düsterhus
@@ -21,12 +21,12 @@ class BBCodeMediaProviderAddForm extends AbstractForm {
 	/**
 	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
-	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaprovider.add';
+	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaProvider.add';
 	
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
 	 */
-	public $neededPermissions = array('admin.content.bbcode.mediaprovider.canAddMediaProvider');
+	public $neededPermissions = array('admin.content.bbcode.canAddBBCodeMediaProvider');
 	
 	/**
 	 * title value
@@ -88,7 +88,7 @@ class BBCodeMediaProviderAddForm extends AbstractForm {
 		parent::save();
 		
 		// save media provider
-		$this->objectAction = new MediaProviderAction(array(), 'create', array('data' => array(
+		$this->objectAction = new BBCodeMediaProviderAction(array(), 'create', array('data' => array(
 			'title' => $this->title,
 			'regex' => $this->regex,
 			'html' => $this->html

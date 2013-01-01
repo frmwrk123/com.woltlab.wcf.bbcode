@@ -1,13 +1,13 @@
 <?php
 namespace wcf\acp\form;
-use wcf\data\bbcode\media\MediaProvider;
-use wcf\data\bbcode\media\MediaProviderAction;
+use wcf\data\bbcode\media\provider\BBCodeMediaProvider;
+use wcf\data\bbcode\media\provider\BBCodeMediaProviderAction;
 use wcf\form\AbstractForm;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
 
 /**
- * Shows the media-provider edit form.
+ * Shows the BBCode media provider edit form.
  * 
  * @author	Tim Düsterhus
  * @copyright	2011 Tim Düsterhus
@@ -25,7 +25,7 @@ class BBCodeMediaProviderEditForm extends BBCodeMediaProviderAddForm {
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
 	 */
-	public $neededPermissions = array('admin.content.bbcode.mediaprovider.canEditMediaProvider');
+	public $neededPermissions = array('admin.content.bbcode.canEditBBCodeMediaProvider');
 	
 	/**
 	 * media-provider id
@@ -35,7 +35,7 @@ class BBCodeMediaProviderEditForm extends BBCodeMediaProviderAddForm {
 	
 	/**
 	 * media-provider object
-	 * @var	wcf\data\bbcode\media\MediaProvider
+	 * @var	wcf\data\bbcode\media\provider\BBCodeMediaProvider
 	 */
 	public $mediaProviderObj = null;
 	
@@ -46,7 +46,7 @@ class BBCodeMediaProviderEditForm extends BBCodeMediaProviderAddForm {
 		parent::readParameters();
 		
 		if (isset($_REQUEST['id'])) $this->providerID = intval($_REQUEST['id']);
-		$this->mediaProviderObj = new MediaProvider($this->providerID);
+		$this->mediaProviderObj = new BBCodeMediaProvider($this->providerID);
 		if (!$this->mediaProviderObj->providerID) {
 			throw new IllegalLinkException();
 		}
@@ -59,7 +59,7 @@ class BBCodeMediaProviderEditForm extends BBCodeMediaProviderAddForm {
 		AbstractForm::save();
 		
 		// update media-provider
-		$this->objectAction = new MediaProviderAction(array($this->providerID), 'update', array('data' => array(
+		$this->objectAction = new BBCodeMediaProviderAction(array($this->providerID), 'update', array('data' => array(
 			'title' => $this->title,
 			'regex' => $this->regex,
 			'html' => $this->html
