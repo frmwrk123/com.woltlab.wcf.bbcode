@@ -16,7 +16,7 @@ class BBCodeMediaProviderAction extends AbstractDatabaseObjectAction {
 	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$className
 	 */
-	protected $className = 'wcf\data\bbcode\media\MediaProviderEditor';
+	protected $className = 'wcf\data\bbcode\media\provider\BBCodeMediaProviderEditor';
 	
 	/**
 	 * @see	wcf\data\AbstractDatabaseObjectAction::$permissionsDelete

@@ -16,5 +16,5 @@ class BBCodeMediaProviderList extends DatabaseObjectList {
 	/**
 	 * @see	wcf\data\DatabaseObjectList::$className
 	 */
-	public $className = 'wcf\data\bbcode\media\MediaProvider';
+	public $className = 'wcf\data\bbcode\media\provider\BBCodeMediaProvider';
 }
