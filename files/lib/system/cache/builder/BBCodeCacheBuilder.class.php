@@ -26,7 +26,7 @@ class BBCodeCacheBuilder implements ICacheBuilder {
 			FROM		wcf".WCF_N."_bbcode_attribute attribute
 			LEFT JOIN	wcf".WCF_N."_bbcode bbcode
 			ON		(bbcode.bbcodeID = attribute.bbcodeID)
-			WHERE		bbcode.disabled = 0
+			WHERE		bbcode.isDisabled = 0
 			ORDER BY	attribute.attributeNo";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute();
@@ -39,7 +39,7 @@ class BBCodeCacheBuilder implements ICacheBuilder {
 		// get bbcodes
 		$sql = "SELECT	*
 			FROM	wcf".WCF_N."_bbcode
-			WHERE	disabled = 0";
+			WHERE	isDisabled = 0";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute();
 		while ($row = $statement->fetchArray()) {

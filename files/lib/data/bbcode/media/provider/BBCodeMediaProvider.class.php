@@ -1,21 +1,21 @@
 <?php
-namespace wcf\data\bbcode\media;
+namespace wcf\data\bbcode\media\provider;
 use wcf\data\DatabaseObject;
 use wcf\system\cache\CacheHandler;
 use wcf\system\Regex;
 use wcf\util\StringUtil;
 
 /**
- * Represents a media provider.
+ * Represents a BBCode media provider.
  * 
  * @author	Tim Düsterhus
- * @copyright	2011 - 2012 Tim Düsterhus
+ * @copyright	2011-2012 Tim Düsterhus
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
- * @subpackage	data.bbcode.media
+ * @subpackage	data.bbcode.media.provider
  * @category	Community Framework
  */
-class MediaProvider extends DatabaseObject {
+class BBCodeMediaProvider extends DatabaseObject {
 	/**
 	 * @see	wcf\data\DatabaseObject::$databaseTableName
 	 */
@@ -27,8 +27,7 @@ class MediaProvider extends DatabaseObject {
 	protected static $databaseTableIndexName = 'providerID';
 	
 	/**
-	 * Caches providers.
-	 * 
+	 * cached providers
 	 * @var	array<\wcf\data\bbcode\media\MediaProvider>
 	 */
 	protected static $cache = null;
@@ -51,8 +50,8 @@ class MediaProvider extends DatabaseObject {
 	
 	/**
 	 * Checks whether this provider matches the given URL.
-	 *
-	 * @param	string	$url
+	 * 
+	 * @param	string		$url
 	 * @return	boolean
 	 */
 	public function matches($url) {
@@ -67,8 +66,8 @@ class MediaProvider extends DatabaseObject {
 	
 	/**
 	 * Returns the html for this provider.
-	 *
-	 * @param	string	$url
+	 * 
+	 * @param	string		$url
 	 * @return	string
 	 */
 	public function getOutput($url) {

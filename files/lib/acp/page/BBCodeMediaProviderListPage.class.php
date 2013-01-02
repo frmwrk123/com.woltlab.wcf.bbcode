@@ -1,7 +1,6 @@
 <?php
 namespace wcf\acp\page;
 use wcf\page\SortablePage;
-use wcf\system\menu\acp\ACPMenu;
 
 /**
  * Lists available media-providers
@@ -15,6 +14,11 @@ use wcf\system\menu\acp\ACPMenu;
  */
 class BBCodeMediaProviderListPage extends SortablePage {
 	/**
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
+	 */
+	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaProvider.list';
+	
+	/**
 	 * @see	wcf\page\AbstractPage::$templateName
 	 */
 	public $templateName = 'bbcodeMediaProviderList';
@@ -22,12 +26,12 @@ class BBCodeMediaProviderListPage extends SortablePage {
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
 	 */
-	public $neededPermissions = array('admin.content.bbcode.mediaprovider.canEditMediaProvider', 'admin.content.bbcode.mediaprovider.canDeleteMediaProvider');
+	public $neededPermissions = array('admin.content.bbcode.canDeleteBBCodeMediaProvider', 'admin.content.bbcode.canEditBBCodeMediaProvider');
 	
 	/**
 	 * @see	wcf\page\MultipleLinkPage::$objectListClassName
 	 */
-	public $objectListClassName = 'wcf\data\bbcode\media\MediaProviderList';
+	public $objectListClassName = 'wcf\data\bbcode\media\provider\BBCodeMediaProviderList';
 	
 	/**
 	 * @see	wcf\page\MultipleLinkPage::$defaultSortField
@@ -38,14 +42,4 @@ class BBCodeMediaProviderListPage extends SortablePage {
 	 * @see	wcf\page\MultipleLinkPage::$validSortFields
 	 */
 	public $validSortFields = array('providerID', 'title');
-	
-	/**
-	 * @see	wcf\page\IPage::show()
-	 */
-	public function show() {
-		// set active menu item.
-		ACPMenu::getInstance()->setActiveMenuItem('wcf.acp.menu.link.bbcode.mediaprovider.list');
-		
-		parent::show();
-	}
 }

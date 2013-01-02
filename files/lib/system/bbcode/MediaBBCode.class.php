@@ -1,6 +1,6 @@
 <?php
 namespace wcf\system\bbcode;
-use wcf\data\bbcode\media\MediaProvider;
+use wcf\data\bbcode\media\provider\BBCodeMediaProvider;
 use wcf\util\StringUtil;
 
 /**
@@ -20,7 +20,7 @@ class MediaBBCode extends AbstractBBCode {
 	public function getParsedTag(array $openingTag, $content, array $closingTag, BBCodeParser $parser) {
 		if ($parser->getOutputType() == 'text/html') {
 			$content = StringUtil::trim($content);
-			$providers = MediaProvider::getCache();
+			$providers = BBCodeMediaProvider::getCache();
 			foreach ($providers as $provider) {
 				if ($provider->matches($content)) {
 					return $provider->getOutput($content);
