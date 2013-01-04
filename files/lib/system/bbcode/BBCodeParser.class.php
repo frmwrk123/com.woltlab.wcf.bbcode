@@ -9,7 +9,7 @@ use wcf\util\StringUtil;
  * Parses bbcode tags in text.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
@@ -59,7 +59,7 @@ class BBCodeParser extends SingletonFactory {
 		// get bbcodes
 		$this->bbcodes = BBCodeCache::getInstance()->getBBCodes();
 	}
-
+	
 	/**
 	 * Sets the output type of the parser.
 	 * 
@@ -217,7 +217,7 @@ class BBCodeParser extends SingletonFactory {
 	 * Validates an attributes of a tag.
 	 * 
 	 * @param	array					$tagAttributes
-	 * @param 	wcf\data\bbcode\BBCodeAttribute		$definedTagAttribute
+	 * @param	wcf\data\bbcode\BBCodeAttribute		$definedTagAttribute
 	 * @return	boolean
 	 */
 	protected function isValidTagAttribute(array $tagAttributes, BBCodeAttribute $definedTagAttribute) {
@@ -246,7 +246,7 @@ class BBCodeParser extends SingletonFactory {
 		if (!empty($this->bbcodes[$tag['name']]->className)) {
 			return true;
 		}
-
+		
 		// search 'useText' attributes
 		foreach ($this->bbcodes[$tag['name']]->getAttributes() as $attribute) {
 			if ($attribute->useText && !isset($tag['attributes'][$attribute->attributeNo])) {
@@ -329,7 +329,7 @@ class BBCodeParser extends SingletonFactory {
 			if ($closing && $openTag == $tag) continue;
 			if ($this->bbcodes[$openTag]->allowedChildren == 'all') continue;
 			if ($this->bbcodes[$openTag]->allowedChildren == 'none') return false;
-
+			
 			$arguments = explode('^', $this->bbcodes[$openTag]->allowedChildren);
 			if (!empty($arguments[1])) $tags = explode(',', $arguments[1]);
 			else $tags = array();
@@ -353,7 +353,7 @@ class BBCodeParser extends SingletonFactory {
 		
 		// stack of buffered tags
 		$bufferedTagStack = array();
-
+		
 		// loop through the tags
 		$i = -1;
 		foreach ($this->tagArray as $i => $tag) {
@@ -470,7 +470,7 @@ class BBCodeParser extends SingletonFactory {
 	 */
 	protected function buildTag($string) {
 		$tag = array('name' => '', 'closing' => false, 'source' => $string);
-	
+		
 		if (StringUtil::substring($string, 1, 1) == '/') {
 			// closing tag
 			$tag['name'] = StringUtil::toLowerCase(StringUtil::substring($string, 2, StringUtil::length($string) - 3));
@@ -511,5 +511,31 @@ class BBCodeParser extends SingletonFactory {
 		}
 		
 		return $matches[1];
+	}
+	
+	/**
+	 * Validates the used BBCodes in the given text by the given allowed
+	 * BBCodes and returns a list of used disallowed BBCodes.
+	 * 
+	 * @param	string			$text
+	 * @param	array<string>		$allowedBBCodes
+	 * @return	array<string>
+	 */
+	public function validateBBCodes($text, array $allowedBBCodes) {
+		if (count($allowedBBCodes) == 1 && in_array('[all]', $allowedBBCodes)) {
+			
+		}
+		
+		$this->setText($text);
+		$this->buildTagArray();
+		
+		$usedDisallowedBBCodes = array();
+		foreach ($this->tagArray as $tag) {
+			if (!in_array($tag['name'], $allowedBBCodes) && !isset($usedDisallowedBBCodes[$tag['name']])) {
+				$usedDisallowedBBCodes[$tag['name']] = $tag['name'];
+			}
+		}
+		
+		return $usedDisallowedBBCodes;
 	}
 }

@@ -7,7 +7,7 @@ use wcf\system\SingletonFactory;
  * Manages the bbcode cache.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.bbcode
@@ -46,7 +46,7 @@ class BBCodeCache extends SingletonFactory {
 	 * Returns all attributes of a bbcode.
 	 * 
 	 * @param	string		$tag
-	 * @return 	array<wcf\data\bbcode\attribute\BBCodeAttribute>
+	 * @return	array<wcf\data\bbcode\attribute\BBCodeAttribute>
 	 */
 	public function getBBCodeAttributes($tag) {
 		return $this->cachedBBCodes[$tag]->getAttributes();
