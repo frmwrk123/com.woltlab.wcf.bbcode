@@ -110,7 +110,7 @@ class BBCodeParser extends SingletonFactory {
 		// stack for open tags
 		$openTagStack = $openTagDataStack = array();
 		$newTagArray = array();
-		$newTextArray = array();		
+		$newTextArray = array();
 		
 		$i = -1;
 		foreach ($this->tagArray as $i => $tag) {
@@ -522,8 +522,9 @@ class BBCodeParser extends SingletonFactory {
 	 * @return	array<string>
 	 */
 	public function validateBBCodes($text, array $allowedBBCodes) {
-		if (count($allowedBBCodes) == 1 && in_array('[all]', $allowedBBCodes)) {
-			
+		// if all BBCodes are allowed, return directly
+		if (in_array('all', $allowedBBCodes)) {
+			return array();
 		}
 		
 		$this->setText($text);
