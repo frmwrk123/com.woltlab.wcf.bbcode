@@ -2,6 +2,7 @@
 namespace wcf\system\option\user\group;
 use wcf\data\option\Option;
 use wcf\data\bbcode\BBCodeCache;
+use wcf\system\exception\UserInputException;
 use wcf\system\option\AbstractOptionType;
 use wcf\system\WCF;
 use wcf\util\StringUtil;
@@ -65,18 +66,14 @@ class BBCodeSelectUserGroupOptionType extends AbstractOptionType implements IUse
 	 * @return	array<string>
 	 */
 	protected function loadBBCodeSelection() {
-		$this->bbCodes = array();
-		foreach (BBCodeCache::getInstance()->getBBCodes() as $tag => $bbCode) {
-			$this->bbCodes[$tag] = $tag;
-		}
-		
+		$this->bbCodes = array_keys(BBCodeCache::getInstance()->getBBCodes());
 		asort($this->bbCodes);
 	}
 	
 	/**
 	 * @see	wcf\system\option\user\group\IUserGroupOptionType::merge()
 	 */
-	public function merge($defaultValue, $groupValue) {
+	public function diff($defaultValue, $groupValue) {
 		if ($this->bbCodes === null) {
 			$this->loadBBCodeSelection();
 		}
@@ -103,6 +100,39 @@ class BBCodeSelectUserGroupOptionType extends AbstractOptionType implements IUse
 	}
 	
 	/**
+	 * @see	wcf\system\option\user\group\IUserGroupOptionType::merge()
+	 */
+	public function merge($defaultValue, $groupValue) {
+		if ($this->bbCodes === null) {
+			$this->loadBBCodeSelection();
+		}
+		
+		if ($defaultValue == 'all') {
+			$defaultValue = $this->bbCodes;
+		}
+		else if (empty($defaultValue)) {
+			$defaultValue = array();
+		}
+		else {
+			$defaultValue = explode(',', StringUtil::unifyNewlines($defaultValue));
+		}
+		if ($groupValue == 'all') {
+			$groupValue = $this->bbCodes;
+		}
+		else if (empty($groupValue)) {
+			$groupValue = array();
+		}
+		else {
+			$groupValue = explode(',', StringUtil::unifyNewlines($groupValue));
+		}
+		
+		$newValue = array_unique(array_merge($defaultValue, $groupValue));
+		sort($newValue);
+		
+		return implode(',', $newValue);
+	}
+	
+	/**
 	 * @see	wcf\system\option\IOptionType::validate()
 	 */
 	public function validate(Option $option, $newValue) {
@@ -115,7 +145,7 @@ class BBCodeSelectUserGroupOptionType extends AbstractOptionType implements IUse
 		}
 		
 		foreach ($newValue as $tag) {
-			if (!isset($this->bbCodes[$tag])) {
+			if (!in_array($tag, $this->bbCodes)) {
 				throw new UserInputException($option->optionName, 'validationFailed');
 			}
 		}
