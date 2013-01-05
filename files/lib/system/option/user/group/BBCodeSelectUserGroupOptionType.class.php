@@ -1,7 +1,7 @@
 <?php
 namespace wcf\system\option\user\group;
-use wcf\data\option\Option;
 use wcf\data\bbcode\BBCodeCache;
+use wcf\data\option\Option;
 use wcf\system\exception\UserInputException;
 use wcf\system\option\AbstractOptionType;
 use wcf\system\WCF;

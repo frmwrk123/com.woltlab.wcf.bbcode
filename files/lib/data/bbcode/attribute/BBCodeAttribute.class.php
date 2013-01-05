@@ -1,13 +1,13 @@
 <?php
 namespace wcf\data\bbcode\attribute;
-use wcf\data\DatabaseObject;
 use wcf\data\bbcode\BBCode;
+use wcf\data\DatabaseObject;
 
 /**
  * Represents a bbcode attribute.
  * 
  * @author	Tim Düsterhus, Alexander Ebert
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.bbcode.attribute
@@ -26,7 +26,7 @@ class BBCodeAttribute extends DatabaseObject {
 	
 	/**
 	 * Reads attributes by assigned bbcode.
-	 *
+	 * 
 	 * @param	wcf\data\bbcode\BBCode	$bbcode
 	 * @return	array<wcf\data\bbcode\attribute\BBCodeAttribute>
 	 */

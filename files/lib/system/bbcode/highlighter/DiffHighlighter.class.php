@@ -1,6 +1,6 @@
 <?php
 namespace wcf\system\bbcode\highlighter;
-use \wcf\util\StringUtil;
+use wcf\util\StringUtil;
 
 /**
  * Highlights difference-files.
@@ -21,7 +21,7 @@ class DiffHighlighter extends Highlighter {
 	protected $splitter = array("---");
 	// keywords for the line info, the @ is used in unified diff, the numbers in normal diff
 	protected $info = array("@", '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-
+	
 	/**
 	 * @see	\wcf\system\bbcode\highlighter\Highlighter::highlight()
 	 */
@@ -41,7 +41,7 @@ class DiffHighlighter extends Highlighter {
 				$lines[$key] = StringUtil::encodeHTML($val);
 			}
 		}
-
+		
 		$data = implode("\n", $lines);
 		return $data;
 	}
