@@ -6,7 +6,7 @@ use wcf\util\StringUtil;
 /**
  * Parses the [table] bbcode tag.
  * 
- * @author	Marcel Werk
+ * @author	Tim Duesterhus, Marcel Werk
  * @copyright	2001-2012 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
@@ -22,19 +22,60 @@ class TableBBCode extends AbstractBBCode {
 			$parsedContent = Regex::compile('(?:\s|<br />)*(\[tr\].*\[/tr\])(?:\s|<br />)*', Regex::CASE_INSENSITIVE | Regex::DOT_ALL)->replace($content, '\\1');
 			
 			// check syntax
-			$regex = new Regex("^(\[tr\](?:\s|<br />)*(\[td\].*?\[/td\](?:\s|<br />)*)+\[/tr\](?:\s|<br />)*)+$", Regex::CASE_INSENSITIVE | Regex::DOT_ALL);
-			if ($regex->match($parsedContent)) {
-				// tr
-				$parsedContent = Regex::compile('\[tr\](?:\s|<br />)*', Regex::CASE_INSENSITIVE)->replace($parsedContent, '<tr>');
-				// td
-				$parsedContent = StringUtil::replaceIgnoreCase('[td]', '<td>', $parsedContent);
-				// /td
-				$parsedContent = Regex::compile('\[/td\](?:\s|<br />)*', Regex::CASE_INSENSITIVE)->replace($parsedContent, '</td>');
-				// /tr
-				$parsedContent = Regex::compile('\[/tr\](?:\s|<br />)*', Regex::CASE_INSENSITIVE)->replace($parsedContent, '</tr>');
+			$regex = new Regex('\[/?t[rd]\]', Regex::CASE_INSENSITIVE);
+			if ($regex->match($parsedContent, true)) {
+				$matches = $regex->getMatches();
 				
-				return '<div class="container bbcodeTable"><table class="table"><tbody>'.$parsedContent.'</tbody></table></div>';
+				$openTags = array();
+				$openTDs = 0;
+				$firstRowTDs = 0;
+				
+				// parse tags
+				foreach ($matches[0] as $match) {
+					switch ($match) {
+						case '[td]':
+							if (end($openTags) !== '[tr]') return;
+							$openTags[] = $match;
+							$openTDs++;
+						break;
+						case '[/td]':
+							if (end($openTags) !== '[td]') return;
+							array_pop($openTags);
+						break;
+						case '[tr]':
+							if (!empty($openTags)) return;
+							$openTags[] = $match;
+						break;
+						case '[/tr]':
+							if (end($openTags) !== '[tr]') return;
+							
+							array_pop($openTags);
+							
+							// check that every row has got the same number of tds
+							if ($firstRowTDs === 0) $firstRowTDs = $openTDs;
+							if ($openTDs !== $firstRowTDs) return;
+							
+							$openTDs = 0;
+						break;
+					}
+				}
+				
+				if (!empty($openTags)) return;
 			}
+			else {
+				return '';
+			}
+			
+			// tr
+			$parsedContent = Regex::compile('\[tr\](?:\s|<br />)*', Regex::CASE_INSENSITIVE)->replace($parsedContent, '<tr>');
+			// td
+			$parsedContent = StringUtil::replaceIgnoreCase('[td]', '<td>', $parsedContent);
+			// /td
+			$parsedContent = Regex::compile('\[/td\](?:\s|<br />)*', Regex::CASE_INSENSITIVE)->replace($parsedContent, '</td>');
+			// /tr
+			$parsedContent = Regex::compile('\[/tr\](?:\s|<br />)*', Regex::CASE_INSENSITIVE)->replace($parsedContent, '</tr>');
+			
+			return '<div class="container bbcodeTable"><table class="table"><tbody>'.$parsedContent.'</tbody></table></div>';
 		}
 		
 		// return bbcode as text
