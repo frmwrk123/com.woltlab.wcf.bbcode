@@ -1,7 +1,7 @@
 <?php
 namespace wcf\system\bbcode\highlighter;
-use \wcf\system\Regex;
-use \wcf\util\StringUtil;
+use wcf\system\Regex;
+use wcf\util\StringUtil;
 
 /**
  * Highlights syntax of PHP sourcecode.

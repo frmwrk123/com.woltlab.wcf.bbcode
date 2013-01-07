@@ -30,6 +30,12 @@ class SimpleMessageParser extends SingletonFactory {
 	protected $smilies = array();
 	
 	/**
+	 * currently parsed message
+	 * @var	string
+	 */
+	public $message = '';
+	
+	/**
 	 * @see	wcf\system\SingletonFactory::init()
 	 */
 	protected function init() {
@@ -58,33 +64,36 @@ class SimpleMessageParser extends SingletonFactory {
 	 * @return	string		parsed message
 	 */
 	public function parse($message, $parseURLs = true, $parseSmilies = true) {		
+		$this->message = $message;
+		
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
 		
 		// encode html
-		$message = StringUtil::encodeHTML($message);
+		$this->message = StringUtil::encodeHTML($this->message);
 		
 		// converts newlines to <br />'s
-		$message = nl2br($message);
+		$this->message = nl2br($this->message);
 		
 		// parse urls
 		if ($parseURLs) {
-			$message = $this->parseURLs($message);
+			$this->message = $this->parseURLs($this->message);
 		}
 		
 		// parse smilies
 		if ($parseSmilies) {
-			$message = $this->parseSmilies($message);
+			$this->message = $this->parseSmilies($this->message);
 		}
 		
+		// replace bad html tags (script etc.)
 		$badSearch = array('/(javascript):/i', '/(about):/i', '/(vbscript):/i');
 		$badReplace = array('$1<b></b>:', '$1<b></b>:', '$1<b></b>:');
-		$message = preg_replace($badSearch, $badReplace, $message);
+		$this->message = preg_replace($badSearch, $badReplace, $this->message);
 		
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'afterParsing');
 		
-		return $message;
+		return $this->message;
 	}
 	
 	/**
@@ -142,7 +151,7 @@ class SimpleMessageParser extends SingletonFactory {
 		$url = $title = $matches[0];
 		$decodedTitle = StringUtil::decodeHTML($title);
 		if (StringUtil::length($decodedTitle) > 60) {
-			$title = StringUtil::encodeHTML(StringUtil::substring($decodedTitle, 0, 40)) . '&hellip;' . StringUtil::encodeHTML(StringUtil::substring($decodedTitle, -15));
+			$title = StringUtil::encodeHTML(StringUtil::substring($decodedTitle, 0, 40)) . StringUtil::HELLIP . StringUtil::encodeHTML(StringUtil::substring($decodedTitle, -15));
 		}
 		// add protocol if necessary
 		if (!preg_match("~[a-z]://~si", $url)) $url = 'http://'.$url;
@@ -152,7 +161,7 @@ class SimpleMessageParser extends SingletonFactory {
 			$external = false;
 		}
 		
-		return '<a href="'.$url.'"'.($external ? (' class="externalURL"'.(EXTERNAL_LINK_REL_NOFOLLOW ? ' rel="nofollow"' : '')) : '').'>'.$title.'</a>';
+		return '<a href="'.$url.'"'.($external ? (' class="externalURL"'.(EXTERNAL_LINK_REL_NOFOLLOW ? ' rel="nofollow"' : '').(EXTERNAL_LINK_TARGET_BLANK ? ' target="_blank"' : '')) : '').'>'.$title.'</a>';
 	}
 	
 	/**

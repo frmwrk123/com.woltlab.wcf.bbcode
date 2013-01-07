@@ -1,6 +1,6 @@
 <?php
 namespace wcf\system\bbcode\highlighter;
-use \wcf\util\StringUtil;
+use wcf\util\StringUtil;
 
 /**
  * Does no highlighting.

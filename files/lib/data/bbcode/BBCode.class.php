@@ -7,7 +7,7 @@ use wcf\system\WCF;
  * Represents a bbcode.
  * 
  * @author	Alexander Ebert
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.bbcode
@@ -44,9 +44,9 @@ class BBCode extends ProcessibleDatabaseObject {
 	}
 	
 	/**
-	 * Returns BBCode-object by tag.
-	 *
-	 * @param	string					$tag
+	 * Returns BBCode object with the given tag.
+	 * 
+	 * @param	string		$tag
 	 * @return	wcf\data\bbcode\BBCode
 	 */
 	public static function getBBCodeByTag($tag) {

@@ -4,6 +4,7 @@ use wcf\data\bbcode\attribute\BBCodeAttributeAction;
 use wcf\data\bbcode\BBCode;
 use wcf\data\bbcode\BBCodeAction;
 use wcf\data\package\PackageCache;
+use wcf\form\AbstractForm;
 use wcf\system\exception\UserInputException;
 use wcf\system\Regex;
 use wcf\system\WCF;
@@ -11,7 +12,7 @@ use wcf\util\StringUtil;
 
 /**
  * Shows the bbcode add form.
- *
+ * 
  * @author	Tim Düsterhus
  * @copyright	2011 Tim Düsterhus
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
@@ -19,14 +20,9 @@ use wcf\util\StringUtil;
  * @subpackage	acp.form
  * @category	Community Framework
  */
-class BBCodeAddForm extends ACPForm {
+class BBCodeAddForm extends AbstractForm {
 	/**
-	 * @see	wcf\page\AbstractPage::$templateName
-	 */
-	public $templateName = 'bbcodeAdd';
-	
-	/**
-	 * @see	wcf\acp\form\ACPForm::$activeMenuItem
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
 	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.add';
 	

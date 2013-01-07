@@ -1,6 +1,7 @@
 <?php
 namespace wcf\system\package\plugin;
 use wcf\data\bbcode\attribute\BBCodeAttributeEditor;
+use wcf\system\exception\SystemException;
 use wcf\system\WCF;
 
 /**
@@ -92,6 +93,15 @@ class BBCodePackageInstallationPlugin extends AbstractXMLPackageInstallationPlug
 			'className' => (!empty($data['elements']['classname']) ? $data['elements']['classname'] : ''),
 			'isSourceCode' => (!empty($data['elements']['sourcecode']) ? 1 : 0),
 		);
+	}
+	
+	/**
+	 * @see	wcf\system\package\plugin\AbstractXMLPackageInstallationPlugin::validateImport()
+	 */
+	protected function validateImport(array $data) {
+		if ($data['bbcodeTag'] == 'all' || $data['bbcodeTag'] == 'none') {
+			throw new SystemException("BBCodes can't be called 'all' or 'none'");
+		}
 	}
 	
 	/**

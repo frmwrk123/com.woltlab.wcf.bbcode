@@ -1,8 +1,8 @@
 <?php
 namespace wcf\system\bbcode\highlighter;
-use \wcf\system\Callback;
-use \wcf\system\Regex;
-use \wcf\util\StringUtil;
+use wcf\system\Callback;
+use wcf\system\Regex;
+use wcf\util\StringUtil;
 
 /**
  * Highlights syntax of (x)html documents including style and script blocks.

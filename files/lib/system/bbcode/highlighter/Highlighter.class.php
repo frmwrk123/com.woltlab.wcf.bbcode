@@ -1,16 +1,16 @@
 <?php
 namespace wcf\system\bbcode\highlighter;
-use \wcf\system\Callback;
-use \wcf\system\Regex;
-use \wcf\system\SingletonFactory;
-use \wcf\system\WCF;
-use \wcf\util\StringUtil;
+use wcf\system\Callback;
+use wcf\system\Regex;
+use wcf\system\SingletonFactory;
+use wcf\system\WCF;
+use wcf\util\StringUtil;
 
 /**
  * Highlights syntax of source code.
  * 
  * @author	Tim Düsterhus, Michael Schaefer
- * @copyright	2001-2012 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode.highlighter

@@ -51,9 +51,9 @@
 							<td class="columnIcon">
 								{* toggle, edit, delete *}
 								{if $__wcf->session->getPermission('admin.content.bbcode.canEditBBCode')}
-									<img src="{@$__wcf->getPath()}icon/{if $bbcode->disabled}disabled{else}enabled{/if}.svg" alt="" title="{lang}wcf.global.button.{if $bbcode->disabled}enable{else}disable{/if}{/lang}" class="icon16 jsToggleButton jsTooltip" data-object-id="{@$bbcode->bbcodeID}" data-disable-message="{lang}wcf.global.button.disable{/lang}" data-enable-message="{lang}wcf.global.button.enable{/lang}" />
+									<img src="{@$__wcf->getPath()}icon/{if $bbcode->isDisabled}disabled{else}enabled{/if}.svg" alt="" title="{lang}wcf.global.button.{if $bbcode->isDisabled}enable{else}disable{/if}{/lang}" class="icon16 jsToggleButton jsTooltip" data-object-id="{@$bbcode->bbcodeID}" data-disable-message="{lang}wcf.global.button.disable{/lang}" data-enable-message="{lang}wcf.global.button.enable{/lang}" />
 								{else}
-									{if $bbcode->disabled}
+									{if $bbcode->isDisabled}
 										<img src="{@$__wcf->getPath()}icon/disabled.svg" alt="" title="{lang}wcf.global.button.enable{/lang}" class="icon16 disabled" />
 									{else}
 										<img src="{@$__wcf->getPath()}icon/enabled.svg" alt="" title="{lang}wcf.global.button.disable{/lang}" class="icon16 disabled" />

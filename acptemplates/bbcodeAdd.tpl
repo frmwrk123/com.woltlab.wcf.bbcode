@@ -65,6 +65,10 @@
 	</hgroup>
 </header>
 
+{if $action == 'add'}
+	<p class="info">{lang}wcf.acp.bbcode.add.userGroupOptionInfo{/lang}</p>
+{/if}
+
 {if $errorField}
 	<p class="error">{lang}wcf.global.form.error{/lang}</p>
 {/if}
