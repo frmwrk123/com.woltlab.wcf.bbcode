@@ -33,7 +33,7 @@ class UserBBCode extends AbstractBBCode {
 		if ($parser->getOutputType() == 'text/html') {
 			if (!$userID) return StringUtil::encodeHTML($content);
 			
-			$profile = \wcf\system\request\LinkHandler::getInstance()->getLink('User', array(
+			$profile = LinkHandler::getInstance()->getLink('User', array(
 				'id' => $userID,
 				'title' => $username
 			));
