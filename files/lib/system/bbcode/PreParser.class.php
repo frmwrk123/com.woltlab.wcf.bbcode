@@ -70,7 +70,6 @@ class PreParser extends SingletonFactory {
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
 		
-		
 		$this->parseURLs();
 		$this->parseEmails();
 		$this->parseUserBBCodes();
