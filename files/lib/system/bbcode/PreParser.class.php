@@ -3,6 +3,7 @@ namespace wcf\system\bbcode;
 use wcf\data\bbcode\BBCodeCache;
 use wcf\data\user\User;
 use wcf\system\event\EventHandler;
+use wcf\system\request\LinkHandler;
 use wcf\system\Callback;
 use wcf\system\Regex;
 use wcf\system\SingletonFactory;
@@ -49,8 +50,7 @@ class PreParser extends SingletonFactory {
 	protected function init() {
 		$sourceCodeTags = array();
 		foreach (BBCodeCache::getInstance()->getBBCodes() as $bbcode) {
-			// skip user bbcode, as we have to parse it
-			if ($bbcode->isSourceCode && $bbcode->bbcodeTag != 'user') $sourceCodeTags[] = $bbcode->bbcodeTag;
+			if ($bbcode->isSourceCode) $sourceCodeTags[] = $bbcode->bbcodeTag;
 		}
 		if (!empty($sourceCodeTags)) $this->sourceCodeRegEx = implode('|', $sourceCodeTags);
 	}
@@ -70,9 +70,9 @@ class PreParser extends SingletonFactory {
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
 		
+		$this->parseAtUser();
 		$this->parseURLs();
 		$this->parseEmails();
-		$this->parseUserBBCodes();
 		
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'afterParsing');
@@ -136,13 +136,12 @@ class PreParser extends SingletonFactory {
 	}
 	
 	/**
-	 * Inserts the userID into the user bbcode.
+	 * Replaced @username with a link.
 	 */
-	protected function parseUserBBCodes() {
+	protected function parseAtUser() {
 		static $userRegex = null;
 		if ($userRegex === null) {
-			// the only one we do not get is a username that contains "[/user]". But who would name himself that way?
-			$userRegex = new Regex('\[user\]([^,]+)\[/user\]', Regex::UNGREEDY);
+			$userRegex = new Regex('(?:^|\s)@([^,\s]*)');
 		}
 		
 		$userRegex->match($this->text, true);
@@ -150,16 +149,15 @@ class PreParser extends SingletonFactory {
 		
 		// remove duplicates, saves queries
 		array_unique($matches[1]);
-		foreach ($matches[1] as $match) {
+		foreach ($matches[1] as $key => $match) {
 			$user = User::getUserByUsername($match);
 		
-			if (!$user->userID) {
-				// remove bbcode entirely
-				$this->text = StringUtil::replace('[user]'.$match.'[/user]', $match, $this->text);
-			}
-			else {
-				// insert userID
-				$this->text = StringUtil::replace('[user]'.$match.'[/user]', '[user='.$user->userID.']'.$user->username.'[/user]', $this->text);
+			if ($user->userID) {
+				$link = LinkHandler::getInstance()->getLink('User', array(
+					'object' => $user
+				));
+				
+				$this->text = StringUtil::replace($matches[0][$key], "[url='".$link."']".$matches[0][$key].'[/url]', $this->text);
 			}
 		}
 	}
@@ -171,6 +169,7 @@ class PreParser extends SingletonFactory {
 		if (!empty($this->sourceCodeRegEx)) {
 			static $bbcodeRegex = null;
 			static $callback = null;
+			
 			if ($bbcodeRegex === null) {
 				$bbcodeRegex = new Regex("
 				(\[(".$this->sourceCodeRegEx.")

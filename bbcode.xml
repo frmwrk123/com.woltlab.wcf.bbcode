@@ -183,15 +183,5 @@
 			<allowedchildren>none</allowedchildren>
 			<sourcecode>1</sourcecode>
 		</bbcode>
-		
-		<bbcode name="user">
-			<classname>wcf\system\bbcode\UserBBCode</classname>
-			<attributes>
-				<attribute name="0">
-					<validationpattern>^[1-9][0-9]*$</validationpattern>
-				</attribute>
-			</attributes>
-			<sourcecode>1</sourcecode>
-		</bbcode>
 	</import>
 </data>
