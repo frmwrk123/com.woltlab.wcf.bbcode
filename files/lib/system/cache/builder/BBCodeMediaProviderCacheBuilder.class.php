@@ -18,7 +18,6 @@ class BBCodeMediaProviderCacheBuilder implements ICacheBuilder {
 	 */
 	public function getData(array $cacheResource) {
 		$providerList = new BBCodeMediaProviderList();
-		$providerList->sqlLimit = 0;
 		$providerList->readObjects();
 		
 		return $providerList;
