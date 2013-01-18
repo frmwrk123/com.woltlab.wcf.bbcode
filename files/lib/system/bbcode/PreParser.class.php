@@ -1,7 +1,6 @@
 <?php
 namespace wcf\system\bbcode;
 use wcf\data\bbcode\BBCodeCache;
-use wcf\data\user\User;
 use wcf\system\event\EventHandler;
 use wcf\system\request\LinkHandler;
 use wcf\system\Callback;
@@ -70,7 +69,6 @@ class PreParser extends SingletonFactory {
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
 		
-		$this->parseAtUser();
 		$this->parseURLs();
 		$this->parseEmails();
 		
@@ -133,33 +131,6 @@ class PreParser extends SingletonFactory {
 		}
 		
 		$this->text = $urlPattern->replace($this->text, '[url]\\0[/url]');
-	}
-	
-	/**
-	 * Replaced @username with a link.
-	 */
-	protected function parseAtUser() {
-		static $userRegex = null;
-		if ($userRegex === null) {
-			$userRegex = new Regex('(?:^|\s)@([^,\s]*)');
-		}
-		
-		$userRegex->match($this->text, true);
-		$matches = $userRegex->getMatches();
-		
-		// remove duplicates, saves queries
-		array_unique($matches[1]);
-		foreach ($matches[1] as $key => $match) {
-			$user = User::getUserByUsername($match);
-		
-			if ($user->userID) {
-				$link = LinkHandler::getInstance()->getLink('User', array(
-					'object' => $user
-				));
-				
-				$this->text = StringUtil::replace($matches[0][$key], "[url='".$link."']".$matches[0][$key].'[/url]', $this->text);
-			}
-		}
 	}
 	
 	/**
