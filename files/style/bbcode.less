@@ -157,14 +157,22 @@
 /* Quote Box */
 .quoteBox {
 	background-color: @wcfContentBackgroundColor;
-	background-image: url('../images/quote.png'); /* todo: add svg icon */
-	background-position: 12px 12px;
-	background-repeat: no-repeat;
 	min-height: 28px;
 	margin-bottom: @wcfGapTiny;
+	position: relative;
 	
 	&.containerPadding {
-		padding-left: 58px;
+		padding-left: 54px;
+	}
+	
+	&:before {
+		content: "\f10d";
+		color: @wcfDimmedColor;
+		font-family: FontAwesome;
+		font-size: 28px;
+		position: absolute;
+		left: @wcfGapMedium;
+		top: @wcfGapSmall;
 	}
 	
 	> header {
