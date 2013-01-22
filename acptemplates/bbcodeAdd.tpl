@@ -2,7 +2,7 @@
 
 {capture assign='attributeTemplate'}
 	<fieldset>
-		<legend><img src="{@$__wcf->getPath()}icon/delete.svg" alt="" class="icon16 jsDeleteButton" />{lang}wcf.acp.bbcode.attribute{/lang} {ldelim}#$attributeNo}</legend>
+		<legend><span class="icon icon16 icon-remove jsDeleteButton"></span>{lang}wcf.acp.bbcode.attribute{/lang} {ldelim}#$attributeNo}</legend>
 		<dl>
 			<dt><label for="attributes[{ldelim}@$attributeNo}][attributeHtml]">{lang}wcf.acp.bbcode.attribute.attributeHtml{/lang}</label></dt>
 			<dd>
@@ -80,7 +80,7 @@
 <div class="contentNavigation">
 	<nav>
 		<ul>
-			<li><a href="{link controller='BBCodeList'}{/link}" title="{lang}wcf.acp.menu.link.bbcode.list{/lang}" class="button"><img src="{@$__wcf->getPath()}icon/list.svg" alt="" class="icon24" /> <span>{lang}wcf.acp.menu.link.bbcode.list{/lang}</span></a></li>
+			<li><a href="{link controller='BBCodeList'}{/link}" title="{lang}wcf.acp.menu.link.bbcode.list{/lang}" class="button"><span class="icon icon16 icon-list"></span> <span>{lang}wcf.acp.menu.link.bbcode.list{/lang}</span></a></li>
 		</ul>
 	</nav>
 </div>
@@ -175,11 +175,11 @@
 		</fieldset>
 		
 		<fieldset id="attributeFieldset">
-			<legend><img src="{@$__wcf->getPath()}icon/add.svg" alt="" title="{lang}wcf.global.button.add{/lang}" class="icon16 jsAddButton" /> {lang}wcf.acp.bbcode.attributes{/lang}</legend>
+			<legend><span class="icon icon16 icon-plus jsAddButton" title="{lang}wcf.global.button.add{/lang}"></span> {lang}wcf.acp.bbcode.attributes{/lang}</legend>
 			
 			{foreach from=$attributes item='attribute'}
 				<fieldset>
-					<legend><img src="{@$__wcf->getPath()}icon/delete.svg" alt="" title="{lang}wcf.global.button.delete{/lang}" class="jsDeleteButton" />{lang}wcf.acp.bbcode.attribute{/lang} {#$attribute->attributeNo}</legend>
+					<legend><span class="icon icon16 icon-remove jsDeleteButton"></span>{lang}wcf.acp.bbcode.attribute{/lang} {#$attribute->attributeNo}</legend>
 					<dl{if $errorField == 'attributeHtml'|concat:$attribute->attributeNo} class="formError"{/if}>
 						<dt><label for="attributes[{@$attribute->attributeNo}][attributeHtml]">{lang}wcf.acp.bbcode.attribute.attributeHtml{/lang}</label></dt>
 						<dd>

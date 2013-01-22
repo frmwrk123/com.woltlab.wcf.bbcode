@@ -20,7 +20,7 @@
 	{if $__wcf->session->getPermission('admin.content.bbcode.canAddBBCodeMediaProvider')}
 		<nav>
 			<ul>
-				<li><a href="{link controller='BBCodeMediaProviderAdd'}{/link}" title="{lang}wcf.acp.bbcode.mediaProvider.add{/lang}" class="button"><img src="{@$__wcf->getPath()}icon/add.svg" alt="" class="icon24" /> <span>{lang}wcf.acp.bbcode.mediaProvider.add{/lang}</span></a></li>
+				<li><a href="{link controller='BBCodeMediaProviderAdd'}{/link}" title="{lang}wcf.acp.bbcode.mediaProvider.add{/lang}" class="button"><span class="icon icon16 icon-plus"></span> <span>{lang}wcf.acp.bbcode.mediaProvider.add{/lang}</span></a></li>
 			</ul>
 		</nav>
 	{/if}
@@ -35,8 +35,8 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="columnID columnMediaProviderID{if $sortField == 'providerID'} active{/if}" colspan="2"><a href="{link controller='BBCodeMediaProviderList'}pageNo={@$pageNo}&sortField=providerID&sortOrder={if $sortField == 'providerID' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.global.objectID{/lang}{if $sortField == 'providerID'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
-					<th class="columnTitle columnMediaProviderTitle{if $sortField == 'title'} active{/if}"><a href="{link controller='BBCodeMediaProviderList'}pageNo={@$pageNo}&sortField=title&sortOrder={if $sortField == 'title' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.bbcode.mediaProvider.title{/lang}{if $sortField == 'title'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
+					<th class="columnID columnMediaProviderID{if $sortField == 'providerID'} active {@$sortOrder}{/if}" colspan="2"><a href="{link controller='BBCodeMediaProviderList'}pageNo={@$pageNo}&sortField=providerID&sortOrder={if $sortField == 'providerID' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.global.objectID{/lang}</a></th>
+					<th class="columnTitle columnMediaProviderTitle{if $sortField == 'title'} active {@$sortOrder}{/if}"><a href="{link controller='BBCodeMediaProviderList'}pageNo={@$pageNo}&sortField=title&sortOrder={if $sortField == 'title' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.bbcode.mediaProvider.title{/lang}</a></th>
 					
 					{event name='headColumns'}
 				</tr>
@@ -48,14 +48,10 @@
 						<tr class="jsMediaProviderRow">
 							<td class="columnIcon">
 								{if $__wcf->session->getPermission('admin.content.bbcode.canEditBBCodeMediaProvider')}
-									<a href="{link controller='BBCodeMediaProviderEdit' id=$mediaProvider->providerID}{/link}"><img src="{@$__wcf->getPath()}icon/edit.svg" alt="" title="{lang}wcf.global.button.edit{/lang}" class="icon16 jsTooltip" /></a>
-								{else}
-									<img src="{@$__wcf->getPath()}icon/edit.svg" alt="" title="{lang}wcf.global.button.edit{/lang}" class="icon16 disabled" />
+									<a href="{link controller='BBCodeMediaProviderEdit' id=$mediaProvider->providerID}{/link}" title="{lang}wcf.global.button.edit{/lang}" class="jsTooltip"><span class="icon icon16 icon-pencil"></span></a>
 								{/if}
 								{if $__wcf->session->getPermission('admin.content.bbcode.canDeleteBBCodeMediaProvider')}
-									<img src="{@$__wcf->getPath()}icon/delete.svg" alt="" title="{lang}wcf.global.button.delete{/lang}" class="icon16 jsDeleteButton jsTooltip" data-object-id="{@$mediaProvider->providerID}" data-confirm-message="{lang}wcf.acp.bbcode.mediaProvider.delete.sure{/lang}" />
-								{else}
-									<img src="{@$__wcf->getPath()}icon/delete.svg" alt="" title="{lang}wcf.global.button.delete{/lang}" class="icon16 disabled" />
+									<span class="icon icon16 icon-remove jsDeleteButton jsTooltip" title="{lang}wcf.global.button.delete{/lang}" data-object-id="{@$mediaProvider->providerID}" data-confirm-message="{lang}wcf.acp.bbcode.mediaProvider.delete.sure{/lang}"></span>
 								{/if}
 								
 								{event name='buttons'}
@@ -75,7 +71,6 @@
 				{/content}
 			</tbody>
 		</table>
-		
 	</div>
 	
 	<div class="contentNavigation">
@@ -84,7 +79,7 @@
 		{if $__wcf->session->getPermission('admin.content.bbcode.canAddBBCodeMediaProvider')}
 			<nav>
 				<ul>
-					<li><a href="{link controller='BBCodeMediaProviderAdd'}{/link}" title="{lang}wcf.acp.bbcode.mediaProvider.add{/lang}" class="button"><img src="{@$__wcf->getPath()}icon/add.svg" alt="" class="icon24" /> <span>{lang}wcf.acp.bbcode.mediaProvider.add{/lang}</span></a></li>
+					<li><a href="{link controller='BBCodeMediaProviderAdd'}{/link}" title="{lang}wcf.acp.bbcode.mediaProvider.add{/lang}" class="button"><span class="icon icon16 icon-plus"></span> <span>{lang}wcf.acp.bbcode.mediaProvider.add{/lang}</span></a></li>
 				</ul>
 			</nav>
 		{/if}
