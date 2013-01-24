@@ -109,14 +109,8 @@ class CodeBBCode extends AbstractBBCode {
 			}
 			
 			// show template
-			/*WCF::getTPL()->assign(array(
-				'lineNumbers' => self::makeLineNumbers($content, $this->startLineNumber),
-				'content' => $className::getInstance()->highlight($content),
-				'highlighter' => $className::getInstance(),
-				'filename' => $this->filename
-			));*/
-			
 			WCF::getTPL()->assign(array(
+				'lineNumbers' => self::makeLineNumbers($content, $this->startLineNumber),
 				'startLineNumber' => $this->startLineNumber,
 				'content' => explode("\n", $className::getInstance()->highlight($content)),
 				'highlighter' => $className::getInstance(),
