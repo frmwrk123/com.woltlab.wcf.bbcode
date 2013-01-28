@@ -26,7 +26,7 @@ class CssHighlighter extends Highlighter {
 	 * Highlights numbers.
 	 */
 	protected function highlightNumbers($string) {
-		$string = preg_replace('!(?<='.$this->separatorsRegEx.')(-?\d+(?:px|pt|em|%|ex|in|cm|mm|pc)?)(?='.$this->separatorsRegEx.')!i', '<span class="hlNumbers">\\0</span>', $string);
+		$string = preg_replace('!(?<='.$this->separatorsRegEx.')(-?\d*\.?\d+(?:px|pt|em|%|ex|in|cm|mm|pc)?)(?='.$this->separatorsRegEx.')!i', '<span class="hlNumbers">\\0</span>', $string);
 		
 		// highlight colors (hexadecimal numbers)
 		$string = preg_replace('!(?<='.$this->separatorsRegEx.')(#([0-9a-f]{3}|[0-9a-f]{6}))(?='.$this->separatorsRegEx.')!i', '<span class="hlColors">\\0</span>', $string);
