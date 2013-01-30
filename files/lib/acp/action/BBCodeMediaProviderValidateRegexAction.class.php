@@ -1,7 +1,6 @@
 <?php
 namespace wcf\acp\action;
 use wcf\action\AbstractAction;
-use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\SystemException;
 use wcf\system\Regex;
 use wcf\system\WCF;
@@ -11,15 +10,29 @@ use wcf\util\StringUtil;
 /**
  * Validates the regex for BBCodeMediaProviderAddForm
  *
- * @author	Tim Düsterhus
- * @copyright	2011 Tim Düsterhus
+ * @author	Tim Duesterhus
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	acp.action
  * @category	Community Framework
  */
 class BBCodeMediaProviderValidateRegexAction extends AbstractAction {
+	/**
+	 * @see	wcf\action\AbstractAction::$loginRequired
+	 */
+	public $loginRequired = true;
+	
+	/**
+	 * regular expression
+	 * @var	string
+	 */
 	public $regex = '';
+	
+	/**
+	 * test url
+	 * @var	string
+	 */
 	public $url = '';
 	
 	/**
@@ -37,11 +50,6 @@ class BBCodeMediaProviderValidateRegexAction extends AbstractAction {
 	 */
 	public function execute() {
 		parent::execute();
-		
-		// validate
-		if (!WCF::getUser()->userID) {
-			throw new IllegalLinkException();
-		}
 		
 		@header('Content-type: application/json');
 		try {

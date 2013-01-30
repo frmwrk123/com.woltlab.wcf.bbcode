@@ -13,8 +13,8 @@ use wcf\util\StringUtil;
 /**
  * Shows the bbcode add form.
  * 
- * @author	Tim Düsterhus
- * @copyright	2011 Tim Düsterhus
+ * @author	Tim Duesterhus
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	acp.form
@@ -27,33 +27,56 @@ class BBCodeAddForm extends AbstractForm {
 	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.add';
 	
 	/**
-	 * @see	wcf\page\AbstractPage::$neededPermissions
+	 * allowed child bbcodes
+	 * @var	string
 	 */
-	public $neededPermissions = array('admin.content.bbcode.canAddBBCode');
+	public $allowedChildren = 'all';
 	
 	/**
-	 * bbcode-tag value
+	 * list of attributes
+	 * @var	array<object>
+	 */
+	public $attributes = array();
+	
+	/**
+	 * tag name
 	 * @var	string
 	 */
 	public $bbcodeTag = '';
 	
 	/**
-	 * html-open value
+	 * class name
 	 * @var	string
 	 */
-	public $htmlOpen = '';
+	public $className = '';
 	
 	/**
-	 * html-Close value
+	 * closing html tag
 	 * @var	string
 	 */
 	public $htmlClose = '';
 	
 	/**
-	 * text-open value
+	 * opening html tag
 	 * @var	string
 	 */
-	public $textOpen = '';
+	public $htmlOpen = '';
+	
+	/**
+	 * true, if bbcode contains source code
+	 * @var	boolean
+	 */
+	public $isSourceCode = false;
+	
+	/**
+	 * @see	wcf\page\AbstractPage::$neededPermissions
+	 */
+	public $neededPermissions = array('admin.content.bbcode.canAddBBCode');
+	
+	/**
+	 * @see	wcf\page\AbstractPage::$templateName
+	 */
+	public $templateName = 'bbcodeAdd';
 	
 	/**
 	 * text-close value
@@ -62,28 +85,10 @@ class BBCodeAddForm extends AbstractForm {
 	public $textClose = '';
 	
 	/**
-	 * allowed-children value
+	 * text-open value
 	 * @var	string
 	 */
-	public $allowedChildren = 'all';
-	
-	/**
-	 * is-source-code value
-	 * @var	boolean
-	 */
-	public $isSourceCode = false;
-	
-	/**
-	 * class-name value
-	 * @var	string
-	 */
-	public $className = '';
-	
-	/**
-	 * Attributes
-	 * @var	array<object>
-	 */
-	public $attributes = array();
+	public $textOpen = '';
 	
 	/**
 	 * @see	wcf\form\IForm::readFormParameters()
@@ -101,6 +106,7 @@ class BBCodeAddForm extends AbstractForm {
 		if (isset($_POST['className'])) $this->className = StringUtil::trim($_POST['className']);
 		if (isset($_POST['attributes'])) $this->attributes = $_POST['attributes'];
 		
+		// TODO: The code below violates every implicit convention of value reading and type casting
 		$attributeNo = 0;
 		foreach ($this->attributes as $key => $val) {
 			$val['attributeNo'] = $attributeNo++;
