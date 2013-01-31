@@ -10,8 +10,8 @@ use wcf\util\StringUtil;
 /**
  * Shows the BBCode media provider add form.
  *
- * @author	Tim Düsterhus
- * @copyright	2011 Tim Düsterhus
+ * @author	Tim Duesterhus
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	acp.form
@@ -24,9 +24,20 @@ class BBCodeMediaProviderAddForm extends AbstractForm {
 	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaProvider.add';
 	
 	/**
+	 * html value
+	 * @var	string
+	 */
+	public $html = '';
+	
+	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
 	 */
 	public $neededPermissions = array('admin.content.bbcode.canAddBBCodeMediaProvider');
+	
+	/**
+	 * @see	wcf\page\AbstractPage::$templateName
+	 */
+	public $templateName = 'bbcodeMediaProviderAdd';
 	
 	/**
 	 * title value
@@ -39,12 +50,6 @@ class BBCodeMediaProviderAddForm extends AbstractForm {
 	 * @var	string
 	 */
 	public $regex = '';
-	
-	/**
-	 * html value
-	 * @var	string
-	 */
-	public $html = '';
 	
 	/**
 	 * @see	wcf\form\IForm::readFormParameters()
