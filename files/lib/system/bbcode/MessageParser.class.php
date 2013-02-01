@@ -193,7 +193,7 @@ class MessageParser extends BBCodeParser {
 				$replacement = $this->bbcodes[$tag['name']]->getProcessor()->getParsedTag($tag, $tag['content'], $tag, $this);
 			}
 			else {
-				$replacement = $this->buildOpeningTag($tag) . $tag['content'] . $this->buildClosingTag($tag);
+				$replacement = $this->buildOpeningTag($tag) . ($this->getOutputType() != 'text/plain' ? StringUtil::encodeHTML($tag['content']) : $tag['content']) . $this->buildClosingTag($tag);
 			}
 			
 			$text = str_replace($hash, $replacement, $text);
