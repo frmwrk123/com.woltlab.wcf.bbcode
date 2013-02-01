@@ -108,6 +108,10 @@ class CodeBBCode extends AbstractBBCode {
 				else if (StringUtil::indexOf($content, '\\documentclass') !== false) {
 					$className = '\wcf\system\bbcode\highlighter\TexHighlighter';
 				}
+				else if (Regex::compile('[-\\+\\.,\\[\\]\\>\\<]{9}')->match($content)) {
+					// 9 times a brainfuck char in a row -> seems to be brainfuck
+					$className = '\wcf\system\bbcode\highlighter\BrainfuckHighlighter';
+				}
 			}
 			
 			if (!class_exists($className)) {
