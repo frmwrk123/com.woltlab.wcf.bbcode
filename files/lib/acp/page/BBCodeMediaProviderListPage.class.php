@@ -5,8 +5,8 @@ use wcf\page\SortablePage;
 /**
  * Lists available media-providers
  * 
- * @author	Tim Düsterhus
- * @copyright	2011 - 2012 Tim Düsterhus
+ * @author	Tim Duesterhus
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	acp.page
@@ -19,9 +19,9 @@ class BBCodeMediaProviderListPage extends SortablePage {
 	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.mediaProvider.list';
 	
 	/**
-	 * @see	wcf\page\AbstractPage::$templateName
+	 * @see	wcf\page\MultipleLinkPage::$defaultSortField
 	 */
-	public $templateName = 'bbcodeMediaProviderList';
+	public $defaultSortField = 'title';
 	
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
@@ -34,9 +34,9 @@ class BBCodeMediaProviderListPage extends SortablePage {
 	public $objectListClassName = 'wcf\data\bbcode\media\provider\BBCodeMediaProviderList';
 	
 	/**
-	 * @see	wcf\page\MultipleLinkPage::$defaultSortField
+	 * @see	wcf\page\AbstractPage::$templateName
 	 */
-	public $defaultSortField = 'title';
+	public $templateName = 'bbcodeMediaProviderList';
 	
 	/**
 	 * @see	wcf\page\MultipleLinkPage::$validSortFields

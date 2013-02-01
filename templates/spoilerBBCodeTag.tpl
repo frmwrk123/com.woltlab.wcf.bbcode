@@ -10,6 +10,7 @@
 	</div>
 </div>
 
+<!-- begin:parser_nonessential -->
 <script type="text/javascript">
 	//<![CDATA[
 	$(function() {
@@ -21,3 +22,4 @@
 	});
 	//]]>
 </script>
+<!-- end:parser_nonessential -->

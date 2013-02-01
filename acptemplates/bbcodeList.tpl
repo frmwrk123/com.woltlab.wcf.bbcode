@@ -21,7 +21,7 @@
 	{if $__wcf->session->getPermission('admin.content.bbcode.canAddBBCode')}
 		<nav>
 			<ul>
-				<li><a href="{link controller='BBCodeAdd'}{/link}" title="{lang}wcf.acp.bbcode.add{/lang}" class="button"><img src="{@$__wcf->getPath()}icon/add.svg" alt="" class="icon24" /> <span>{lang}wcf.acp.bbcode.add{/lang}</span></a></li>
+				<li><a href="{link controller='BBCodeAdd'}{/link}" title="{lang}wcf.acp.bbcode.add{/lang}" class="button"><span class="icon icon16 icon-plus"></span> <span>{lang}wcf.acp.bbcode.add{/lang}</span></a></li>
 			</ul>
 		</nav>
 	{/if}
@@ -36,9 +36,9 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="columnID columnBBCodeID{if $sortField == 'bbcodeID'} active{/if}" colspan="2"><a href="{link controller='BBCodeList'}pageNo={@$pageNo}&sortField=bbcodeID&sortOrder={if $sortField == 'bbcodeID' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.global.objectID{/lang}{if $sortField == 'bbcodeID'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
-					<th class="columnTitle columnBBCode{if $sortField == 'bbcodeTag'} active{/if}"><a href="{link controller='BBCodeList'}pageNo={@$pageNo}&sortField=bbcodeTag&sortOrder={if $sortField == 'bbcodeTag' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.bbcode.bbcodeTag{/lang}{if $sortField == 'bbcodeTag'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
-					<th class="columnText columnClassName{if $sortField == 'className'} active{/if}"><a href="{link controller='BBCodeList'}pageNo={@$pageNo}&sortField=className&sortOrder={if $sortField == 'className' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.bbcode.className{/lang}{if $sortField == 'className'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
+					<th class="columnID columnBBCodeID{if $sortField == 'bbcodeID'} active {@$sortOrder}{/if}" colspan="2"><a href="{link controller='BBCodeList'}pageNo={@$pageNo}&sortField=bbcodeID&sortOrder={if $sortField == 'bbcodeID' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.global.objectID{/lang}</a></th>
+					<th class="columnTitle columnBBCode{if $sortField == 'bbcodeTag'} active {@$sortOrder}{/if}"><a href="{link controller='BBCodeList'}pageNo={@$pageNo}&sortField=bbcodeTag&sortOrder={if $sortField == 'bbcodeTag' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.bbcode.bbcodeTag{/lang}</a></th>
+					<th class="columnText columnClassName{if $sortField == 'className'} active {@$sortOrder}{/if}"><a href="{link controller='BBCodeList'}pageNo={@$pageNo}&sortField=className&sortOrder={if $sortField == 'className' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.bbcode.className{/lang}</a></th>
 					
 					{event name='headColumns'}
 				</tr>
@@ -51,23 +51,19 @@
 							<td class="columnIcon">
 								{* toggle, edit, delete *}
 								{if $__wcf->session->getPermission('admin.content.bbcode.canEditBBCode')}
-									<img src="{@$__wcf->getPath()}icon/{if $bbcode->isDisabled}disabled{else}enabled{/if}.svg" alt="" title="{lang}wcf.global.button.{if $bbcode->isDisabled}enable{else}disable{/if}{/lang}" class="icon16 jsToggleButton jsTooltip" data-object-id="{@$bbcode->bbcodeID}" data-disable-message="{lang}wcf.global.button.disable{/lang}" data-enable-message="{lang}wcf.global.button.enable{/lang}" />
+									<span class="icon icon16 icon-{if $bbcode->isDisabled}off{else}circle-blank{/if} jsToggleButton jsTooltip pointer" title="{lang}wcf.global.button.{if $bbcode->isDisabled}enable{else}disable{/if}{/lang}" data-object-id="{@$bbcode->bbcodeID}" data-disable-message="{lang}wcf.global.button.disable{/lang}" data-enable-message="{lang}wcf.global.button.enable{/lang}"></span>
 								{else}
 									{if $bbcode->isDisabled}
-										<img src="{@$__wcf->getPath()}icon/disabled.svg" alt="" title="{lang}wcf.global.button.enable{/lang}" class="icon16 disabled" />
+										<span class="icon icon16 icon-off disabled" title="{lang}wcf.global.button.enable{/lang}"></span>
 									{else}
-										<img src="{@$__wcf->getPath()}icon/enabled.svg" alt="" title="{lang}wcf.global.button.disable{/lang}" class="icon16 disabled" />
+										<span class="icon icon16 icon-circle-blank disabled" title="{lang}wcf.global.button.disable{/lang}"></span>
 									{/if}
 								{/if}
 								{if $__wcf->session->getPermission('admin.content.bbcode.canEditBBCode')}
-									<a href="{link controller='BBCodeEdit' id=$bbcode->bbcodeID}{/link}"><img src="{@$__wcf->getPath()}icon/edit.svg" alt="" title="{lang}wcf.global.button.edit{/lang}" class="icon16 jsTooltip" /></a>
-								{else}
-									<img src="{@$__wcf->getPath()}icon/edit.svg" alt="" title="{lang}wcf.global.button.edit{/lang}" class="icon16 disabled" />
+									<a href="{link controller='BBCodeEdit' id=$bbcode->bbcodeID}{/link}" title="{lang}wcf.global.button.edit{/lang}" class="jsTooltip"><span class="icon icon16 icon-pencil"></span></a>
 								{/if}
 								{if $__wcf->session->getPermission('admin.content.bbcode.canDeleteBBCode')}
-									<img src="{@$__wcf->getPath()}icon/delete.svg" alt="" title="{lang}wcf.global.button.delete{/lang}" class="icon16 jsDeleteButton jsTooltip" data-object-id="{@$bbcode->bbcodeID}" data-confirm-message="{lang}wcf.acp.bbcode.delete.sure{/lang}" />
-								{else}
-									<img src="{@$__wcf->getPath()}icon/delete.svg" alt="" title="{lang}wcf.global.button.delete{/lang}" class="icon16 disabled" />
+									<span class="icon icon16 icon-remove jsDeleteButton jsTooltip pointer" title="{lang}wcf.global.button.delete{/lang}" data-object-id="{@$bbcode->bbcodeID}" data-confirm-message="{lang}wcf.acp.bbcode.delete.sure{/lang}"></span>
 								{/if}
 								
 								{event name='buttons'}
@@ -91,7 +87,7 @@
 		{if $__wcf->session->getPermission('admin.content.bbcode.canAddBBCode')}
 			<nav>
 				<ul>
-					<li><a href="{link controller='BBCodeAdd'}{/link}" title="{lang}wcf.acp.bbcode.add{/lang}" class="button"><img src="{@$__wcf->getPath()}icon/add.svg" alt="" class="icon24" /> <span>{lang}wcf.acp.bbcode.add{/lang}</span></a></li>
+					<li><a href="{link controller='BBCodeAdd'}{/link}" title="{lang}wcf.acp.bbcode.add{/lang}" class="button"><span class="icon icon16 icon-plus"></span> <span>{lang}wcf.acp.bbcode.add{/lang}</span></a></li>
 				</ul>
 			</nav>
 		{/if}

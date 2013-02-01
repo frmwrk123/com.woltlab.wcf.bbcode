@@ -5,8 +5,8 @@ use wcf\page\SortablePage;
 /**
  * Lists available bbcodes
  * 
- * @author	Tim Düsterhus
- * @copyright	2011 Tim Düsterhus
+ * @author	Tim Duesterhus
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	acp.page
@@ -19,6 +19,11 @@ class BBCodeListPage extends SortablePage {
 	public $activeMenuItem = 'wcf.acp.menu.link.bbcode.list';
 	
 	/**
+	 * @see	wcf\page\MultipleLinkPage::$defaultSortField
+	 */
+	public $defaultSortField = 'bbcodeTag';
+	
+	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
 	 */
 	public $neededPermissions = array('admin.content.bbcode.canEditBBCode', 'admin.content.bbcode.canDeleteBBCode');
@@ -29,9 +34,9 @@ class BBCodeListPage extends SortablePage {
 	public $objectListClassName = 'wcf\data\bbcode\BBCodeList';
 	
 	/**
-	 * @see	wcf\page\MultipleLinkPage::$defaultSortField
+	 * @see	wcf\page\AbstractPage::$templateName
 	 */
-	public $defaultSortField = 'bbcodeTag';
+	public $templateName = 'bbcodeList';
 	
 	/**
 	 * @see	wcf\page\MultipleLinkPage::$validSortFields
