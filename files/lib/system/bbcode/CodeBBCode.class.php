@@ -64,6 +64,9 @@ class CodeBBCode extends AbstractBBCode {
 					case 'JavascriptHighlighter':
 						$className = '\wcf\system\bbcode\highlighter\JsHighlighter';
 					break;
+					case 'LatexHighlighter':
+						$className = '\wcf\system\bbcode\highlighter\TexHighlighter';
+					break;
 				}
 			}
 			else {
@@ -101,6 +104,9 @@ class CodeBBCode extends AbstractBBCode {
 				}
 				else if (Regex::compile('^#!/bin/(ba|z)?sh')->match($content)) {
 					$className = '\wcf\system\bbcode\highlighter\BashHighlighter';
+				}
+				else if (StringUtil::indexOf($content, '\\documentclass') !== false) {
+					$className = '\wcf\system\bbcode\highlighter\TexHighlighter';
 				}
 			}
 			
