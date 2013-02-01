@@ -21,6 +21,7 @@ class TexHighlighter extends Highlighter {
 	 * @see wcf\system\bbcode\highlighter\Highlighter::highlightKeywords()
 	 */
 	protected function highlightKeywords($string) {
+		$string = Regex::compile('\\$([^\\$]*)\\$', Regex::DOT_ALL)->replace($string, '<span class="hlKeywords2">\\0</span>');
 		$string = Regex::compile('(\\\\(?:[a-z]+))(\\[[^\\]\\\\]+\\])?(\\{[^\\}]*\\})?', Regex::CASE_INSENSITIVE)->replace($string, '<span class="hlKeywords3">\\1</span><span class="hlKeywords4">\\2</span><span class="hlKeywords1">\\3</span>');
 		$string = str_replace('\\\\', '<span class="hlKeywords3">\\\\</span>', $string);
 		
