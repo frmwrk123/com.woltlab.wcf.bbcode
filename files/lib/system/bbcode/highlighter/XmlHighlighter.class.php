@@ -2,6 +2,8 @@
 namespace wcf\system\bbcode\highlighter;
 use wcf\system\Callback;
 use wcf\system\Regex;
+use wcf\util\StringStack;
+use wcf\util\StringUtil;
 
 /**
  * Highlights syntax of xml sourcecode.
@@ -25,7 +27,7 @@ class XmlHighlighter extends Highlighter {
 	const XML_ATTRIBUTE_NAME = '[a-z0-9](?:(?:(?<!-)-)?[a-z0-9])*';
 	
 	/**
-	 * @see	Highlighter::highlightKeywords()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlightKeywords()
 	 */
 	protected function highlightKeywords($string) {
 		$string = parent::highlightKeywords($string);
@@ -45,10 +47,12 @@ class XmlHighlighter extends Highlighter {
 	/**
 	 * Highlight CDATA-Tags as quotes.
 	 *
-	 * @see	Highlighter::cacheQuotes()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::cacheQuotes()
 	 */
 	protected function cacheQuotes($string) {
-		$string = Regex::compile('<!\[CDATA\[.*?\]\]>', Regex::DOT_ALL)->replace($string, new Callback(array($this, 'cacheQuote')));
+		$string = Regex::compile('<!\[CDATA\[.*?\]\]>', Regex::DOT_ALL)->replace($string, new Callback(function (array $matches) {
+			return StringStack::pushToStringStack('<span class="hlQuotes">'.StringUtil::encodeHTML($matches[0]).'</span>', 'highlighterQuotes');
+		}));
 		
 		$string = parent::cacheQuotes($string);
 		

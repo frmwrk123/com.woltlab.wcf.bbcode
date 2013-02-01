@@ -4,6 +4,7 @@ use wcf\system\Callback;
 use wcf\system\Regex;
 use wcf\system\SingletonFactory;
 use wcf\system\WCF;
+use wcf\util\StringStack;
 use wcf\util\StringUtil;
 
 /**
@@ -33,10 +34,6 @@ abstract class Highlighter extends SingletonFactory {
 	public $quotesRegEx = null;
 	public $separatorsRegEx = '';
 	
-	// cache
-	protected $cachedComments = array();
-	protected $cachedQuotes = array();
-	
 	/**
 	 * Creates a new Highlighter object.
 	 */
@@ -63,8 +60,6 @@ abstract class Highlighter extends SingletonFactory {
 	 * @return	string
 	 */
 	public function highlight($string) {
-		$this->cachedComments = $this->cachedQuotes = array();
-		
 		// cache comments
 		$string = $this->cacheComments($string);
 		
@@ -141,7 +136,25 @@ abstract class Highlighter extends SingletonFactory {
 	 * Caches comments.
 	 */
 	protected function cacheComments($string) {
-		$string = $this->cacheCommentsRegEx->replace($string, new Callback(array($this, 'cacheComment')));
+		if ($this->cacheCommentsRegEx !== null) {
+			$string = $this->cacheCommentsRegEx->replace($string, new Callback(function (array $matches) {
+				$string = $matches[1];
+				if (isset($matches[2])) $comment = $matches[2];
+				else $comment = '';
+				
+				// strip slashes
+				$string = str_replace("\\\"", "\"", $string);
+				$hash = '';
+				if (!empty($comment)) {
+					$comment = str_replace("\\\"", "\"", $comment);
+						
+					// create hash
+					$hash = StringStack::pushToStringStack('<span class="hlComments">'.StringUtil::encodeHTML($comment).'</span>', 'highlighterComments');
+				}
+				
+				return $string.$hash;
+			}));
+		}
 		
 		return $string;
 	}
@@ -151,7 +164,9 @@ abstract class Highlighter extends SingletonFactory {
 	 */
 	protected function cacheQuotes($string) {
 		if ($this->quotesRegEx !== null) {
-			$string = $this->quotesRegEx->replace($string, new Callback(array($this, 'cacheQuote')));
+			$string = $this->quotesRegEx->replace($string, new Callback(function (array $matches) {
+				return StringStack::pushToStringStack('<span class="hlQuotes">'.StringUtil::encodeHTML($matches[0]).'</span>', 'highlighterQuotes');
+			}));
 		}
 		
 		return $string;
@@ -209,62 +224,13 @@ abstract class Highlighter extends SingletonFactory {
 	 * Highlights quotes.
 	 */
 	protected function highlightQuotes($string) {
-		if (!empty($this->cachedQuotes)) {
-			foreach ($this->cachedQuotes as $hash => $html) {
-				$string = str_replace($hash, $html, $string);
-			}
-		}
-		
-		return $string;
+		return StringStack::reinsertStrings($string, 'highlighterQuotes');
 	}
 	
 	/**
 	 * Highlights comments.
 	 */
 	protected function highlightComments($string) {
-		if (!empty($this->cachedComments)) {
-			foreach ($this->cachedComments as $hash => $html) {
-				$string = str_replace($hash, $html, $string);
-			}
-		}
-		
-		return $string;
-	}
-	
-	/**
-	 * Caches a source code comment.
-	 */
-	public function cacheComment(array $matches) {
-		$string = $matches[1];
-		if (isset($matches[2])) $comment = $matches[2];
-		else $comment = '';
-		
-		// strip slashes
-		$string = str_replace("\\\"", "\"", $string);
-		$hash = '';
-		if (!empty($comment)) {
-			$comment = str_replace("\\\"", "\"", $comment);
-			
-			// create hash
-			$hash = '@@'.StringUtil::getHash(uniqid(microtime()).$comment).'@@';
-			
-			// save
-			$this->cachedComments[$hash] = '<span class="hlComments">'.StringUtil::encodeHTML($comment).'</span>';
-		}
-		
-		return $string.$hash;
-	}
-	
-	/**
-	 * Caches a quote.
-	 */
-	public function cacheQuote(array $matches) {
-		// create hash
-		$hash = '@@'.StringUtil::getHash(uniqid(microtime()).$matches[0]).'@@';
-		
-		// save
-		$this->cachedQuotes[$hash] = '<span class="hlQuotes">'.StringUtil::encodeHTML($matches[0]).'</span>';
-		
-		return $hash;
+		return StringStack::reinsertStrings($string, 'highlighterComments');
 	}
 }
