@@ -22,7 +22,7 @@ class TexHighlighter extends Highlighter {
 	 */
 	protected function highlightKeywords($string) {
 		$string = Regex::compile('(\\\\(?:[a-z]+))(\\[[^\\]\\\\]+\\])?(\\{[^\\}]*\\})?', Regex::CASE_INSENSITIVE)->replace($string, '<span class="hlKeywords3">\\1</span><span class="hlKeywords4">\\2</span><span class="hlKeywords1">\\3</span>');
-		$string = Regex::compile('\\\\\\\\')->replace($string, '<span class="hlKeywords3">\\0</span>');
+		$string = str_replace('\\\\', '<span class="hlKeywords3">\\\\</span>', $string);
 		
 		return $string;
 	}
