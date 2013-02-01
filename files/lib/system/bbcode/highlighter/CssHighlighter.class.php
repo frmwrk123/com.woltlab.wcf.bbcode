@@ -23,7 +23,7 @@ class CssHighlighter extends Highlighter {
 	);
 	
 	/**
-	 * Highlights numbers.
+	 * @see wcf\system\bbcode\highlighter\Highlighter::highlightNumbers()
 	 */
 	protected function highlightNumbers($string) {
 		$string = preg_replace('!(?<='.$this->separatorsRegEx.')(-?\d+(?:px|pt|em|%|ex|in|cm|mm|pc)?)(?='.$this->separatorsRegEx.')!i', '<span class="hlNumbers">\\0</span>', $string);
@@ -34,6 +34,9 @@ class CssHighlighter extends Highlighter {
 		return $string;
 	}
 	
+	/**
+	 * @see wcf\system\bbcode\highlighter\Highlighter::highlightKeywords()
+	 */
 	protected function highlightKeywords($string) {
 		$string = parent::highlightKeywords($string);
 		$string = preg_replace('!(?<='.$this->separatorsRegEx.')(@[a-z0-9-]+)(?='.$this->separatorsRegEx.')!i', '<span class="hlKeywords5">\\0</span>', $string);
@@ -41,6 +44,9 @@ class CssHighlighter extends Highlighter {
 		return $string;
 	}
 	
+	/**
+	 * @see wcf\system\bbcode\highlighter\Highlighter::highlight()
+	 */
 	public function highlight($string) {
 		$string = str_replace('span', '053a0024219422ca9215c0a3ed0578ee76cff477', $string); // fix to not highlight the spans of the highlighter
 		$string = str_replace(':link', ':li@@nk', $string); // fix to highlight pseudo-class different than tag

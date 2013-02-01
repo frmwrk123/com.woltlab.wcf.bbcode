@@ -1,5 +1,6 @@
 <?php
 namespace wcf\system\bbcode\highlighter;
+use wcf\system\Regex;
 
 /**
  * Highlights syntax of TeX source code.
@@ -17,11 +18,12 @@ class TexHighlighter extends Highlighter {
 	protected $singleLineComment = array('%');
 	
 	/**
-	 * Highlights keywords.
+	 * @see wcf\system\bbcode\highlighter\Highlighter::highlightKeywords()
 	 */
 	protected function highlightKeywords($string) {
-		$string = preg_replace('!(\\\\(?:[a-z]+))(\\[[^\\]\\\\]+\\])?(\\{[^\\}]*\\})?!i', '<span class="hlKeywords3">\\1</span><span class="hlKeywords4">\\2</span><span class="hlKeywords1">\\3</span>', $string);
-		$string = preg_replace('!\\\\\\\\!', '<span class="hlKeywords3">\\0</span>', $string);
+		$string = Regex::compile('(\\\\(?:[a-z]+))(\\[[^\\]\\\\]+\\])?(\\{[^\\}]*\\})?', Regex::CASE_INSENSITIVE)->replace($string, '<span class="hlKeywords3">\\1</span><span class="hlKeywords4">\\2</span><span class="hlKeywords1">\\3</span>');
+		$string = Regex::compile('\\\\\\\\')->replace($string, '<span class="hlKeywords3">\\0</span>');
+		
 		return $string;
 	}
 	
