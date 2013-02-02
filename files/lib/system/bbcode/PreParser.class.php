@@ -7,6 +7,7 @@ use wcf\system\request\LinkHandler;
 use wcf\system\Callback;
 use wcf\system\Regex;
 use wcf\system\SingletonFactory;
+use wcf\util\StringStack;
 use wcf\util\StringUtil;
 
 /**
@@ -31,12 +32,6 @@ class PreParser extends SingletonFactory {
 	 * @var	string
 	 */
 	protected $sourceCodeRegEx = '';
-	
-	/**
-	 * cached codes
-	 * @var	array
-	 */
-	public $cachedCodes = array();
 	
 	/**
 	 * text
@@ -76,10 +71,8 @@ class PreParser extends SingletonFactory {
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'afterParsing');
 		
-		if (!empty($this->cachedCodes)) {
-			// insert cached codes
-			$this->insertCachedCodes();
-		}
+		// insert cached codes
+		$this->insertCachedCodes();
 		
 		return $this->text;
 	}
@@ -162,15 +155,8 @@ class PreParser extends SingletonFactory {
 				(.*?)
 				(?:\[/\\2\])", Regex::DOT_ALL | Regex::IGNORE_WHITESPACE | Regex::CASE_INSENSITIVE);
 				
-				$_this = $this;
-				$callback = new Callback(function ($matches) use ($_this) {
-					// create hash
-					$hash = '@@'.StringUtil::getHash(uniqid(microtime()).$matches[0]).'@@';
-					
-					// save tag
-					$_this->cachedCodes[$hash] = $matches[0];
-					
-					return $hash;
+				$callback = new Callback(function ($matches) {
+					return StringStack::pushToStringStack($matches[0], 'preParserCode');
 				});
 			}
 			
@@ -183,6 +169,6 @@ class PreParser extends SingletonFactory {
 	 * Reinserts cached code bbcodes.
 	 */
 	protected function insertCachedCodes() {
-		$this->text = strtr($this->text, $this->cachedCodes);
+		$this->text = StringStack::reinsertStrings($this->text, 'preParserCode');
 	}
 }
