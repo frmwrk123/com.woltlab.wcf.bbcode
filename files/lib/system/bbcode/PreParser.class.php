@@ -1,5 +1,6 @@
 <?php
 namespace wcf\system\bbcode;
+use wcf\data\bbcode\media\provider\BBCodeMediaProvider;
 use wcf\data\bbcode\BBCodeCache;
 use wcf\system\event\EventHandler;
 use wcf\system\request\LinkHandler;
@@ -109,6 +110,7 @@ class PreParser extends SingletonFactory {
 	 */
 	protected function parseURLs() {
 		static $urlPattern = null;
+		static $callback = null;
 		if ($urlPattern === null) {
 			$urlPattern = new Regex('
 			(?<!\B|"|\'|=|/|\]|,|\?)
@@ -129,8 +131,18 @@ class PreParser extends SingletonFactory {
 				)*
 			)?', Regex::IGNORE_WHITESPACE | Regex::CASE_INSENSITIVE);
 		}
+		if ($callback === null) {
+			$_this = $this;
+			$callback = new Callback(function ($matches) use ($_this) {
+				if (BBCodeMediaProvider::isMediaURL($matches[0])) {
+					return '[media]'.$matches[0].'[/media]';
+				}
+				
+				return '[url]'.$matches[0].'[/url]';
+			});
+		}
 		
-		$this->text = $urlPattern->replace($this->text, '[url]\\0[/url]');
+		$this->text = $urlPattern->replace($this->text, $callback);
 	}
 	
 	/**

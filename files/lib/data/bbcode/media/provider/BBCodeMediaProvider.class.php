@@ -49,6 +49,22 @@ class BBCodeMediaProvider extends DatabaseObject {
 	}
 	
 	/**
+	 * Returns true, if given URL is a media URL.
+	 * 
+	 * @param	string		$url
+	 * @return	boolean
+	 */
+	public static function isMediaURL($url) {
+		foreach (static::getCache() as $provider) {
+			if ($provider->matches($url)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * Checks whether this provider matches the given URL.
 	 * 
 	 * @param	string		$url
