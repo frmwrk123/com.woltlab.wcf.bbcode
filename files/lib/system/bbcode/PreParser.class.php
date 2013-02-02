@@ -132,8 +132,7 @@ class PreParser extends SingletonFactory {
 			)?', Regex::IGNORE_WHITESPACE | Regex::CASE_INSENSITIVE);
 		}
 		if ($callback === null) {
-			$_this = $this;
-			$callback = new Callback(function ($matches) use ($_this) {
+			$callback = new Callback(function ($matches) {
 				if (BBCodeMediaProvider::isMediaURL($matches[0])) {
 					return '[media]'.$matches[0].'[/media]';
 				}
