@@ -7,17 +7,17 @@ use wcf\util\StringUtil;
  * Caches the smilies.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.cache.builder
  * @category	Community Framework
  */
-class SmileyCacheBuilder implements ICacheBuilder {
+class SmileyCacheBuilder extends AbstractCacheBuilder {
 	/**
-	 * @see	wcf\system\cache\ICacheBuilder::getData()
+	 * @see	wcf\system\cache\builder\AbstractCacheBuilder::rebuild()
 	 */
-	public function getData(array $cacheResource) {
+	protected function rebuild(array $parameters) {
 		$data = array('categories' => array(), 'smilies' => array());
 		
 		// get categories

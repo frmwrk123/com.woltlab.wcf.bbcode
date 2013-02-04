@@ -1,13 +1,13 @@
 <?php
 namespace wcf\data\smiley;
-use wcf\system\cache\CacheHandler;
+use wcf\system\cache\builder\SmileyCacheBuilder;
 use wcf\system\SingletonFactory;
 
 /**
  * Manages the smiley cache.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.smiley
@@ -31,13 +31,8 @@ class SmileyCache extends SingletonFactory {
 	 */
 	protected function init() {
 		// get smiley cache
-		CacheHandler::getInstance()->addResource(
-			'smiley',
-			WCF_DIR.'cache/cache.smiley.php',
-			'wcf\system\cache\builder\SmileyCacheBuilder'
-		);
-		$this->cachedSmilies = CacheHandler::getInstance()->get('smiley', 'smilies');
-		$this->cachedCategories = CacheHandler::getInstance()->get('smiley', 'categories');
+		$this->cachedSmilies = SmileyCacheBuilder::getInstance()->getData(array(), 'smilies');
+		$this->cachedCategories = SmileyCacheBuilder::getInstance()->getData(array(), 'categories');
 	}
 	
 	/**

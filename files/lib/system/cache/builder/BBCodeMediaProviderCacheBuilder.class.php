@@ -5,18 +5,18 @@ use wcf\data\bbcode\media\provider\BBCodeMediaProviderList;
 /**
  * Caches the BBCode media providers.
  * 
- * @author	Tim Düsterhus
- * @copyright	2011-2012 Tim Düsterhus
+ * @author	Tim Duesterhus
+ * @copyright	2011-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.cache.builder
  * @category	Community Framework
  */
-class BBCodeMediaProviderCacheBuilder implements ICacheBuilder {
+class BBCodeMediaProviderCacheBuilder extends AbstractCacheBuilder {
 	/**
-	 * @see	wcf\system\cache\ICacheBuilder::getData()
+	 * @see	wcf\system\cache\builder\AbstractCacheBuilder::rebuild()
 	 */
-	public function getData(array $cacheResource) {
+	protected function rebuild(array $parameters) {
 		$providerList = new BBCodeMediaProviderList();
 		$providerList->readObjects();
 		

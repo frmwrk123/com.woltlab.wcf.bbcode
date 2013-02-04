@@ -2,13 +2,13 @@
 namespace wcf\data\bbcode;
 use wcf\data\DatabaseObjectEditor;
 use wcf\data\IEditableCachedObject;
-use wcf\system\cache\CacheHandler;
+use wcf\system\cache\builder\BBCodeCacheBuilder;
 
 /**
  * Provides functions to edit bbcodes.
  *
  * @author	Alexander Ebert
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.bbcode
@@ -24,6 +24,6 @@ class BBCodeEditor extends DatabaseObjectEditor implements IEditableCachedObject
 	 * @see	wcf\data\IEditableCachedObject::resetCache()
 	 */
 	public static function resetCache() {
-		CacheHandler::getInstance()->clear(WCF_DIR.'cache', 'cache.bbcode.php');
+		BBCodeCacheBuilder::getInstance()->reset();
 	}
 }

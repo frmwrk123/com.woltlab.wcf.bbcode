@@ -1,15 +1,15 @@
 <?php
 namespace wcf\data\bbcode\media\provider;
 use wcf\data\DatabaseObject;
-use wcf\system\cache\CacheHandler;
+use wcf\system\cache\builder\BBCodeMediaProviderCacheBuilder;
 use wcf\system\Regex;
 use wcf\util\StringUtil;
 
 /**
  * Represents a BBCode media provider.
  * 
- * @author	Tim Düsterhus
- * @copyright	2011-2012 Tim Düsterhus
+ * @author	Tim Duesterhus
+ * @copyright	2011-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.bbcode.media.provider
@@ -37,12 +37,7 @@ class BBCodeMediaProvider extends DatabaseObject {
 	 */
 	public static function getCache() {
 		if (self::$cache === null) {
-			CacheHandler::getInstance()->addResource(
-				'bbcodeMediaProvider',
-				WCF_DIR.'cache/cache.bbcodeMediaProvider.php',
-				'wcf\system\cache\builder\BBCodeMediaProviderCacheBuilder'
-			);
-			self::$cache = CacheHandler::getInstance()->get('bbcodeMediaProvider');
+			self::$cache = BBCodeMediaProviderCacheBuilder::getInstance()->getData();
 		}
 		
 		return self::$cache;
