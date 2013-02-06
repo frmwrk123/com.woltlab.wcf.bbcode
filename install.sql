@@ -81,3 +81,6 @@ ALTER TABLE wcf1_smiley ADD FOREIGN KEY (smileyCategoryID) REFERENCES wcf1_smile
 -- Misc
 	-- github gist
 	INSERT INTO wcf1_bbcode_media_provider (title, regex, html) VALUES ('github gist', 'https://gist.github.com/(?<ID>[0-9a-zA-Z]+)\ngit@gist.github.com:(?<ID>[0-9a-zA-Z]+).git\ngit://gist.github.com/(?<ID>[0-9a-zA-Z]+).git', '<script src="https://gist.github.com/{$ID}.js"> </script>');
+	-- soundcloud
+	INSERT INTO wcf1_bbcode_media_provider (title, regex, html) VALUES ('Soundcloud', 'https://soundcloud.com/(?<artist>[a-zA-Z0-9_-]+)/(?<song>[a-zA-Z0-9_-]+)', '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fsoundcloud.com%2F{$artist}%2F{$song}"></iframe>');
+
