@@ -143,7 +143,7 @@ class CodeBBCode extends AbstractBBCode {
 	 * @param	array	$openingTag
 	 */
 	protected function mapAttributes(array $openingTag) {
-		// reset default vlaues
+		// reset default values
 		$this->codeType = '';
 		$this->startLineNumber = 1;
 		$this->filename = '';
