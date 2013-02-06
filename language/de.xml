@@ -83,9 +83,8 @@
 		<item name="wcf.bbcode.code.xml.title"><![CDATA[XML-Quellcode]]></item>
 		<item name="wcf.bbcode.quote.title"><![CDATA[{@$quoteAuthor} schrieb:]]></item>
 		<item name="wcf.bbcode.spoiler.show"><![CDATA[Spoiler anzeigen]]></item>
-		<item name="wcf.bbcode.quote.text"><![CDATA[Zitat{if $cite} von {$cite}{/if}: „{$content}“]]></item>
+		<item name="wcf.bbcode.quote.text"><![CDATA[Zitat{if $cite} von {@$cite}{/if}: „{@$content}“]]></item>
 		<item name="wcf.bbcode.spoiler.text"><![CDATA[(Versteckter Text)]]></item>
 		<item name="wcf.bbcode.code.text"><![CDATA[{@$highlighterTitle} ({#$lines} Zeile{if $lines != 1}n{/if})]]></item>
-		
 	</category>
 </language>
