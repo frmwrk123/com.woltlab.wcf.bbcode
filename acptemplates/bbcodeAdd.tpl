@@ -11,13 +11,6 @@
 		</dl>
 		
 		<dl>
-			<dt><label for="attributes[{ldelim}@$attributeNo}][attributeText]">{lang}wcf.acp.bbcode.attribute.attributeText{/lang}</label></dt>
-			<dd>
-				<input type="text" id="attributes[{ldelim}@$attributeNo}][attributeText]" name="attributes[{ldelim}@$attributeNo}][attributeText]" value="" class="long" />
-			</dd>
-		</dl>
-		
-		<dl>
 			<dt><label for="attributes[{ldelim}@$attributeNo}][validationPattern]">{lang}wcf.acp.bbcode.attribute.validationPattern{/lang}</label></dt>
 			<dd>
 				<input type="text" id="attributes[{ldelim}@$attributeNo}][validationPattern]" name="attributes[{ldelim}@$attributeNo}][validationPattern]" value="" class="long" />
@@ -122,20 +115,6 @@
 				</dd>
 			</dl>
 			
-			<dl{if $errorField == 'textOpen'} class="formError"{/if}>
-				<dt><label for="textOpen">{lang}wcf.acp.bbcode.textOpen{/lang}</label></dt>
-				<dd>
-					<input type="text" id="textOpen" name="textOpen" value="{$textOpen}" class="long" />
-				</dd>
-			</dl>
-			
-			<dl{if $errorField == 'textClose'} class="formError"{/if}>
-				<dt><label for="textClose">{lang}wcf.acp.bbcode.textClose{/lang}</label></dt>
-				<dd>
-					<input type="text" id="textClose" name="textClose" value="{$textClose}" class="long" />
-				</dd>
-			</dl>
-			
 			<dl{if $errorField == 'allowedChildren'} class="formError"{/if}>
 				<dt><label for="allowedChildren">{lang}wcf.acp.bbcode.allowedChildren{/lang}</label></dt>
 				<dd>
@@ -184,13 +163,6 @@
 						<dt><label for="attributes[{@$attribute->attributeNo}][attributeHtml]">{lang}wcf.acp.bbcode.attribute.attributeHtml{/lang}</label></dt>
 						<dd>
 							<input type="text" id="attributes[{@$attribute->attributeNo}][attributeHtml]" name="attributes[{@$attribute->attributeNo}][attributeHtml]" value="{$attribute->attributeHtml}" class="long" />
-						</dd>
-					</dl>
-					
-					<dl{if $errorField == 'attributeText'|concat:$attribute->attributeNo} class="formError"{/if}>
-						<dt><label for="attributes[{@$attribute->attributeNo}][attributeText]">{lang}wcf.acp.bbcode.attribute.attributeText{/lang}</label></dt>
-						<dd>
-							<input type="text" id="attributes[{@$attribute->attributeNo}][attributeText]" name="attributes[{@$attribute->attributeNo}][attributeText]" value="{$attribute->attributeText}" class="long" />
 						</dd>
 					</dl>
 					

@@ -84,17 +84,17 @@ class MessageParser extends BBCodeParser {
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
 		
-		if ($this->getOutputType() != 'text/plain') {
-			if ($enableBBCodes) {
-				// cache codes
-				$this->message = $this->cacheCodes($this->message);
-			}
+		if ($enableBBCodes) {
+			// cache codes
+			$this->message = $this->cacheCodes($this->message);
+		}
 			
-			if (!$enableHtml) {
-				// encode html
-				$this->message = StringUtil::encodeHTML($this->message);
-				
-				// converts newlines to <br />'s
+		if (!$enableHtml) {
+			// encode html
+			$this->message = StringUtil::encodeHTML($this->message);
+			
+			// converts newlines to <br />'s
+			if ($this->getOutputType() == 'text/html') {
 				$this->message = nl2br($this->message);
 			}
 		}
@@ -104,27 +104,25 @@ class MessageParser extends BBCodeParser {
 			$this->message = parent::parse($this->message);
 		}
 		
-		if ($this->getOutputType() != 'text/plain') {
-			// parse smilies
-			if ($enableSmilies) {
-				$this->message = $this->parseSmilies($this->message, $enableHtml);
-			}
-			
-			if ($enableBBCodes && !empty($this->cachedCodes)) {
-				// insert cached codes
-				$this->message = $this->insertCachedCodes($this->message);
-			}
-			
-			// highlight search query
-			if ($doKeywordHighlighting) {
-				$this->message = KeywordHighlighter::getInstance()->doHighlight($this->message);
-			}
-			
-			// replace bad html tags (script etc.)
-			$badSearch = array('/(javascript):/i', '/(about):/i', '/(vbscript):/i');
-			$badReplace = array('$1<b></b>:', '$1<b></b>:', '$1<b></b>:');
-			$this->message = preg_replace($badSearch, $badReplace, $this->message);
+		// parse smilies
+		if ($enableSmilies) {
+			$this->message = $this->parseSmilies($this->message, $enableHtml);
 		}
+		
+		if ($enableBBCodes && !empty($this->cachedCodes)) {
+			// insert cached codes
+			$this->message = $this->insertCachedCodes($this->message);
+		}
+		
+		// highlight search query
+		if ($doKeywordHighlighting) {
+			$this->message = KeywordHighlighter::getInstance()->doHighlight($this->message);
+		}
+		
+		// replace bad html tags (script etc.)
+		$badSearch = array('/(javascript):/i', '/(about):/i', '/(vbscript):/i');
+		$badReplace = array('$1<b></b>:', '$1<b></b>:', '$1<b></b>:');
+		$this->message = preg_replace($badSearch, $badReplace, $this->message);
 		
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'afterParsing');
@@ -193,7 +191,7 @@ class MessageParser extends BBCodeParser {
 				$replacement = $this->bbcodes[$tag['name']]->getProcessor()->getParsedTag($tag, $tag['content'], $tag, $this);
 			}
 			else {
-				$replacement = $this->buildOpeningTag($tag) . ($this->getOutputType() != 'text/plain' ? StringUtil::encodeHTML($tag['content']) : $tag['content']) . $this->buildClosingTag($tag);
+				$replacement = $this->buildOpeningTag($tag) . StringUtil::encodeHTML($tag['content']) . $this->buildClosingTag($tag);
 			}
 			
 			$text = str_replace($hash, $replacement, $text);

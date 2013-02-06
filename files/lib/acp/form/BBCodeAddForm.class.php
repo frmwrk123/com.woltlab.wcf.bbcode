@@ -79,18 +79,6 @@ class BBCodeAddForm extends AbstractForm {
 	public $templateName = 'bbcodeAdd';
 	
 	/**
-	 * text-close value
-	 * @var	string
-	 */
-	public $textClose = '';
-	
-	/**
-	 * text-open value
-	 * @var	string
-	 */
-	public $textOpen = '';
-	
-	/**
 	 * @see	wcf\form\IForm::readFormParameters()
 	 */
 	public function readFormParameters() {
@@ -99,8 +87,6 @@ class BBCodeAddForm extends AbstractForm {
 		if (isset($_POST['bbcodeTag'])) $this->bbcodeTag = StringUtil::trim($_POST['bbcodeTag']);
 		if (isset($_POST['htmlOpen'])) $this->htmlOpen = StringUtil::trim($_POST['htmlOpen']);
 		if (isset($_POST['htmlClose'])) $this->htmlClose = StringUtil::trim($_POST['htmlClose']);
-		if (isset($_POST['textOpen'])) $this->textOpen = StringUtil::trim($_POST['textOpen']);
-		if (isset($_POST['textClose'])) $this->textClose = StringUtil::trim($_POST['textClose']);
 		if (isset($_POST['allowedChildren'])) $this->allowedChildren = StringUtil::trim($_POST['allowedChildren']);
 		if (isset($_POST['isSourceCode'])) $this->isSourceCode = true;
 		if (isset($_POST['className'])) $this->className = StringUtil::trim($_POST['className']);
@@ -179,8 +165,6 @@ class BBCodeAddForm extends AbstractForm {
 			'bbcodeTag' => $this->bbcodeTag,
 			'htmlOpen' => $this->htmlOpen,
 			'htmlClose' => $this->htmlClose,
-			'textOpen' => $this->textOpen,
-			'textClose' => $this->textClose,
 			'allowedChildren' => $this->allowedChildren,
 			'isSourceCode' => (int) $this->isSourceCode,
 			'className' => $this->className,
@@ -192,7 +176,6 @@ class BBCodeAddForm extends AbstractForm {
 				'bbcodeID' => $returnValues['returnValues']->bbcodeID,
 				'attributeNo' => $attribute->attributeNo,
 				'attributeHtml' => $attribute->attributeHtml,
-				'attributeText' => $attribute->attributeText,
 				'validationPattern' => $attribute->validationPattern,
 				'required' => $attribute->required,
 				'useText' => $attribute->useText,
@@ -203,7 +186,7 @@ class BBCodeAddForm extends AbstractForm {
 		$this->saved();
 		
 		// reset values
-		$this->bbcodeTag = $this->htmlOpen = $this->htmlClose = $this->textOpen = $this->textClose = $this->className = '';
+		$this->bbcodeTag = $this->htmlOpen = $this->htmlClose = $this->className = '';
 		$this->allowedChildren = 'all';
 		$this->attributes = array();
 		
@@ -224,8 +207,6 @@ class BBCodeAddForm extends AbstractForm {
 			'bbcodeTag' => $this->bbcodeTag,
 			'htmlOpen' => $this->htmlOpen,
 			'htmlClose' => $this->htmlClose,
-			'textOpen' => $this->textOpen,
-			'textClose' => $this->textClose,
 			'allowedChildren' => $this->allowedChildren,
 			'isSourceCode' => $this->isSourceCode,
 			'className' => $this->className,

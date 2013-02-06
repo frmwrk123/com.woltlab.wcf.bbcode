@@ -48,7 +48,7 @@ class ListBBCode extends AbstractBBCode {
 					
 					return '<'.$listHTML.' style="list-style-type: '.$listType.'" class="nativeList"><li>'.implode('</li><li>', $listElements).'</li></'.$listHTML.'>';
 				}
-				else if ($parser->getOutputType() == 'text/plain') {
+				else if ($parser->getOutputType() == 'text/simplified-html') {
 					$result = '';
 					
 					$i = 1;

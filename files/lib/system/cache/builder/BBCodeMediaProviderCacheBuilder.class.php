@@ -20,6 +20,6 @@ class BBCodeMediaProviderCacheBuilder extends AbstractCacheBuilder {
 		$providerList = new BBCodeMediaProviderList();
 		$providerList->readObjects();
 		
-		return $providerList;
+		return $providerList->getObjects();
 	}
 }

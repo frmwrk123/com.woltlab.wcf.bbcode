@@ -148,20 +148,7 @@ class SimpleMessageParser extends SingletonFactory {
 	 * @see	\wcf\system\bbcode\SimpleMessageParser::parseURLs()
 	 */
 	protected function parseURLsCallback($matches) {
-		$url = $title = $matches[0];
-		$decodedTitle = StringUtil::decodeHTML($title);
-		if (StringUtil::length($decodedTitle) > 60) {
-			$title = StringUtil::encodeHTML(StringUtil::substring($decodedTitle, 0, 40)) . StringUtil::HELLIP . StringUtil::encodeHTML(StringUtil::substring($decodedTitle, -15));
-		}
-		// add protocol if necessary
-		if (!preg_match("~[a-z]://~si", $url)) $url = 'http://'.$url;
-		
-		$external = true;
-		if (ApplicationHandler::getInstance()->isInternalURL($url)) {
-			$external = false;
-		}
-		
-		return '<a href="'.$url.'"'.($external ? (' class="externalURL"'.(EXTERNAL_LINK_REL_NOFOLLOW ? ' rel="nofollow"' : '').(EXTERNAL_LINK_TARGET_BLANK ? ' target="_blank"' : '')) : '').'>'.$title.'</a>';
+		return StringUtil::getAnchorTag(StringUtil::decodeHTML($matches[0]));
 	}
 	
 	/**

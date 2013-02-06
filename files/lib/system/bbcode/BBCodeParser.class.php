@@ -269,11 +269,8 @@ class BBCodeParser extends SingletonFactory {
 		foreach ($this->bbcodes[$tag['name']]->getAttributes() as $attribute) {
 			if (isset($tag['attributes'][$attribute->attributeNo])) {
 				$atrributeString = '';
-				if ($this->outputType == 'text/html' && !empty($attribute->attributeHtml)) {
+				if (!empty($attribute->attributeHtml)) {
 					$atrributeString = ' '.$attribute->attributeHtml;
-				}
-				if ($this->outputType == 'text/plain') {
-					$atrributeString = $attribute->attributeText;
 				}
 				
 				if (!empty($atrributeString)) {
@@ -283,15 +280,8 @@ class BBCodeParser extends SingletonFactory {
 		}
 		
 		// build tag
-		if ($this->outputType == 'text/html') {
-			if (!empty($this->bbcodes[$tag['name']]->htmlOpen)) {
-				return '<'.$this->bbcodes[$tag['name']]->htmlOpen.$attributesString.(empty($this->bbcodes[$tag['name']]->htmlClose) ? ' /' : '').'>';
-			}
-		}
-		else if ($this->outputType == 'text/plain') {
-			if (!empty($this->bbcodes[$tag['name']]->textOpen) || !empty($attributesString)) {
-				return $this->bbcodes[$tag['name']]->textOpen.$attributesString;
-			}
+		if (!empty($this->bbcodes[$tag['name']]->htmlOpen)) {
+			return '<'.$this->bbcodes[$tag['name']]->htmlOpen.$attributesString.(empty($this->bbcodes[$tag['name']]->htmlClose) ? ' /' : '').'>';
 		}
 		
 		return '';
@@ -304,13 +294,8 @@ class BBCodeParser extends SingletonFactory {
 	 * @return	string
 	 */
 	protected function buildClosingTag(array $tag) {
-		if ($this->outputType == 'text/html') {
-			if (!empty($this->bbcodes[$tag['name']]->htmlClose)) {
-				return '</'.$this->bbcodes[$tag['name']]->htmlClose.'>';
-			}
-		}
-		else if ($this->outputType == 'text/plain') {
-			return $this->bbcodes[$tag['name']]->textClose;
+		if (!empty($this->bbcodes[$tag['name']]->htmlClose)) {
+			return '</'.$this->bbcodes[$tag['name']]->htmlClose.'>';
 		}
 		
 		return '';

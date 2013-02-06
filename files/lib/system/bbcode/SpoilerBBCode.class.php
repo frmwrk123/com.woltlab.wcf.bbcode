@@ -26,8 +26,8 @@ class SpoilerBBCode extends AbstractBBCode {
 			));
 			return WCF::getTPL()->fetch('spoilerBBCodeTag');
 		}
-		else if ($parser->getOutputType() == 'text/plain') {
-			return $content;
+		if ($parser->getOutputType() == 'text/simplified-html') {
+			return WCF::getLanguage()->get('wcf.bbcode.spoiler.text');
 		}
 	}
 }

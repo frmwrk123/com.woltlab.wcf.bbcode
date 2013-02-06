@@ -43,81 +43,82 @@ class CodeBBCode extends AbstractBBCode {
 	 * @see	wcf\system\bbcode\IBBCode::getParsedTag()
 	 */
 	public function getParsedTag(array $openingTag, $content, array $closingTag, BBCodeParser $parser) {
-		if ($parser->getOutputType() == 'text/html') {
-			// encode html
-			$content = self::trim($content);
-			
-			$this->mapAttributes($openingTag);
-			
-			// fetch highlighter-classname
-			$className = '\wcf\system\bbcode\highlighter\PlainHighlighter';
-			if ($this->codeType) {
-				$className = '\wcf\system\bbcode\highlighter\\'.StringUtil::firstCharToUpperCase(StringUtil::toLowerCase($this->codeType)).'Highlighter';
-				
-				switch (StringUtil::substring($className, strlen('\wcf\system\bbcode\highlighter\\'))) {
-					case 'ShellHighlighter':
-						$className = '\wcf\system\bbcode\highlighter\BashHighlighter';
+		// encode html
+		$content = self::trim($content);
+
+		// get attributes
+		$this->mapAttributes($openingTag);
+		
+		// fetch highlighter-classname
+		$className = '\wcf\system\bbcode\highlighter\PlainHighlighter';
+		if ($this->codeType) {
+			$className = '\wcf\system\bbcode\highlighter\\'.StringUtil::firstCharToUpperCase(StringUtil::toLowerCase($this->codeType)).'Highlighter';
+		
+			switch (StringUtil::substring($className, strlen('\wcf\system\bbcode\highlighter\\'))) {
+				case 'ShellHighlighter':
+					$className = '\wcf\system\bbcode\highlighter\BashHighlighter';
 					break;
-					case 'C++Highlighter':
-						$className = '\wcf\system\bbcode\highlighter\CHighlighter';
+				case 'C++Highlighter':
+					$className = '\wcf\system\bbcode\highlighter\CHighlighter';
 					break;
-					case 'JavascriptHighlighter':
-						$className = '\wcf\system\bbcode\highlighter\JsHighlighter';
+				case 'JavascriptHighlighter':
+					$className = '\wcf\system\bbcode\highlighter\JsHighlighter';
 					break;
-					case 'LatexHighlighter':
-						$className = '\wcf\system\bbcode\highlighter\TexHighlighter';
+				case 'LatexHighlighter':
+					$className = '\wcf\system\bbcode\highlighter\TexHighlighter';
 					break;
-				}
 			}
-			else {
-				// try to guess highlighter
-				if (StringUtil::indexOf($content, '<?php') !== false) {
-					$className = '\wcf\system\bbcode\highlighter\PhpHighlighter';
-				}
-				else if (StringUtil::indexOf($content, '<html') !== false) {
-					$className = '\wcf\system\bbcode\highlighter\HtmlHighlighter';
-				}
-				else if (StringUtil::indexOf($content, '<?xml') === 0) {
-					$className = '\wcf\system\bbcode\highlighter\XmlHighlighter';
-				}
-				else if (	StringUtil::indexOf($content, 'SELECT') === 0
+		}
+		else {
+			// try to guess highlighter
+			if (StringUtil::indexOf($content, '<?php') !== false) {
+				$className = '\wcf\system\bbcode\highlighter\PhpHighlighter';
+			}
+			else if (StringUtil::indexOf($content, '<html') !== false) {
+				$className = '\wcf\system\bbcode\highlighter\HtmlHighlighter';
+			}
+			else if (StringUtil::indexOf($content, '<?xml') === 0) {
+				$className = '\wcf\system\bbcode\highlighter\XmlHighlighter';
+			}
+			else if (	StringUtil::indexOf($content, 'SELECT') === 0
 					||	StringUtil::indexOf($content, 'UPDATE') === 0
 					||	StringUtil::indexOf($content, 'INSERT') === 0
 					||	StringUtil::indexOf($content, 'DELETE') === 0) {
-					$className = '\wcf\system\bbcode\highlighter\SqlHighlighter';
-				}
-				else if (StringUtil::indexOf($content, 'import java.') !== false) {
-					$className = '\wcf\system\bbcode\highlighter\JavaHighlighter';
-				}
-				else if (	StringUtil::indexOf($content, "---") !== false 
+				$className = '\wcf\system\bbcode\highlighter\SqlHighlighter';
+			}
+			else if (StringUtil::indexOf($content, 'import java.') !== false) {
+				$className = '\wcf\system\bbcode\highlighter\JavaHighlighter';
+			}
+			else if (	StringUtil::indexOf($content, "---") !== false
 					&&	StringUtil::indexOf($content, "\n+++") !== false) {
-					$className = '\wcf\system\bbcode\highlighter\DiffHighlighter';
-				}
-				else if (StringUtil::indexOf($content, "\n#include ") !== false) {
-					$className = '\wcf\system\bbcode\highlighter\CHighlighter';
-				}
-				else if (StringUtil::indexOf($content, '#!/usr/bin/perl') === 0) {
-					$className = '\wcf\system\bbcode\highlighter\PerlHighlighter';
-				}
-				else if (StringUtil::indexOf($content, 'def __init__(self') !== false) {
-					$className = '\wcf\system\bbcode\highlighter\PythonHighlighter';
-				}
-				else if (Regex::compile('^#!/bin/(ba|z)?sh')->match($content)) {
-					$className = '\wcf\system\bbcode\highlighter\BashHighlighter';
-				}
-				else if (StringUtil::indexOf($content, '\\documentclass') !== false) {
-					$className = '\wcf\system\bbcode\highlighter\TexHighlighter';
-				}
-				else if (Regex::compile('[-\\+\\.,\\[\\]\\>\\<]{9}')->match($content)) {
-					// 9 times a brainfuck char in a row -> seems to be brainfuck
-					$className = '\wcf\system\bbcode\highlighter\BrainfuckHighlighter';
-				}
+				$className = '\wcf\system\bbcode\highlighter\DiffHighlighter';
 			}
-			
-			if (!class_exists($className)) {
-				$className = '\wcf\system\bbcode\highlighter\PlainHighlighter';
+			else if (StringUtil::indexOf($content, "\n#include ") !== false) {
+				$className = '\wcf\system\bbcode\highlighter\CHighlighter';
 			}
+			else if (StringUtil::indexOf($content, '#!/usr/bin/perl') === 0) {
+				$className = '\wcf\system\bbcode\highlighter\PerlHighlighter';
+			}
+			else if (StringUtil::indexOf($content, 'def __init__(self') !== false) {
+				$className = '\wcf\system\bbcode\highlighter\PythonHighlighter';
+			}
+			else if (Regex::compile('^#!/bin/(ba|z)?sh')->match($content)) {
+				$className = '\wcf\system\bbcode\highlighter\BashHighlighter';
+			}
+			else if (StringUtil::indexOf($content, '\\documentclass') !== false) {
+				$className = '\wcf\system\bbcode\highlighter\TexHighlighter';
+			}
+			else if (Regex::compile('[-\\+\\.,\\[\\]\\>\\<]{9}')->match($content)) {
+				// 9 times a brainfuck char in a row -> seems to be brainfuck
+				$className = '\wcf\system\bbcode\highlighter\BrainfuckHighlighter';
+			}
+		}
 			
+		if (!class_exists($className)) {
+			$className = '\wcf\system\bbcode\highlighter\PlainHighlighter';
+		}
+		
+		if ($parser->getOutputType() == 'text/html') {
 			// show template
 			WCF::getTPL()->assign(array(
 				'lineNumbers' => self::makeLineNumbers($content, $this->startLineNumber),
@@ -128,8 +129,11 @@ class CodeBBCode extends AbstractBBCode {
 			));
 			return WCF::getTPL()->fetch('codeBBCodeTag');
 		}
-		else if ($parser->getOutputType() == 'text/plain') {
-			return WCF::getLanguage()->getDynamicVariable('wcf.bbcode.code.text', array('content' => $content));
+		else if ($parser->getOutputType() == 'text/simplified-html') {
+			return WCF::getLanguage()->getDynamicVariable('wcf.bbcode.code.text', array(
+				'highlighterTitle' => $className::getInstance()->getTitle(),
+				'lines' => substr_count($content, "\n") + 1
+			));
 		}
 	}
 	
@@ -139,6 +143,11 @@ class CodeBBCode extends AbstractBBCode {
 	 * @param	array	$openingTag
 	 */
 	protected function mapAttributes(array $openingTag) {
+		// reset default vlaues
+		$this->codeType = '';
+		$this->startLineNumber = 1;
+		$this->filename = '';
+		
 		if (!isset($openingTag['attributes'])) {
 			return;
 		}

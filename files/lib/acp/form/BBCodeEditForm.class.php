@@ -65,8 +65,6 @@ class BBCodeEditForm extends BBCodeAddForm {
 			'bbcodeTag' => $this->bbcodeTag,
 			'htmlOpen' => $this->htmlOpen,
 			'htmlClose' => $this->htmlClose,
-			'textOpen' => $this->textOpen,
-			'textClose' => $this->textClose,
 			'allowedChildren' => $this->allowedChildren,
 			'isSourceCode' => (int) $this->isSourceCode,
 			'className' => $this->className
@@ -84,7 +82,6 @@ class BBCodeEditForm extends BBCodeAddForm {
 				'bbcodeID' => $this->bbcodeID,
 				'attributeNo' => $attribute->attributeNo,
 				'attributeHtml' => $attribute->attributeHtml,
-				'attributeText' => $attribute->attributeText,
 				'validationPattern' => $attribute->validationPattern,
 				'required' => $attribute->required,
 				'useText' => $attribute->useText,
@@ -111,8 +108,6 @@ class BBCodeEditForm extends BBCodeAddForm {
 			$this->bbcodeTag = $this->bbcodeObj->bbcodeTag;
 			$this->htmlOpen = $this->bbcodeObj->htmlOpen;
 			$this->htmlClose = $this->bbcodeObj->htmlClose;
-			$this->textOpen = $this->bbcodeObj->textOpen;
-			$this->textClose = $this->bbcodeObj->textClose;
 			$this->allowedChildren = $this->bbcodeObj->allowedChildren;
 			$this->isSourceCode = $this->isSourceCode;
 			$this->className = $this->bbcodeObj->className;

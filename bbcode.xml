@@ -4,47 +4,35 @@
 		<bbcode name="b">
 			<htmlopen>b</htmlopen>
 			<htmlclose>b</htmlclose>
-			<textopen>*</textopen>
-			<textclose>*</textclose>
 			<allowedchildren>all^b</allowedchildren>
 			<wysiwygicon>fontStyleBoldM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="i">
 			<htmlopen>i</htmlopen>
 			<htmlclose>i</htmlclose>
-			<textopen>/</textopen>
-			<textclose>/</textclose>
 			<allowedchildren>all^i</allowedchildren>
 			<wysiwygicon>fontStyleItalicM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="u">
 			<htmlopen>span style="text-decoration: underline"</htmlopen>
 			<htmlclose>span</htmlclose>
-			<textopen>_</textopen>
-			<textclose>_</textclose>
 			<allowedchildren>all^u</allowedchildren>
 			<wysiwygicon>fontStyleUnderlineM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="s">
 			<htmlopen>s</htmlopen>
 			<htmlclose>s</htmlclose>
-			<textopen>-</textopen>
-			<textclose>-</textclose>
 			<allowedchildren>all^s</allowedchildren>
 			<wysiwygicon>fontStyleStriketroughM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="sub">
 			<htmlopen>sub</htmlopen>
 			<htmlclose>sub</htmlclose>
-			<textopen>~</textopen>
-			<textclose>~</textclose>
 			<allowedchildren>all^sub</allowedchildren>
 		</bbcode>
 		<bbcode name="sup">
 			<htmlopen>sup</htmlopen>
 			<htmlclose>sup</htmlclose>
-			<textopen>^</textopen>
-			<textclose>^</textclose>
 			<allowedchildren>all^sup</allowedchildren>
 		</bbcode>
 		<bbcode name="email">
@@ -54,7 +42,6 @@
 			<attributes>
 				<attribute name="0">
 					<html>href="mailto:%s"</html>
-					<text>%s </text>
 					<required>1</required>
 					<usetext>1</usetext>
 					<validationpattern>^[^\s]+@[^\s]+$</validationpattern>
@@ -132,7 +119,6 @@
 			<attributes>
 				<attribute name="0">
 					<html>src="%s" class="jsResizeImage" alt=""</html>
-					<text>%s </text>
 					<required>1</required>
 					<usetext>1</usetext>
 					<validationpattern>^[^?\s]+$</validationpattern>
