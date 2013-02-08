@@ -69,7 +69,7 @@ class BBCodePackageInstallationPlugin extends AbstractXMLPackageInstallationPlug
 				
 				$attributeValues = $xpath->query('child::*', $attribute);
 				foreach ($attributeValues as $attributeValue) {
-					$nodeValue[$attributeNo][$attributeValue->tagName] = $attributeValue->nodeValue; 
+					$nodeValue[$attributeNo][$attributeValue->tagName] = $attributeValue->nodeValue;
 				}
 			}
 		}
