@@ -5,7 +5,7 @@ use wcf\system\exception\SystemException;
 use wcf\system\WCF;
 
 /**
- * installs, updates and deletes bbcodes.
+ * Installs, updates and deletes bbcodes.
  * 
  * @author	Marcel Werk
  * @copyright	2001-2011 WoltLab GmbH
