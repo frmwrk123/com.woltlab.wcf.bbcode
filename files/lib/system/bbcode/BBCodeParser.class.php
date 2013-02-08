@@ -236,7 +236,7 @@ class BBCodeParser extends SingletonFactory {
 	}
 	
 	/**
-	 * Returns true, if the text inside the given text needs to be buffered.
+	 * Returns true if the text inside the given text needs to be buffered.
 	 * 
 	 * @param	array		$tag
 	 * @return	boolean
@@ -302,9 +302,9 @@ class BBCodeParser extends SingletonFactory {
 	}
 	
 	/**
-	 * Returns true, if $tag is allowed in open tags.
+	 * Returns true if the given tag is allowed in the given list of open tags.
 	 * 
-	 * @param	array		$openTags		list of open tags
+	 * @param	array		$openTags
 	 * @param	string		$tag
 	 * @param	boolean		$closing
 	 * @return	boolean

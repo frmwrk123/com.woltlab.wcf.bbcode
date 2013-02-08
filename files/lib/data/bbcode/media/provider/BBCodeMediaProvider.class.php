@@ -44,7 +44,7 @@ class BBCodeMediaProvider extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns true, if given URL is a media URL.
+	 * Returns true if given URL is a media URL.
 	 * 
 	 * @param	string		$url
 	 * @return	boolean
