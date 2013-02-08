@@ -3,7 +3,6 @@ namespace wcf\system\bbcode;
 use wcf\data\bbcode\media\provider\BBCodeMediaProvider;
 use wcf\data\bbcode\BBCodeCache;
 use wcf\system\event\EventHandler;
-use wcf\system\request\LinkHandler;
 use wcf\system\Callback;
 use wcf\system\Regex;
 use wcf\system\SingletonFactory;

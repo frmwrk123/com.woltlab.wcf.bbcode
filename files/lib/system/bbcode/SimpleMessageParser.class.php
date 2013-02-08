@@ -1,7 +1,6 @@
 <?php
 namespace wcf\system\bbcode;
 use wcf\data\smiley\SmileyCache;
-use wcf\system\application\ApplicationHandler;
 use wcf\system\event\EventHandler;
 use wcf\system\SingletonFactory;
 use wcf\util\StringUtil;

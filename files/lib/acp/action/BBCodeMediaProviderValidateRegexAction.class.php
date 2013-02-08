@@ -3,7 +3,6 @@ namespace wcf\acp\action;
 use wcf\action\AbstractAction;
 use wcf\system\exception\SystemException;
 use wcf\system\Regex;
-use wcf\system\WCF;
 use wcf\util\JSON;
 use wcf\util\StringUtil;
 

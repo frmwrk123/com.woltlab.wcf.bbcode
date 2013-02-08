@@ -1,6 +1,5 @@
 <?php
 namespace wcf\system\bbcode;
-use wcf\system\application\ApplicationHandler;
 use wcf\util\StringUtil;
 
 /**
