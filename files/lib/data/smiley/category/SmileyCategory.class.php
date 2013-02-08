@@ -9,7 +9,7 @@ use wcf\system\exception\SystemException;
  * Represents a smiley category.
  * 
  * @author	Alexander Ebert
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.smiley.category
@@ -105,7 +105,7 @@ class SmileyCategory extends DatabaseObject implements \Countable, ITraversableO
 	 */
 	public function seek($index) {
 		$this->index = $index;
-	
+		
 		if (!$this->valid()) {
 			throw new \OutOfBoundsException();
 		}
@@ -116,7 +116,7 @@ class SmileyCategory extends DatabaseObject implements \Countable, ITraversableO
 	 */
 	public function seekTo($objectID) {
 		$this->index = array_search($objectID, $this->indexToObject);
-	
+		
 		if ($this->index === false) {
 			throw new SystemException("object id '".$objectID."' is invalid");
 		}

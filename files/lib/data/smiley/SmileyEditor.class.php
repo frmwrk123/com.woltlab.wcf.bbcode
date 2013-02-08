@@ -6,7 +6,7 @@ use wcf\system\cache\builder\SmileyCacheBuilder;
 
 /**
  * Provides functions to edit smilies.
- *
+ * 
  * @author	Alexander Ebert
  * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>

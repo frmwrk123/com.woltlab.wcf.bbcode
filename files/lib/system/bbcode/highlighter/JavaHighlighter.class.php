@@ -12,8 +12,14 @@ namespace wcf\system\bbcode\highlighter;
  * @category	Community Framework
  */
 class JavaHighlighter extends Highlighter {
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $separators = array("(", ")", "{", "}", "[", "]", ";", ".", ",", "<", ">");
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords2
+	 */
 	protected $keywords2 = array(
 		'package',
 		'abstract',
@@ -67,6 +73,10 @@ class JavaHighlighter extends Highlighter {
 		'void',
 		'import'
 	);
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords3
+	 */
 	protected $keywords3 = array(
 		'Boolean',
 		'Float',

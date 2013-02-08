@@ -3,7 +3,7 @@ namespace wcf\acp\page;
 use wcf\page\SortablePage;
 
 /**
- * Lists available media-providers
+ * Lists the available media providers.
  * 
  * @author	Tim Duesterhus
  * @copyright	2001-2013 WoltLab GmbH

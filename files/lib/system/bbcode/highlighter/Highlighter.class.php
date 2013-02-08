@@ -10,7 +10,7 @@ use wcf\util\StringUtil;
 /**
  * Highlights syntax of source code.
  * 
- * @author	Tim Düsterhus, Michael Schaefer
+ * @author	Tim Duesterhus, Michael Schaefer
  * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
@@ -19,6 +19,7 @@ use wcf\util\StringUtil;
  */
 abstract class Highlighter extends SingletonFactory {
 	// highlighter syntax
+	// @todo: comment properties
 	protected $quotes = array("'", "\"");
 	protected $singleLineComment = array("//");
 	protected $commentStart = array("/*");
@@ -30,12 +31,13 @@ abstract class Highlighter extends SingletonFactory {
 	protected $allowsNewslinesInQuotes = false;
 	
 	// regular expressions
+	// @todo: comment properties
 	public $cacheCommentsRegEx = null;
 	public $quotesRegEx = null;
 	public $separatorsRegEx = '';
 	
 	/**
-	 * Creates a new Highlighter object.
+	 * @see	wcf\system\SingletonFactory::init()
 	 */
 	protected function init() {
 		$this->buildRegularExpressions();
@@ -43,7 +45,7 @@ abstract class Highlighter extends SingletonFactory {
 	
 	/**
 	 * Returns the title of this highlighter.
-	 *
+	 * 
 	 * @return	string
 	 */
 	public function getTitle() {
@@ -131,7 +133,7 @@ abstract class Highlighter extends SingletonFactory {
 		
 		$this->separatorsRegEx = StringUtil::encodeHTML(implode('|', array_map('preg_quote', $this->separators))).'|\s|&nbsp;|^|$|>|<';
 	}
-
+	
 	/**
 	 * Caches comments.
 	 */

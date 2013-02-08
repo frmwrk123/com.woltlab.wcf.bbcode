@@ -2,8 +2,8 @@
 namespace wcf\system\bbcode\highlighter;
 
 /**
- * Highlights syntax of Bash-Scripts.
- *
+ * Highlights syntax of bash scripts.
+ * 
  * @author	Tim Düsterhus
  * @copyright	2011 - 2012 Tim Düsterhus
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
@@ -12,21 +12,49 @@ namespace wcf\system\bbcode\highlighter;
  * @category	Community Framework
  */
 class BashHighlighter extends Highlighter {
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $separators = array(';', '=');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$quotes
+	 */
 	protected $quotes = array('"', "'", '`');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$singleLineComment
+	 */
 	protected $singleLineComment = array('#');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$commentStart
+	 */
 	protected $commentStart = array();
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$commentEnd
+	 */
 	protected $commentEnd = array();
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$operators
+	 */
 	protected $operators = array('||', '&&', '&', '|', '<<=', '>>=', '<<', '+=', '-=', '*=', '/=', '%=',
 					'-gt', '-lt', '-n', '-a', '-o',
 					'+', '-', '*', '/', '%', '<', '?', ':', '==', '!=', '=', '!', '>', '2>', '>>');
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords1
+	 */
 	protected $keywords1 = array(
 		'true',
 		'false'
 	);
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords2
+	 */
 	protected $keywords2 = array(
 		'if',
 		'then',
@@ -42,6 +70,9 @@ class BashHighlighter extends Highlighter {
 		'esac'
 	);
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords3
+	 */
 	protected $keywords3 = array(
 		'echo',
 		'exit',
@@ -54,6 +85,9 @@ class BashHighlighter extends Highlighter {
 		'awk'
 	);
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords4
+	 */
 	protected $keywords4 = array(
 		'$?'
 	);

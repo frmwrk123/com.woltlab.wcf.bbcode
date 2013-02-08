@@ -13,6 +13,9 @@ use wcf\util\StringUtil;
  * @category	Community Framework
  */
 class PlainHighlighter extends Highlighter {
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlight()
+	 */
 	public function highlight($code) {
 		return StringUtil::encodeHTML($code);
 	}

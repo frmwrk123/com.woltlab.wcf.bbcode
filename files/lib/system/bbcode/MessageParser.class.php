@@ -56,7 +56,7 @@ class MessageParser extends BBCodeParser {
 			
 			// get smilies
 			$smilies = SmileyCache::getInstance()->getSmilies();
-			foreach ($smilies as $categoryID => $categorySmilies) {
+			foreach ($smilies as $categorySmilies) {
 				foreach ($categorySmilies as $smiley) {
 					foreach ($smiley->smileyCodes as $smileyCode) {
 						$this->smilies[$smileyCode] = '<img src="'.$smiley->getURL().'" alt="'.StringUtil::encodeHTML($smiley->smileyCode).'" />';
@@ -88,7 +88,7 @@ class MessageParser extends BBCodeParser {
 			// cache codes
 			$this->message = $this->cacheCodes($this->message);
 		}
-			
+		
 		if (!$enableHtml) {
 			// encode html
 			$this->message = StringUtil::encodeHTML($this->message);

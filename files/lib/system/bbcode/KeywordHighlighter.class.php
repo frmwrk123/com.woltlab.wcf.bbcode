@@ -8,7 +8,7 @@ use wcf\util\StringUtil;
  * Highlights keywords in text messages.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2012 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
@@ -113,7 +113,7 @@ class KeywordHighlighter extends SingletonFactory {
 				$this->keywords = array_merge($this->keywords, array(StringUtil::encodeHTML($keywordString)));
 			}
 		}
-		else {	
+		else {
 			// replace word delimiters by space
 			$keywordString = str_replace(array('.', ','), ' ', $keywordString);
 			

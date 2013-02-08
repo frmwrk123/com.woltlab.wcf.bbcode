@@ -17,7 +17,7 @@ use wcf\util\StringUtil;
  */
 class HtmlHighlighter extends XmlHighlighter {
 	/**
-	 * @see	Highlighter::cacheComments()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::cacheComments()
 	 */
 	protected function cacheComments($string) {
 		// cache inline scripts and inline css
@@ -26,6 +26,12 @@ class HtmlHighlighter extends XmlHighlighter {
 		return parent::cacheComments($string);
 	}
 	
+	/**
+	 * Caches scripts and styles in the given string.
+	 * 
+	 * @param	string		$string
+	 * @return	string
+	 */
 	protected function cacheScriptsAndStyles($string) {
 		$regex = new Regex('(<(style|script)[^>]*>)(.*?)(</\\2>)', Regex::CASE_INSENSITIVE | Regex::DOT_ALL);
 		
@@ -46,7 +52,7 @@ class HtmlHighlighter extends XmlHighlighter {
 	}
 	
 	/**
-	 * @see	Highlighter::highlightComments()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlightComments()
 	 */
 	protected function highlightComments($string) {
 		$string = parent::highlightComments($string);

@@ -28,13 +28,13 @@ class BBCodeMediaProviderEditForm extends BBCodeMediaProviderAddForm {
 	public $neededPermissions = array('admin.content.bbcode.canEditBBCodeMediaProvider');
 	
 	/**
-	 * media-provider id
+	 * id of the edited media provider
 	 * @var	integer
 	 */
 	public $providerID = 0;
 	
 	/**
-	 * media-provider object
+	 * edited media provider object
 	 * @var	wcf\data\bbcode\media\provider\BBCodeMediaProvider
 	 */
 	public $mediaProviderObj = null;

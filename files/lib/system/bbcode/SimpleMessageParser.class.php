@@ -9,7 +9,7 @@ use wcf\util\StringUtil;
  * Parses urls and smilies in simple messages.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
@@ -43,7 +43,7 @@ class SimpleMessageParser extends SingletonFactory {
 		if (MODULE_SMILEY == 1) {
 			// get smilies
 			$smilies = SmileyCache::getInstance()->getSmilies();
-			foreach ($smilies as $categoryID => $categorySmilies) {
+			foreach ($smilies as $categorySmilies) {
 				foreach ($categorySmilies as $smiley) {
 					foreach ($smiley->smileyCodes as $smileyCode) {
 						$this->smilies[$smileyCode] = '<img src="'.$smiley->getURL().'" alt="'.StringUtil::encodeHTML($smiley->smileyCode).'" />';
@@ -62,7 +62,7 @@ class SimpleMessageParser extends SingletonFactory {
 	 * @param	boolean		$parseSmilies
 	 * @return	string		parsed message
 	 */
-	public function parse($message, $parseURLs = true, $parseSmilies = true) {		
+	public function parse($message, $parseURLs = true, $parseSmilies = true) {
 		$this->message = $message;
 		
 		// call event
@@ -110,9 +110,9 @@ class SimpleMessageParser extends SingletonFactory {
 				www\.(?:'.static::$illegalChars.'\.)+
 				(?:[a-z]{2,4}(?=\b))
 			)
-
+			
 			(?::\d+)?					# port
-
+			
 			(?:
 				/
 				[^!.,?;"\'<>()\[\]{}\s]*
@@ -137,13 +137,13 @@ class SimpleMessageParser extends SingletonFactory {
 		if (StringUtil::indexOf($text, '@') !== false) {
 			$text = preg_replace($emailPattern, '<a href="mailto:\\0">\\0</a>', $text);
 		}
-	
+		
 		return $text;
 	}
 	
 	/**
 	 * Callback for preg_replace.
-	 *
+	 * 
 	 * @see	\wcf\system\bbcode\SimpleMessageParser::parseURLs()
 	 */
 	protected function parseURLsCallback($matches) {

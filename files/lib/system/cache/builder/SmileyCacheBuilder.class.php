@@ -23,8 +23,8 @@ class SmileyCacheBuilder extends AbstractCacheBuilder {
 		// get categories
 		$sql = "SELECT		smiley_category.*,
 					(SELECT COUNT(*) AS count FROM wcf".WCF_N."_smiley WHERE smileyCategoryID = smiley_category.smileyCategoryID) AS smilies
-			FROM 		wcf".WCF_N."_smiley_category smiley_category
-			ORDER BY 	showOrder";
+			FROM		wcf".WCF_N."_smiley_category smiley_category
+			ORDER BY	showOrder";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute();
 		while ($object = $statement->fetchObject('wcf\data\smiley\category\SmileyCategory')) {
@@ -33,8 +33,8 @@ class SmileyCacheBuilder extends AbstractCacheBuilder {
 		
 		// get smilies
 		$sql = "SELECT		*
-			FROM 		wcf".WCF_N."_smiley
-			ORDER BY 	showOrder";
+			FROM		wcf".WCF_N."_smiley
+			ORDER BY	showOrder";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute();
 		while ($object = $statement->fetchObject('wcf\data\smiley\Smiley')) {

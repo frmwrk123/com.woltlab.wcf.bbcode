@@ -9,7 +9,7 @@ use wcf\util\StringUtil;
 
 /**
  * Shows the BBCode media provider add form.
- *
+ * 
  * @author	Tim Duesterhus
  * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
@@ -80,7 +80,7 @@ class BBCodeMediaProviderAddForm extends AbstractForm {
 		}
 		
 		$lines = explode("\n", StringUtil::unifyNewlines($this->regex));
-	
+		
 		foreach ($lines as $line) {
 			if (!Regex::compile($line)->isValid()) throw new UserInputException('regex', 'invalid');
 		}
