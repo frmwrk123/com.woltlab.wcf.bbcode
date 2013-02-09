@@ -5,25 +5,21 @@
 			<htmlopen>b</htmlopen>
 			<htmlclose>b</htmlclose>
 			<allowedchildren>all^b</allowedchildren>
-			<wysiwygicon>fontStyleBoldM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="i">
 			<htmlopen>i</htmlopen>
 			<htmlclose>i</htmlclose>
 			<allowedchildren>all^i</allowedchildren>
-			<wysiwygicon>fontStyleItalicM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="u">
 			<htmlopen>span style="text-decoration: underline"</htmlopen>
 			<htmlclose>span</htmlclose>
 			<allowedchildren>all^u</allowedchildren>
-			<wysiwygicon>fontStyleUnderlineM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="s">
 			<htmlopen>s</htmlopen>
 			<htmlclose>s</htmlclose>
 			<allowedchildren>all^s</allowedchildren>
-			<wysiwygicon>fontStyleStriketroughM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="sub">
 			<htmlopen>sub</htmlopen>
@@ -58,7 +54,6 @@
 					<required>1</required>
 				</attribute>
 			</attributes>
-			<wysiwygicon>fontColorPickerEmptyM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="size">
 			<htmlopen>span</htmlopen>
@@ -100,7 +95,6 @@
 				<attribute name="0"></attribute>
 				<attribute name="1"></attribute>
 			</attributes>
-			<wysiwygicon>quoteM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="code">
 			<classname>wcf\system\bbcode\CodeBBCode</classname>
@@ -111,24 +105,20 @@
 				</attribute>
 			</attributes>
 			<sourcecode>1</sourcecode>
-			<wysiwygicon>insertCodeM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="img">
-			<htmlopen>img</htmlopen>
+			<classname>wcf\system\bbcode\ImageBBCode</classname>
 			<allowedchildren>none</allowedchildren>
 			<attributes>
 				<attribute name="0">
-					<html>src="%s" class="jsResizeImage" alt=""</html>
 					<required>1</required>
 					<usetext>1</usetext>
-					<validationpattern>^[^?\s]+$</validationpattern>
+					<validationpattern>^.+$</validationpattern>
 				</attribute>
 				<attribute name="1">
-					<html>style="float: %s"</html>
 					<validationpattern>^(left|right)$</validationpattern>
 				</attribute>
 			</attributes>
-			<wysiwygicon>insertImageM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="url">
 			<classname>wcf\system\bbcode\URLBBCode</classname>
@@ -161,7 +151,6 @@
 			<attributes>
 				<attribute name="0"></attribute>
 			</attributes>
-			<wysiwygicon>spoilerM.png</wysiwygicon>
 		</bbcode>
 		<bbcode name="tt">
 			<htmlopen>code class="inlineCode"</htmlopen>
