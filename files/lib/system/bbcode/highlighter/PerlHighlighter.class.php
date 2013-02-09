@@ -12,15 +12,36 @@ namespace wcf\system\bbcode\highlighter;
  * @category	Community Framework
  */
 class PerlHighlighter extends Highlighter {
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $separators = array('(', ')', '{', '}', '[', ']', ';', '.', ',');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$singleLineComment
+	 */
 	protected $singleLineComment = array('#');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$commentStart
+	 */
 	protected $commentStart = array();
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$commentEnd
+	 */
 	protected $commentEnd = array();
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$operators
+	 */
 	protected $operators = array('.=', '=', '>', '<', '!', '~', '?', ':', '==', '<=', '>=', '!=',
 		'&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '<<', '>>', '>>>', '+=', '-=', '*=',
 		'/=', '&=', '|=', '^=', '%=', '<<=', '>>=', '>>>=', '->', '::');
-
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $keywords1 = array(
 		'print',
 		'sprintf',

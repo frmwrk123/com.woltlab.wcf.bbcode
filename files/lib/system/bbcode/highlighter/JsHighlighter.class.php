@@ -2,22 +2,31 @@
 namespace wcf\system\bbcode\highlighter;
 
 /**
- * Highlights syntax of JavaScript Source-Code
+ * Highlights syntax of JavaScript code.
  * 
  * @author	Tim Düsterhus, Michael Schaefer
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode.highlighter
  * @category	Community Framework
  */
 class JsHighlighter extends Highlighter {
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $separators = array("(", ")", "{", "}", "[", "]", ";", ".", ",");
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$operators
+	 */
 	protected $operators = array("=", ">", "<", "!", "~", "?", ":", "==", "<=", ">=", "!=",
 		"&&", "||", "++", "--", "+", "-", "*", "/", "&", "|", "^", "%", "<<", ">>", ">>>", "+=", "-=", "*=",
 		"/=", "&=", "|=", "^=", "%=", "<<=", ">>=", ">>>=");
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords1
+	 */
 	protected $keywords1 = array(
 		"String",
 		"Array",
@@ -54,6 +63,10 @@ class JsHighlighter extends Highlighter {
 		"onSubmit",
 		"onUnload"
 	);
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords2
+	 */
 	protected $keywords2 = array(
 		"break",
 		"continue",

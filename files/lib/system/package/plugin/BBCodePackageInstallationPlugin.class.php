@@ -5,7 +5,7 @@ use wcf\system\exception\SystemException;
 use wcf\system\WCF;
 
 /**
- * This PIP installs, updates or deletes bbcodes.
+ * Installs, updates and deletes bbcodes.
  * 
  * @author	Marcel Werk
  * @copyright	2001-2011 WoltLab GmbH
@@ -27,7 +27,7 @@ class BBCodePackageInstallationPlugin extends AbstractXMLPackageInstallationPlug
 	
 	/**
 	 * @see	wcf\system\package\plugin\AbstractXMLPackageInstallationPlugin::$tagName
-	 */	
+	 */
 	public $tagName = 'bbcode';
 	
 	/**
@@ -69,7 +69,7 @@ class BBCodePackageInstallationPlugin extends AbstractXMLPackageInstallationPlug
 				
 				$attributeValues = $xpath->query('child::*', $attribute);
 				foreach ($attributeValues as $attributeValue) {
-					$nodeValue[$attributeNo][$attributeValue->tagName] = $attributeValue->nodeValue; 
+					$nodeValue[$attributeNo][$attributeValue->tagName] = $attributeValue->nodeValue;
 				}
 			}
 		}

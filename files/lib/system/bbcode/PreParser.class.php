@@ -3,7 +3,6 @@ namespace wcf\system\bbcode;
 use wcf\data\bbcode\media\provider\BBCodeMediaProvider;
 use wcf\data\bbcode\BBCodeCache;
 use wcf\system\event\EventHandler;
-use wcf\system\request\LinkHandler;
 use wcf\system\Callback;
 use wcf\system\Regex;
 use wcf\system\SingletonFactory;
@@ -94,7 +93,7 @@ class PreParser extends SingletonFactory {
 			(?:[a-z]{2,4}(?=\b))
 			(?!"|\'|\[|\-|\.[a-z])', Regex::IGNORE_WHITESPACE | Regex::CASE_INSENSITIVE);
 		}
-	
+		
 		$this->text = $emailPattern->replace($this->text, '[email]\\0[/email]');
 	}
 	
@@ -113,9 +112,9 @@ class PreParser extends SingletonFactory {
 				www\.(?:'.static::$illegalChars.'\.)+
 				(?:[a-z]{2,4}(?=\b))
 			)
-		
+			
 			(?::\d+)?					# port
-		
+			
 			(?:
 				/
 				[^!.,?;"\'<>()\[\]{}\s]*

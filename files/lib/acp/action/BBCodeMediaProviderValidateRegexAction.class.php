@@ -3,13 +3,12 @@ namespace wcf\acp\action;
 use wcf\action\AbstractAction;
 use wcf\system\exception\SystemException;
 use wcf\system\Regex;
-use wcf\system\WCF;
 use wcf\util\JSON;
 use wcf\util\StringUtil;
 
 /**
- * Validates the regex for BBCodeMediaProviderAddForm
- *
+ * Validates the regex for BBCodeMediaProviderAddForm.
+ * 
  * @author	Tim Duesterhus
  * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>

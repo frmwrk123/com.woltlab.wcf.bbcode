@@ -4,8 +4,8 @@ namespace wcf\system\bbcode\highlighter;
 /**
  * Highlights syntax of cascading style sheets.
  * 
- * @author	Tim Düsterhus, Michael Schaefer
- * @copyright	2001-2011 WoltLab GmbH
+ * @author	Tim Duesterhus, Michael Schaefer
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode.highlighter
@@ -23,7 +23,7 @@ class CssHighlighter extends Highlighter {
 	);
 	
 	/**
-	 * @see wcf\system\bbcode\highlighter\Highlighter::highlightNumbers()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlightNumbers()
 	 */
 	protected function highlightNumbers($string) {
 		$string = preg_replace('!(?<='.$this->separatorsRegEx.')(-?\d*\.?\d+(?:px|pt|em|%|ex|in|cm|mm|pc)?)(?='.$this->separatorsRegEx.')!i', '<span class="hlNumbers">\\0</span>', $string);
@@ -35,7 +35,7 @@ class CssHighlighter extends Highlighter {
 	}
 	
 	/**
-	 * @see wcf\system\bbcode\highlighter\Highlighter::highlightKeywords()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlightKeywords()
 	 */
 	protected function highlightKeywords($string) {
 		$string = parent::highlightKeywords($string);
@@ -45,7 +45,7 @@ class CssHighlighter extends Highlighter {
 	}
 	
 	/**
-	 * @see wcf\system\bbcode\highlighter\Highlighter::highlight()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlight()
 	 */
 	public function highlight($string) {
 		$string = str_replace('span', '053a0024219422ca9215c0a3ed0578ee76cff477', $string); // fix to not highlight the spans of the highlighter
@@ -61,9 +61,19 @@ class CssHighlighter extends Highlighter {
 		return str_replace('053a0024219422ca9215c0a3ed0578ee76cff477', 'span', $string); // fix to not highlight the spans of the highlighter
 	}
 	
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$singleLineComment
+	 */
 	protected $singleLineComment = array('//');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $separators = array('(', ')', '{', '}', ';', '[', ']', ':', ',', '.');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords1
+	 */
 	protected $keywords1 = array(
 		'azimuth',
 		'background',
@@ -212,6 +222,9 @@ class CssHighlighter extends Highlighter {
 		'@media'
 	);
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords2
+	 */
 	protected $keywords2 = array(
 		'left-side',
 		'far-left',
@@ -454,6 +467,9 @@ class CssHighlighter extends Highlighter {
 		'rgba'
 	);
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords3
+	 */
 	protected $keywords3 = array(
 		'active',
 		'after',
@@ -483,7 +499,10 @@ class CssHighlighter extends Highlighter {
 		'target',
 		'visited'
 	);
-
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords4
+	 */
 	protected $keywords4 = array(
 		'abbr',
 		'acronym',
@@ -600,6 +619,9 @@ class CssHighlighter extends Highlighter {
 		'wbr'
 	);
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords5
+	 */
 	public $keywords5 = array(
 		// modifying
 		'darken',

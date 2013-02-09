@@ -13,11 +13,29 @@ use wcf\util\StringUtil;
  * @category	Community Framework
  */
 class SqlHighlighter extends Highlighter {
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$allowsNewslinesInQuotes
+	 */
 	protected $allowsNewslinesInQuotes = true;
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$quotes
+	 */
 	protected $quotes = array("'", '"');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$singleLineComment
+	 */
 	protected $singleLineComment = array('#', '--');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $separators = array('(', ')', ',', ';');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$operators
+	 */
 	protected $operators = array('<>', '~=', '!=', '^=', '=', '<', '<=', '>', '>=', '*', '/', '+', '-', '||', '@', '%', '&', '?', '\$');
 	
 	/**
@@ -33,6 +51,9 @@ class SqlHighlighter extends Highlighter {
 		return $hash;
 	}
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords1
+	 */
 	protected $keywords1 = array(
 		'action',
 		'add',
@@ -267,6 +288,10 @@ class SqlHighlighter extends Highlighter {
 		'year_month',
 		'zerofill'
 	);
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords2
+	 */
 	protected $keywords2 = array(
 		'ABS',
 		'ACOS',

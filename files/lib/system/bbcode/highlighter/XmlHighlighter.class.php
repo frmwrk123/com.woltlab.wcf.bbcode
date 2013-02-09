@@ -16,14 +16,41 @@ use wcf\util\StringUtil;
  * @category	Community Framework
  */
 class XmlHighlighter extends Highlighter {
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$allowsNewslinesInQuotes
+	 */
 	protected $allowsNewslinesInQuotes = true;
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$quotes
+	 */
 	protected $quotes = array('"');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$singleLineComment
+	 */
 	protected $singleLineComment = array();
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$commentStart
+	 */
 	protected $commentStart = array("<!--");
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$commentEnd
+	 */
 	protected $commentEnd = array("-->");
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $separators = array("<", ">");
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$operators
+	 */
 	protected $operators = array();
+	
 	const XML_ATTRIBUTE_NAME = '[a-z0-9](?:(?:(?<!-)-)?[a-z0-9])*';
 	
 	/**
@@ -45,11 +72,10 @@ class XmlHighlighter extends Highlighter {
 	}
 	
 	/**
-	 * Highlight CDATA-Tags as quotes.
-	 *
 	 * @see	wcf\system\bbcode\highlighter\Highlighter::cacheQuotes()
 	 */
 	protected function cacheQuotes($string) {
+		// highlight CDATA-Tags as quotes
 		$string = Regex::compile('<!\[CDATA\[.*?\]\]>', Regex::DOT_ALL)->replace($string, new Callback(function (array $matches) {
 			return StringStack::pushToStringStack('<span class="hlQuotes">'.StringUtil::encodeHTML($matches[0]).'</span>', 'highlighterQuotes');
 		}));

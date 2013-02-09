@@ -13,12 +13,18 @@ use wcf\system\Regex;
  * @category	Community Framework
  */
 class TexHighlighter extends Highlighter {
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$quotes
+	 */
 	protected $quotes = array();
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$singleLineComment
+	 */
 	protected $singleLineComment = array('%');
 	
 	/**
-	 * @see wcf\system\bbcode\highlighter\Highlighter::highlightKeywords()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlightKeywords()
 	 */
 	protected function highlightKeywords($string) {
 		$string = Regex::compile('\\$([^\\$]*)\\$', Regex::DOT_ALL)->replace($string, '<span class="hlKeywords2">\\0</span>');
@@ -29,7 +35,7 @@ class TexHighlighter extends Highlighter {
 	}
 	
 	/**
-	 * @see wcf\system\bbcode\highlighter\Highlighter::highlightNumbers()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlightNumbers()
 	 */
 	protected function highlightNumbers($string) {
 		// do not highlight numbers

@@ -4,20 +4,29 @@ namespace wcf\system\bbcode\highlighter;
 /**
  * Highlights syntax of c / c++ source code.
  * 
- * @author	Tim Düsterhus, Michael Schaefer
- * @copyright	2001-2011 WoltLab GmbH
+ * @author	Tim Duesterhus, Michael Schaefer
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode.highlighter
  * @category	Community Framework
  */
 class CHighlighter extends Highlighter {
-	// highlighter syntax
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$separators
+	 */
 	protected $separators = array('(', ')', '{', '}', '[', ']', ';', '.', ',');
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$operators
+	 */
 	protected $operators = array('=', '>', '<', '!', '~', '?', ':', '==', '<=', '>=', '!=',
 		'&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '<<', '>>', '>>>', '+=', '-=', '*=',
 		'/=', '&=', '|=', '^=', '%=', '<<=', '>>=', '>>>=');
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords1
+	 */
 	protected $keywords1 = array(
 		'and',
 		'and_eq',
@@ -63,6 +72,10 @@ class CHighlighter extends Highlighter {
 		'xor',
 		'xor_eq'
 	);
+	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords2
+	 */
 	protected $keywords2 = array(
 		'auto',
 		'bool',
@@ -96,6 +109,9 @@ class CHighlighter extends Highlighter {
 		'wchar_t'
 	);
 	
+	/**
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::$keywords3
+	 */
 	protected $keywords3 = array(
 		'#include',
 		'#define',

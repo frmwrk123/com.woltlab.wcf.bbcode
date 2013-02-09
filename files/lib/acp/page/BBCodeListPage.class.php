@@ -3,7 +3,7 @@ namespace wcf\acp\page;
 use wcf\page\SortablePage;
 
 /**
- * Lists available bbcodes
+ * Lists the available BBCodes.
  * 
  * @author	Tim Duesterhus
  * @copyright	2001-2013 WoltLab GmbH

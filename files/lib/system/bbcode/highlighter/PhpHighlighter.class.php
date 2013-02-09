@@ -16,19 +16,22 @@ use wcf\util\StringUtil;
 class PhpHighlighter extends Highlighter {
 	public static $colorToClass = array();
 	
+	/**
+	 * @see	wcf\system\SingletonFactory::init()
+	 */
 	protected function init() {
 		parent::init();
 		
 		$types = array('default' => 'hlKeywords1', 'keyword' => 'hlKeywords2', 'comment' => 'hlComments', 'string' => 'hlQuotes');
 		
-		self::$colorToClass['<span style="color: '.ini_get('highlight.html').'">'] = '<span>'; 
+		self::$colorToClass['<span style="color: '.ini_get('highlight.html').'">'] = '<span>';
 		foreach ($types as $type => $class) {
 			self::$colorToClass['<span style="color: '.ini_get('highlight.'.$type).'">'] = '<span class="'.$class.'">';
 		}
 	}
 	
 	/**
-	 * @see	wcf\system\bbcode\Highlighter::highlight()
+	 * @see	wcf\system\bbcode\highlighter\Highlighter::highlight()
 	 */
 	public function highlight($code) {
 		// add starting php tag

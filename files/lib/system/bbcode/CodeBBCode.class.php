@@ -8,7 +8,7 @@ use wcf\util\StringUtil;
  * Parses the [code] bbcode tag.
  * 
  * @author	Tim Düsterhus, Marcel Werk
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	system.bbcode
@@ -38,14 +38,14 @@ class CodeBBCode extends AbstractBBCode {
 	 * @var	array<string>
 	 */
 	private static $codeIDs = array();
-
+	
 	/**
 	 * @see	wcf\system\bbcode\IBBCode::getParsedTag()
 	 */
 	public function getParsedTag(array $openingTag, $content, array $closingTag, BBCodeParser $parser) {
 		// encode html
 		$content = self::trim($content);
-
+		
 		// get attributes
 		$this->mapAttributes($openingTag);
 		
@@ -53,20 +53,23 @@ class CodeBBCode extends AbstractBBCode {
 		$className = '\wcf\system\bbcode\highlighter\PlainHighlighter';
 		if ($this->codeType) {
 			$className = '\wcf\system\bbcode\highlighter\\'.StringUtil::firstCharToUpperCase(StringUtil::toLowerCase($this->codeType)).'Highlighter';
-		
+			
 			switch (StringUtil::substring($className, strlen('\wcf\system\bbcode\highlighter\\'))) {
 				case 'ShellHighlighter':
 					$className = '\wcf\system\bbcode\highlighter\BashHighlighter';
-					break;
+				break;
+				
 				case 'C++Highlighter':
 					$className = '\wcf\system\bbcode\highlighter\CHighlighter';
-					break;
+				break;
+				
 				case 'JavascriptHighlighter':
 					$className = '\wcf\system\bbcode\highlighter\JsHighlighter';
-					break;
+				break;
+				
 				case 'LatexHighlighter':
 					$className = '\wcf\system\bbcode\highlighter\TexHighlighter';
-					break;
+				break;
 			}
 		}
 		else {
@@ -113,7 +116,7 @@ class CodeBBCode extends AbstractBBCode {
 				$className = '\wcf\system\bbcode\highlighter\BrainfuckHighlighter';
 			}
 		}
-			
+		
 		if (!class_exists($className)) {
 			$className = '\wcf\system\bbcode\highlighter\PlainHighlighter';
 		}
@@ -164,8 +167,7 @@ class CodeBBCode extends AbstractBBCode {
 				else {
 					$this->filename = $attributes[0];
 				}
-				
-				break;
+			break;
 			
 			case 2:
 				if (is_numeric($attributes[0])) {
@@ -181,15 +183,13 @@ class CodeBBCode extends AbstractBBCode {
 					$this->codeType = $attributes[0];
 					$this->filename = $attributes[1];
 				}
-				
-				break;
+			break;
 			
 			default:
 				$this->codeType = $attributes[0];
 				$this->startLineNumber = intval($attributes[1]);
 				$this->filename = $attributes[2];
-				
-				break;
+			break;
 		}
 		
 		// correct illegal line number
