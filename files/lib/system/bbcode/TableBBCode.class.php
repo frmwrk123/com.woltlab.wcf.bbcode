@@ -77,8 +77,14 @@ class TableBBCode extends AbstractBBCode {
 			
 			return '<div class="container bbcodeTable"><table class="table"><tbody>'.$parsedContent.'</tbody></table></div>';
 		}
-		
-		// return bbcode as text
-		return $openingTag['source'].$content.$closingTag['source'];
+		else if ($parser->getOutputType() == 'text/simplified-html') {
+			// remove table tags
+			$content = StringUtil::replaceIgnoreCase('[td]', '* ', $content);
+			$content = StringUtil::replaceIgnoreCase('[/td]', ' ', $content);
+			$content = StringUtil::replaceIgnoreCase('[tr]', '', $content);
+			$content = StringUtil::replaceIgnoreCase('[/tr]', '', $content);
+			
+			return $content;
+		}
 	}
 }
