@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package name="com.woltlab.wcf.bbcode" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
 	<packageinformation>
-		<packagename>BBCode &amp; Smiley Support</packagename>
+		<packagename><![CDATA[BBCode &amp; Smiley Support]]></packagename>
 		<packagedescription>Provides support for bbcodes and smilies.</packagedescription>
 		<version>1.0.0 Alpha 2</version>
 		<date>2011-08-26</date>
@@ -29,6 +29,7 @@
 		<instruction type="bbcode">bbcode.xml</instruction>
 		<instruction type="smiley">smiley.xml</instruction>
 		<instruction type="templateListener">templateListener.xml</instruction>
+		<instruction type="coreObject">coreObject.xml</instruction>
 	</instructions>
 	
 	<instructions type="update" fromversion="*">
@@ -43,5 +44,6 @@
 		<instruction type="bbcode">bbcode.xml</instruction>
 		<instruction type="smiley">smiley.xml</instruction>
 		<instruction type="templateListener">templateListener.xml</instruction>
+		<instruction type="coreObject">coreObject.xml</instruction>
 	</instructions>
 </package>

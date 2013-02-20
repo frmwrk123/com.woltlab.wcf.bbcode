@@ -1,11 +1,14 @@
 <?php
 namespace wcf\acp\form;
+use wcf\data\package\PackageCache;
+
 use wcf\data\bbcode\attribute\BBCodeAttribute;
 use wcf\data\bbcode\attribute\BBCodeAttributeAction;
 use wcf\data\bbcode\BBCode;
 use wcf\data\bbcode\BBCodeAction;
 use wcf\form\AbstractForm;
 use wcf\system\exception\IllegalLinkException;
+use wcf\system\language\I18nHandler;
 use wcf\system\WCF;
 
 /**
@@ -60,14 +63,28 @@ class BBCodeEditForm extends BBCodeAddForm {
 	public function save() {
 		AbstractForm::save();
 		
+		if ($this->showButton) {
+			$this->buttonLabel = 'wcf.bbcode.buttonLabel'.$this->bbcodeObj->bbcodeID;
+			if (I18nHandler::getInstance()->isPlainValue('buttonLabel')) {
+				I18nHandler::getInstance()->remove($this->buttonLabel);
+				$this->buttonLabel = I18nHandler::getInstance()->getValue('buttonLabel');
+			}
+			else {
+				I18nHandler::getInstance()->save('buttonLabel', $this->buttonLabel, 'wcf.bbcode', PackageCache::getInstance()->getPackageID('com.woltlab.wcf.bbcode'));
+			}
+		}
+		
 		// update bbcode
 		$this->objectAction = new BBCodeAction(array($this->bbcodeID), 'update', array('data' => array(
-			'bbcodeTag' => $this->bbcodeTag,
-			'htmlOpen' => $this->htmlOpen,
-			'htmlClose' => $this->htmlClose,
 			'allowedChildren' => $this->allowedChildren,
-			'isSourceCode' => (int) $this->isSourceCode,
-			'className' => $this->className
+			'bbcodeTag' => $this->bbcodeTag,
+			'buttonLabel' => $this->buttonLabel,
+			'className' => $this->className,
+			'htmlClose' => $this->htmlClose,
+			'htmlOpen' => $this->htmlOpen,
+			'isSourceCode' => ($this->isSourceCode ? 1 : 0),
+			'showButton' => ($this->showButton ? 1 : 0),
+			'wysiwygIcon' => $this->wysiwygIcon
 		)));
 		$this->objectAction->executeAction();
 		
@@ -104,6 +121,9 @@ class BBCodeEditForm extends BBCodeAddForm {
 		parent::readData();
 		
 		if (empty($_POST)) {
+			I18nHandler::getInstance()->setOptions('buttonLabel', 1, $this->bbcodeObj->buttonLabel, 'wcf.bbcode.buttonLabel\d+');
+			$this->buttonLabel = $this->bbcodeObj->buttonLabel;
+			
 			$this->attributes = BBCodeAttribute::getAttributesByBBCode($this->bbcodeObj);
 			$this->bbcodeTag = $this->bbcodeObj->bbcodeTag;
 			$this->htmlOpen = $this->bbcodeObj->htmlOpen;
@@ -111,6 +131,8 @@ class BBCodeEditForm extends BBCodeAddForm {
 			$this->allowedChildren = $this->bbcodeObj->allowedChildren;
 			$this->isSourceCode = $this->isSourceCode;
 			$this->className = $this->bbcodeObj->className;
+			$this->showButton = ($this->bbcodeObj->showButton);
+			$this->wysiwygIcon = $this->bbcodeObj->wysiwygIcon;
 		}
 	}
 	
@@ -119,6 +141,8 @@ class BBCodeEditForm extends BBCodeAddForm {
 	 */
 	public function assignVariables() {
 		parent::assignVariables();
+		
+		I18nHandler::getInstance()->assignVariables(!empty($_POST));
 		
 		WCF::getTPL()->assign(array(
 			'bbcodeID' => $this->bbcodeID,

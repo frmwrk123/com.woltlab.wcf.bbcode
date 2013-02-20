@@ -1,11 +1,14 @@
 <?php
 namespace wcf\acp\form;
+use wcf\data\bbcode\BBCodeEditor;
+
 use wcf\data\bbcode\attribute\BBCodeAttributeAction;
 use wcf\data\bbcode\BBCode;
 use wcf\data\bbcode\BBCodeAction;
 use wcf\data\package\PackageCache;
 use wcf\form\AbstractForm;
 use wcf\system\exception\UserInputException;
+use wcf\system\language\I18nHandler;
 use wcf\system\Regex;
 use wcf\system\WCF;
 use wcf\util\StringUtil;
@@ -45,6 +48,12 @@ class BBCodeAddForm extends AbstractForm {
 	public $bbcodeTag = '';
 	
 	/**
+	 * editor button label
+	 * @var	string
+	 */
+	public $buttonLabel = '';
+	
+	/**
 	 * class name
 	 * @var	string
 	 */
@@ -79,18 +88,41 @@ class BBCodeAddForm extends AbstractForm {
 	public $templateName = 'bbcodeAdd';
 	
 	/**
+	 * show editor button
+	 * @var	boolean
+	 */
+	public $showButton = false;
+	
+	/**
+	 * wysiwyg editor icon
+	 * @var	string
+	 */
+	public $wysiwygIcon = '';
+	
+	/**
+	 * @see	wcf\page\IPage::readParameters()
+	 */
+	public function readParameters() {
+		parent::readParameters();
+		
+		I18nHandler::getInstance()->register('buttonLabel');
+	}
+	
+	/**
 	 * @see	wcf\form\IForm::readFormParameters()
 	 */
 	public function readFormParameters() {
 		parent::readFormParameters();
 		
-		if (isset($_POST['bbcodeTag'])) $this->bbcodeTag = StringUtil::trim($_POST['bbcodeTag']);
-		if (isset($_POST['htmlOpen'])) $this->htmlOpen = StringUtil::trim($_POST['htmlOpen']);
-		if (isset($_POST['htmlClose'])) $this->htmlClose = StringUtil::trim($_POST['htmlClose']);
 		if (isset($_POST['allowedChildren'])) $this->allowedChildren = StringUtil::trim($_POST['allowedChildren']);
-		if (isset($_POST['isSourceCode'])) $this->isSourceCode = true;
-		if (isset($_POST['className'])) $this->className = StringUtil::trim($_POST['className']);
 		if (isset($_POST['attributes'])) $this->attributes = $_POST['attributes'];
+		if (isset($_POST['bbcodeTag'])) $this->bbcodeTag = StringUtil::trim($_POST['bbcodeTag']);
+		if (isset($_POST['className'])) $this->className = StringUtil::trim($_POST['className']);
+		if (isset($_POST['htmlClose'])) $this->htmlClose = StringUtil::trim($_POST['htmlClose']);
+		if (isset($_POST['htmlOpen'])) $this->htmlOpen = StringUtil::trim($_POST['htmlOpen']);
+		if (isset($_POST['isSourceCode'])) $this->isSourceCode = true;
+		if (isset($_POST['showButton'])) $this->showButton = true;
+		if (isset($_POST['wysiwygIcon'])) $this->wysiwygIcon = StringUtil::trim($_POST['wysiwygIcon']);
 		
 		// TODO: The code below violates every implicit convention of value reading and type casting
 		$attributeNo = 0;
@@ -100,6 +132,9 @@ class BBCodeAddForm extends AbstractForm {
 			$val['useText'] = (int) isset($val['useText']);
 			$this->attributes[$key] = (object) $val;
 		}
+		
+		I18nHandler::getInstance()->readValues();
+		if (I18nHandler::getInstance()->isPlainValue('buttonLabel')) $this->buttonLabel = I18nHandler::getInstance()->getValue('buttonLabel');
 	}
 	
 	/**
@@ -108,49 +143,64 @@ class BBCodeAddForm extends AbstractForm {
 	public function validate() {
 		parent::validate();
 		
-		// validate fields
-		// Tag must not be empty
+		// tag name must not be empty
 		if (empty($this->bbcodeTag)) {
 			throw new UserInputException('bbcodeTag');
 		}
 		
-		// Tag may only contain alphanumeric chars
+		// tag may only contain alphanumeric chars
 		if (!Regex::compile('^[a-z0-9]+$', Regex::CASE_INSENSITIVE)->match($this->bbcodeTag)) {
 			throw new UserInputException('bbcodeTag', 'invalid');
 		}
 		
-		// Disallow the Pseudo-BBCodes all and none
+		// disallow the Pseudo-BBCodes all and none
 		if ($this->bbcodeTag == 'all' || $this->bbcodeTag == 'none') {
 			throw new UserInputException('bbcodeTag', 'invalid');
 		}
 		
-		// Check whether the tag is in use
+		// check whether the tag is in use
 		$bbcode = BBCode::getBBCodeByTag($this->bbcodeTag);
 		if ((!isset($this->bbcodeObj) && $bbcode->bbcodeID) || (isset($this->bbcodeObj) && $bbcode->bbcodeID != $this->bbcodeObj->bbcodeID)) {
 			throw new UserInputException('bbcodeTag', 'inUse');
 		}
 		
-		// Handle empty case first
+		// handle empty case first
 		if (empty($this->allowedChildren)) {
 			throw new UserInputException('allowedChildren');
 		}
 		
-		// Validate syntax of allowedChildren: Optional all|none^ followed by a comma-separated list of bbcodes
+		// validate syntax of allowedChildren: Optional all|none^ followed by a comma-separated list of bbcodes
 		if (!empty($this->allowedChildren) && !Regex::compile('^(?:(?:all|none)\^)?(?:[a-zA-Z0-9]+,)*[a-zA-Z0-9]+$')->match($this->allowedChildren)) {
 			throw new UserInputException('allowedChildren', 'invalid');
 		}
 		
-		// Validate class
+		// validate class
 		if (!empty($this->className) && !class_exists($this->className)) {
 			throw new UserInputException('className', 'notFound');
 		}
 		
-		// Validate attributes
+		// validate attributes
 		foreach ($this->attributes as $attribute) {
 			// Check whether the pattern is a valid regex
 			if (!Regex::compile($attribute->validationPattern)->isValid()) {
 				throw new UserInputException('attributeValidationPattern'.$attribute->attributeNo, 'invalid');
 			}
+		}
+		
+		// button
+		if ($this->showButton) {
+			// validate label
+			if (!I18nHandler::getInstance()->validateValue('buttonLabel')) {
+				throw new UserInputException('buttonLabel');
+			}
+			
+			// validate image path
+			if (empty($this->wysiwygIcon)) {
+				throw new UserInputException('wysiwygIcon');
+			}
+		}
+		else {
+			$this->buttonLabel = '';
 		}
 	}
 	
@@ -162,13 +212,16 @@ class BBCodeAddForm extends AbstractForm {
 		
 		// save bbcode
 		$this->objectAction = new BBCodeAction(array(), 'create', array('data' => array(
+			'allowedChildren' => $this->allowedChildren,
 			'bbcodeTag' => $this->bbcodeTag,
+			'buttonLabel' => $this->buttonLabel,
+			'className' => $this->className,
 			'htmlOpen' => $this->htmlOpen,
 			'htmlClose' => $this->htmlClose,
-			'allowedChildren' => $this->allowedChildren,
-			'isSourceCode' => (int) $this->isSourceCode,
-			'className' => $this->className,
-			'packageID' => PackageCache::getInstance()->getPackageID('com.woltlab.wcf.bbcode')
+			'isSourceCode' => ($this->isSourceCode ? 1 : 0),
+			'packageID' => PackageCache::getInstance()->getPackageID('com.woltlab.wcf.bbcode'),
+			'showButton' => $this->showButton,
+			'wysiwygIcon' => $this->wysiwygIcon
 		)));
 		$returnValues = $this->objectAction->executeAction();
 		foreach ($this->attributes as $attribute) {
@@ -183,12 +236,24 @@ class BBCodeAddForm extends AbstractForm {
 			$attributeAction->executeAction();
 		}
 		
+		if ($this->showButton && !I18nHandler::getInstance()->isPlainValue('buttonLabel')) {
+			$bbcodeID = $returnValues['returnValues']->bbcodeID;
+			I18nHandler::getInstance()->save('buttonLabel', 'wcf.bbcode.buttonLabel'.$bbcodeID, 'wcf.bbcode', PackageCache::getInstance()->getPackageID('com.woltlab.wcf.bbcode'));
+			
+			// update button label
+			$bbcodeEditor = new BBCodeEditor($returnValues['returnValues']);
+			$bbcodeEditor->update(array(
+				'buttonLabel' => 'wcf.bbcode.buttonLabel'.$bbcodeID
+			));
+		}
+		
 		$this->saved();
 		
 		// reset values
-		$this->bbcodeTag = $this->htmlOpen = $this->htmlClose = $this->className = '';
+		$this->bbcodeTag = $this->htmlOpen = $this->htmlClose = $this->className = $this->buttonLabel = $this->wysiwygIcon = '';
 		$this->allowedChildren = 'all';
 		$this->attributes = array();
+		$this->isSourceCode = $this->showButton = false;
 		
 		// show success
 		WCF::getTPL()->assign(array(
@@ -202,15 +267,20 @@ class BBCodeAddForm extends AbstractForm {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		I18nHandler::getInstance()->assignVariables();
+		
 		WCF::getTPL()->assign(array(
 			'action' => 'add',
+			'allowedChildren' => $this->allowedChildren,
+			'attributes' => $this->attributes,
 			'bbcodeTag' => $this->bbcodeTag,
+			'buttonLabel' => $this->buttonLabel,
+			'className' => $this->className,
 			'htmlOpen' => $this->htmlOpen,
 			'htmlClose' => $this->htmlClose,
-			'allowedChildren' => $this->allowedChildren,
 			'isSourceCode' => $this->isSourceCode,
-			'className' => $this->className,
-			'attributes' => $this->attributes
+			'showButton' => $this->showButton,
+			'wysiwygIcon' => $this->wysiwygIcon
 		));
 	}
 }
