@@ -1,7 +1,7 @@
 <div class="container containerPadding spoilerBox" id="{@$spoilerID}">
 	<!-- begin:parser_nonessential -->
 	<header class="javascriptOnly">
-		<button>{if $buttonTitle}{$buttonTitle}{else}{lang}wcf.bbcode.spoiler.show{/lang}{/if}</button>
+		<a class="button jsSpoilerToggle">{if $buttonTitle}{$buttonTitle}{else}{lang}wcf.bbcode.spoiler.show{/lang}{/if}</a>
 	</header>
 	<!-- end:parser_nonessential -->
 	
@@ -15,7 +15,7 @@
 	//<![CDATA[
 	$(function() {
 		$('#{@$spoilerID} > div').hide();
-		$('#{@$spoilerID} > header > button').click(function() {
+		$('#{@$spoilerID} > header > .jsSpoilerToggle').click(function() {
 			$(this).toggleClass('active');
 			$('#{@$spoilerID} > div').slideToggle();
 		});
