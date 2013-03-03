@@ -1,6 +1,6 @@
 <div class="container containerPadding spoilerBox" id="{@$spoilerID}">
 	<!-- begin:parser_nonessential -->
-	<header class="javascriptOnly">
+	<header class="jsOnly">
 		<a class="button jsSpoilerToggle">{if $buttonTitle}{$buttonTitle}{else}{lang}wcf.bbcode.spoiler.show{/lang}{/if}</a>
 	</header>
 	<!-- end:parser_nonessential -->
