@@ -8,8 +8,10 @@ CREATE TABLE wcf1_bbcode (
 	allowedChildren VARCHAR(255) NOT NULL DEFAULT 'all',
 	className VARCHAR(255) NOT NULL DEFAULT '',
 	wysiwygIcon varchar(255) NOT NULL DEFAULT '',
+	buttonLabel VARCHAR(255) NOT NULL DEFAULT '',
 	isSourceCode TINYINT(1) NOT NULL DEFAULT 0,
 	isDisabled TINYINT(1) NOT NULL DEFAULT 0,
+	showButton TINYINT(1) NOT NULL DEFAULT 0,
 	UNIQUE KEY bbcodeTag (bbcodeTag)
 );
 

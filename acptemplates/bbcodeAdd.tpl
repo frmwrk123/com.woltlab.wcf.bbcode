@@ -48,6 +48,20 @@
 			});
 			$('#attributeFieldset').append(html);
 		});
+		
+		var $buttonSettings = $('#buttonSettings');
+		var $showButton = $('#showButton');
+		function toggleButtonSettings() {
+			if ($showButton.is(':checked')) {
+				$buttonSettings.show();
+			}
+			else {
+				$buttonSettings.hide();
+			}
+		}
+		
+		$showButton.change(toggleButtonSettings);
+		toggleButtonSettings();
 	});
 //]]>
 </script>
@@ -151,6 +165,48 @@
 					{/if}
 				</dd>
 			</dl>
+			
+			<dl>
+				<dd>
+					<label><input type="checkbox" id="showButton" name="showButton" value="1"{if $showButton} checked="checked"{/if} /> {lang}wcf.acp.bbcode.showButton{/lang}</label>
+				</dd>
+			</dl>
+			<div id="buttonSettings">
+				<dl{if $errorField == 'buttonLabel'} class="formError"{/if}>
+					<dt><label for="buttonLabel">{lang}wcf.acp.bbcode.buttonLabel{/lang}</label></dt>
+					<dd>
+						<input type="text" id="buttonLabel" name="buttonLabel" value="{$i18nPlainValues['buttonLabel']}" class="long" />
+						{if $errorField == 'buttonLabel'}
+							<small class="innerError">
+								{if $errorType == 'empty'}
+									{lang}wcf.global.form.error.empty{/lang}
+								{else}
+									{lang}wcf.acp.bbcode.buttonLabel.error.{@$errorType}{/lang}
+								{/if}
+							</small>
+						{/if}
+						
+						{include file='multipleLanguageInputJavascript' elementIdentifier='buttonLabel' forceSelection=false}
+					</dd>
+				</dl>
+				<dl{if $errorField == 'wysiwygIcon'} class="formError"{/if}>
+					<dt><label for="wysiwygIcon">{lang}wcf.acp.bbcode.wysiwygIcon{/lang}</label></dt>
+					<dd>
+						<input type="text" id="wysiwygIcon" name="wysiwygIcon" value="{$wysiwygIcon}" class="long" />
+						{if $errorField == 'wysiwygIcon'}
+							<small class="innerError">
+								{if $errorType == 'empty'}
+									{lang}wcf.global.form.error.empty{/lang}
+								{else}
+									{lang}wcf.acp.bbcode.wysiwygIcon.error.{@$errorType}{/lang}
+								{/if}
+							</small>
+						{/if}
+						
+						<small>{lang}wcf.acp.bbcode.wysiwygIcon.description{/lang}</small>
+					</dd>
+				</dl>
+			</div>
 		</fieldset>
 		
 		<fieldset id="attributeFieldset">

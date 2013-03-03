@@ -122,11 +122,13 @@ class CodeBBCode extends AbstractBBCode {
 		}
 		
 		if ($parser->getOutputType() == 'text/html') {
+			$highlightedContent = self::fixMarkup(explode("\n", $className::getInstance()->highlight($content)));
+			
 			// show template
 			WCF::getTPL()->assign(array(
 				'lineNumbers' => self::makeLineNumbers($content, $this->startLineNumber),
 				'startLineNumber' => $this->startLineNumber,
-				'content' => explode("\n", $className::getInstance()->highlight($content)),
+				'content' => $highlightedContent,
 				'highlighter' => $className::getInstance(),
 				'filename' => $this->filename
 			));
@@ -235,5 +237,43 @@ class CodeBBCode extends AbstractBBCode {
 		$string = preg_replace('/^\s*\n/', '', $string);
 		$string = preg_replace('/\n\s*$/', '', $string);
 		return $string;
+	}
+	
+	/**
+	 * Fixes markup that every line has proper number of opening and closing tags
+	 * 
+	 * @param	array<string>	$lines
+	 */
+	public static function fixMarkup(array $lines) {
+		static $spanRegex = null;
+		static $emptyTagRegex = null;
+		if ($spanRegex === null) {
+			$spanRegex = new Regex('(?:<span(?: class="(?:[^"])*")?>|</span>)');
+			$emptyTagRegex = new Regex('<span(?: class="(?:[^"])*")?></span>');
+		}
+		
+		$openTags = array();
+		foreach ($lines as &$line) {
+			$spanRegex->match($line, true);
+			// open all tags again
+			$line = implode('', $openTags).$line;
+			$matches = $spanRegex->getMatches();
+			
+			// parse opening and closing spans
+			foreach ($matches[0] as $match) {
+				if ($match === '</span>') array_pop($openTags);
+				else {
+					array_push($openTags, $match);
+				}
+			}
+			
+			// close all tags
+			$line .= str_repeat('</span>', count($openTags));
+			
+			// remove empty tags to avoid cluttering the output
+			$line = $emptyTagRegex->replace($line, '');
+		}
+		unset($line);
+		return $lines;
 	}
 }
