@@ -59,9 +59,9 @@
 							<td class="columnID"><p>{@$mediaProvider->providerID}</p></td>
 							<td class="columnTitle columnMediaProviderTitle">
 								{if $__wcf->session->getPermission('admin.content.bbcode.canEditBBCodeMediaProvider')}
-									<p><a href="{link controller='BBCodeMediaProviderEdit' id=$mediaProvider->providerID}{/link}">{lang}{$mediaProvider->title}{/lang}</a></p>
+									<p><a href="{link controller='BBCodeMediaProviderEdit' id=$mediaProvider->providerID}{/link}">{$mediaProvider->title}</a></p>
 								{else}
-									<p>{lang}{$mediaProvider->title}{/lang}</p>
+									<p>{$mediaProvider->title}</p>
 								{/if}
 							</td>
 							
