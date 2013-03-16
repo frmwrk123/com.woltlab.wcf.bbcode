@@ -30,7 +30,7 @@ class PreParser extends SingletonFactory {
 	 * list of allowed bbcode tags
 	 * @var	array<string>
 	 */
-	public $allowedBBCodes = array();
+	public $allowedBBCodes = null;
 	
 	/**
 	 * regular expression for source codes
