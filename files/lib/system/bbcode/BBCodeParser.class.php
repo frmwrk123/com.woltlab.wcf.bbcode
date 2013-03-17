@@ -416,15 +416,22 @@ class BBCodeParser extends SingletonFactory {
 	
 	/**
 	 * Builds the tag array from the given text.
+	 * 
+	 * @param	boolean		$ignoreSoureCodes
 	 */
-	public function buildTagArray() {
+	public function buildTagArray($ignoreSoureCodes = true) {
 		// build tag pattern
 		$validTags = '';
-		foreach ($this->bbcodes as $tag => $bbcode) {
-			if (!$bbcode->isSourceCode) {
-				// remove source codes
-				if (!empty($validTags)) $validTags .= '|';
-				$validTags .= $tag;
+		if (!$ignoreSoureCodes) {
+			$validTags = implode('|', array_keys($this->bbcodes));
+		}
+		else {
+			foreach ($this->bbcodes as $tag => $bbcode) {
+				if (!$bbcode->isSourceCode) {
+					// remove source codes
+					if (!empty($validTags)) $validTags .= '|';
+					$validTags .= $tag;
+				}
 			}
 		}
 		$pattern = '~\[(?:/(?:'.$validTags.')|(?:'.$validTags.')
@@ -513,7 +520,7 @@ class BBCodeParser extends SingletonFactory {
 		}
 		
 		$this->setText($text);
-		$this->buildTagArray();
+		$this->buildTagArray(false);
 		
 		$usedDisallowedBBCodes = array();
 		foreach ($this->tagArray as $tag) {
