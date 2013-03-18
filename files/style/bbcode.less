@@ -46,6 +46,33 @@
 	}
 }
 
+@media only screen and (max-device-width: 480px) {
+	.codeBox {
+		> div {
+			padding: @wcfGapSmall;
+			
+			.boxShadow(0, 0, transparent);
+			
+			> hgroup {
+				margin-left: 0;
+				
+				> h1 {
+					padding-left: 0;
+				}
+			}
+			
+			> ol {
+				list-style-type: none;
+				margin-left: 0;
+				
+				> li {
+					padding-left: 0;
+				}
+			}
+		}
+	}
+}
+
 /* ############## Code Styles ############## */
 
 /* -- -- -- Code Box -- -- -- */
