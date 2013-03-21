@@ -1,14 +1,13 @@
 <?php
 namespace wcf\data\smiley\category;
 use wcf\data\AbstractDatabaseObjectAction;
-use wcf\system\exception\UserInputException;
 use wcf\system\WCF;
 
 /**
  * Executes smiley category-related actions.
  * 
  * @author	Alexander Ebert
- * @copyright	2001-2011 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.bbcode
  * @subpackage	data.smiley.category
@@ -35,13 +34,7 @@ class SmileyCategoryAction extends AbstractDatabaseObjectAction {
 	 * Validates smiley category id.
 	 */
 	public function validateGetSmilies() {
-		$this->readObjects();
-		
-		if (count($this->objects) != 1) {
-			throw new UserInputException('objectID');
-		}
-		
-		$this->smileyCategory = reset($this->objects);
+		$this->smileyCategory = $this->getSingleObject();
 	}
 	
 	/**
