@@ -27,6 +27,12 @@ class PreParser extends SingletonFactory {
 	protected static $illegalChars = '[^\x0-\x2C\x2E\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+';
 	
 	/**
+	 * list of allowed bbcode tags
+	 * @var	array<string>
+	 */
+	public $allowedBBCodes = null;
+	
+	/**
 	 * regular expression for source codes
 	 * @var	string
 	 */
@@ -52,11 +58,13 @@ class PreParser extends SingletonFactory {
 	/**
 	 * Preparses the given text.
 	 * 
-	 * @param	string		$text
+	 * @param	string			$text
+	 * @param	array<string>		$allowedBBCodes
 	 * @return	string
 	 */
-	public function parse($text) {
+	public function parse($text, array $allowedBBCodes = null) {
 		$this->text = $text;
+		$this->allowedBBCodes = $allowedBBCodes;
 		
 		// cache codes
 		$this->cacheCodes();
@@ -64,8 +72,15 @@ class PreParser extends SingletonFactory {
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
 		
-		$this->parseURLs();
-		$this->parseEmails();
+		// parse urls
+		if ($this->allowedBBCodes === null || in_array('media', $this->allowedBBCodes) || in_array('url', $this->allowedBBCodes)) {
+			$this->parseURLs();
+		}
+		
+		// parse email addresses
+		if ($this->allowedBBCodes === null || in_array('email', $this->allowedBBCodes)) {
+			$this->parseEmails();
+		}
 		
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'afterParsing');
@@ -125,11 +140,15 @@ class PreParser extends SingletonFactory {
 		}
 		if ($callback === null) {
 			$callback = new Callback(function ($matches) {
-				if (BBCodeMediaProvider::isMediaURL($matches[0])) {
+				if ((PreParser::getInstance()->allowedBBCodes === null || in_array('media', PreParser::getInstance()->allowedBBCodes)) && BBCodeMediaProvider::isMediaURL($matches[0])) {
 					return '[media]'.$matches[0].'[/media]';
 				}
 				
-				return '[url]'.$matches[0].'[/url]';
+				if (PreParser::getInstance()->allowedBBCodes === null || in_array('url', PreParser::getInstance()->allowedBBCodes)) {
+					return '[url]'.$matches[0].'[/url]';
+				}
+				
+				return $matches[0];
 			});
 		}
 		
