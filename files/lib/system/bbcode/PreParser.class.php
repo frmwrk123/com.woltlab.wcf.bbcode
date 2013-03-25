@@ -73,12 +73,12 @@ class PreParser extends SingletonFactory {
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
 		
 		// parse urls
-		if ($this->allowedBBCodes === null || in_array('media', $this->allowedBBCodes) || in_array('url', $this->allowedBBCodes)) {
+		if ($this->allowedBBCodes === null || in_array('all', $this->allowedBBCodes) || in_array('media', $this->allowedBBCodes) || in_array('url', $this->allowedBBCodes)) {
 			$this->parseURLs();
 		}
 		
 		// parse email addresses
-		if ($this->allowedBBCodes === null || in_array('email', $this->allowedBBCodes)) {
+		if ($this->allowedBBCodes === null || in_array('all', $this->allowedBBCodes) || in_array('email', $this->allowedBBCodes)) {
 			$this->parseEmails();
 		}
 		
@@ -140,11 +140,11 @@ class PreParser extends SingletonFactory {
 		}
 		if ($callback === null) {
 			$callback = new Callback(function ($matches) {
-				if ((PreParser::getInstance()->allowedBBCodes === null || in_array('media', PreParser::getInstance()->allowedBBCodes)) && BBCodeMediaProvider::isMediaURL($matches[0])) {
+				if ((PreParser::getInstance()->allowedBBCodes === null || in_array('all', PreParser::getInstance()->allowedBBCodes) || in_array('media', PreParser::getInstance()->allowedBBCodes)) && BBCodeMediaProvider::isMediaURL($matches[0])) {
 					return '[media]'.$matches[0].'[/media]';
 				}
 				
-				if (PreParser::getInstance()->allowedBBCodes === null || in_array('url', PreParser::getInstance()->allowedBBCodes)) {
+				if (PreParser::getInstance()->allowedBBCodes === null || in_array('all', PreParser::getInstance()->allowedBBCodes) || in_array('url', PreParser::getInstance()->allowedBBCodes)) {
 					return '[url]'.$matches[0].'[/url]';
 				}
 				
